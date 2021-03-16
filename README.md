@@ -19,7 +19,7 @@ To create a Docker image for Orion game Service:
 
     docker build -t orion-game-image .
 
-    docker run -d --name orion-game-service -p 9080:9080 -p 9443:9443 orion-game-image
+    docker run -d --name orion-game-service -p 9080:9082 -p 9443:9445 orion-game-image
 
 ### Orion User dev mode
 
