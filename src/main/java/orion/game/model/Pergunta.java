@@ -8,7 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+
+import lombok.Data;
 @Entity
+@Data
 @Table(name = "pergunta")
 public class Pergunta {
     @Id
