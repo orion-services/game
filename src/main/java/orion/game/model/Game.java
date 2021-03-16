@@ -62,19 +62,19 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
     @Column(name = "NAME")
     private String name;
 
-    public game(String name, String email, String password) {
+    public Game(String name, String email, String password) {
         super();
         this.password = password;
         this.name = name;
         this.email = email;
     }
 
-    public game(String email) {
+    public Game(String email) {
         super();
         this.email = email;
     }
 
-    public game() {
+    public Game() {
         super();
     }
 

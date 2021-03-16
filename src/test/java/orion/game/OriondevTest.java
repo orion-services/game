@@ -1,4 +1,4 @@
-package orion.users;
+package orion.game;
 
 import java.util.HashMap;
 import java.util.Map;

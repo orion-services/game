@@ -33,8 +33,8 @@ import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
-import orion.users.data.UserDAO;
-import orion.users.model.User;
+import orion.game.data.GameDAO;
+import orion.game.model.Game;
 
 @Path("/api/v1/")
 @RequestScoped

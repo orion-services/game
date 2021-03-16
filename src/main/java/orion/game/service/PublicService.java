@@ -44,8 +44,6 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import orion.game.data.GameDAO;
 import orion.game.model.Game;
-import orion.game.util.JavaMailUtil;
-import orion.game.util.ValidateEmail;
 
 @RequestScoped
 @Path("/api/v1/")

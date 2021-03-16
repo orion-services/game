@@ -35,7 +35,7 @@ import javax.ws.rs.core.Application;
 @ApplicationPath("/game")
 @LoginConfig(authMethod = "MP-JWT", realmName = "jwt-jaspi")
 @DeclareRoles({ "protected" })
-public class OrionUsersService extends Application {
+public class OrionGameService extends Application {
 
     @Override
     public Set<Class<?>> getClasses() {
