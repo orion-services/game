@@ -1,0 +1,37 @@
+version: '3.7'
+volumes:
+    database:
+services:
+    db:
+        image: mysql:latest
+        container_name: game-mysql
+        ports:
+            - 3308:3306
+        volumes:
+            - database:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=orion-game-service
+            - MYSQL_DATABASE=orion-game-service
+            - MYSQL_USER=orion-game-service
+            - MYSQL_PASSWORD=orion-game-service
+    phpMyAdmin:
+            image: phpmyadmin/phpmyadmin:latest
+            container_name: game-phpmyadmin
+            environment:
+                - PMA_ARBITRARY=1
+            links:
+                - db
+            ports:
+                - 8082:80
+            volumes:
+                - /sessions
+    service:
+            # image: rodrigoprestesmachado/orion-talk-image:version-0.1
+            build: .
+            depends_on: 
+                - "db"
+                - "phpMyAdmin"
+            container_name: game-service
+            ports:
+                - 9082:9080
+                - 9445:9443
