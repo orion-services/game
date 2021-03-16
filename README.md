@@ -21,7 +21,7 @@ To create a Docker image for Orion game Service:
 
     docker run -d --name orion-game-service -p 9080:9082 -p 9443:9445 orion-game-image
 
-### Orion User dev mode
+### Orion Game dev mode
 
 During development, you can use Liberty's development mode (dev mode) to code while observing and testing your changes on the fly.
 
