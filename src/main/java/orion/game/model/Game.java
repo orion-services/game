@@ -48,40 +48,28 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
 @GeneratedValue(strategy = GenerationType.TABLE, generator = "id_generator")
     private long id;
     
-    @Email(message = "{game.email.invalid}")
-    @NotEmpty(message = "Please enter email")
-    @Column(name = "EMAIL", unique = true)
-    private String email;
-  
-    @NotEmpty(message = "Password is required.")
     @JsonbTransient
-    @Column(name = "PASSWORD")
-    private String password;
+    @Column(name = "PERGUNTA")
+    private Pergunta pergunta;
+  
+    @JsonbTransient
+    @Column(name = "RESPOSTA")
+    private Resposta resposta;
 
-    @NotEmpty(message = "Please enter name")
-    @Column(name = "NAME")
-    private String name;
+    @JsonbTransient
+    @Column(name = "FEEDBACK")
+    private Feedback feedback;
 
-    public Game(String name, String email, String password) {
+    public Game(Pergunta pergunta, Resposta resposta, Feedback feedback) {
         super();
-        this.password = password;
-        this.name = name;
-        this.email = email;
-    }
-
-    public Game(String email) {
-        super();
-        this.email = email;
+        this.pergunta = pergunta;
+        this.resposta = resposta;
+        this.feedback = feedback;
     }
 
     public Game() {
         super();
     }
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "EMAIL_ROLES", joinColumns = {
-            @JoinColumn(name = "email_id", referencedColumnName = "id") }, inverseJoinColumns = {
-                    @JoinColumn(name = "role_id", referencedColumnName = "id") })
 
     private List<Role> roles;
 
