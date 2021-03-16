@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+import javax.persistence.JoinColumn;
 
 import lombok.Data;
 @Entity
