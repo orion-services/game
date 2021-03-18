@@ -52,6 +52,25 @@ public class PublicService {
     @Inject
     private GameDAO gameDAO;
 
+    @POST
+    @APIResponse(responseCode = "200", description = "successfully")
+    @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    @Tag(name="CRUD")
+    @Path("question")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Game createQuestion(@FormParam("question") final String question) throws WebApplicationException, NotFoundException, Exception {
+
+        final Game game = new Game();
+
+                game.setPlayerQuestion(question);
+                gameDAO.create(game);           
+
+                return game;
+        
+    }
+
 
     
 

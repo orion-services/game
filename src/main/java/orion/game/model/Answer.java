@@ -10,9 +10,8 @@ import javax.persistence.Table;
 
 import lombok.Data;
 @Entity
-@Data
 @Table(name = "resposta")
-public class Resposta {
+public class Answer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,8 +20,8 @@ public class Resposta {
 
     //...
 
-    @OneToOne(mappedBy = "resposta")
-    private Pergunta pergunta;
+    @OneToOne(mappedBy = "answer")
+    private Question question;
 
     //... getters and setters
 }
