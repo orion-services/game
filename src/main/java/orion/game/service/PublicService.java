@@ -64,11 +64,41 @@ public class PublicService {
 
         final Game game = new Game();
 
-                game.setPlayerQuestion(question);
+                game.setQuestion(question);;
                 gameDAO.create(game);           
 
                 return game;
         
+    }
+
+    @POST
+    @APIResponse(responseCode = "200", description = "successfully")
+    @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    @Tag(name="CRUD")
+    @Path("answer")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Game createAnswer(@FormParam("id") final long id, @FormParam("answer") final String answer) throws WebApplicationException, NotFoundException, Exception {
+
+        final Game game = gameDAO.find(id);
+
+                game.setAnswer(answer);
+                gameDAO.create(game);           
+
+                return game;
+        
+    }
+
+    @GET
+    @APIResponse(responseCode ="200", description ="successfully")
+    @APIResponse(responseCode ="409", description ="a conflict has occurred")
+    @Tag(name="CRUD")
+    @Path("/list/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Game read(@PathParam("id") final long id) {
+        return gameDAO.find(id);
     }
 
 

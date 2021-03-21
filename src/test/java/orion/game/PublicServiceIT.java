@@ -77,10 +77,10 @@ public class PublicServiceIT {
     public void test1() {
         try {
             // Mounting URL
-            String url = "http://" + host + ":" + port + API + " ";
+            String url = "http://" + host + ":" + port + API + "question";
             HttpPost post = new HttpPost(url);
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("", ""));
+            params.add(new BasicNameValuePair("playerQuestion", "1 + 2?"));
             post.setEntity(new UrlEncodedFormEntity(params));
             // execute and getting the response
             HttpResponse response = this.client.execute(post);

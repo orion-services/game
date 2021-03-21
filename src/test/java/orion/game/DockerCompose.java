@@ -36,7 +36,7 @@ public class DockerCompose implements BeforeAllCallback, AfterAllCallback {
         .withAppContextRoot("/orion-game-service/game")
         .waitingFor(Wait.forHttp("/"))
         .withNetworkAliases("service")
-        .withExposedPorts(9082);
+        .withExposedPorts(9080);
 
     public static MySQLContainer<?> mysql;
 
@@ -57,7 +57,7 @@ public class DockerCompose implements BeforeAllCallback, AfterAllCallback {
         mysql.withPassword("orion-game-service");
         mysql.withNetwork(network);
         mysql.withNetworkAliases("db");
-        mysql.withExposedPorts(3308);
+        mysql.withExposedPorts(3306);
         mysql.waitingFor(Wait.forListeningPort());
         
 

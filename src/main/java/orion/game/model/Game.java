@@ -50,30 +50,16 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
     
     @JsonbTransient
     @Column(name = "QUESTION")
-    private Question question;
+    private String question;
   
     @JsonbTransient
     @Column(name = "ANSWER")
-    private Answer answer;
+    private String answer;
 
     @JsonbTransient
     @Column(name = "FEEDBACK")
     private Feedback feedback;
 
-    public Game(String playerQuestion, Answer answer, Feedback feedback) {
-        super();
-        question = new Question(playerQuestion);
-        this.answer = answer;
-        this.feedback = feedback;
-    }
-
-    public String getPlayerQuestion() {
-        return this.question.getPlayerQuestion();
-    }
-    
-    public void setPlayerQuestion(String playerQuestion) {
-        this.question.setPlayerQuestion(playerQuestion);
-    }
 
     public Game() {
         super();
