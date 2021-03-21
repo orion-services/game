@@ -22,7 +22,7 @@ services:
             links:
                 - db
             ports:
-                - 8080:80
+                - 8082:80
             volumes:
                 - /sessions
     service:
@@ -33,5 +33,5 @@ services:
                 - "phpMyAdmin"
             container_name: game-service
             ports:
-                - 9080:9080
-                - 9443:9443
+                - 9082:9080
+                - 9445:9443
