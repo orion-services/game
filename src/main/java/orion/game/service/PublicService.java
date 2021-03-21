@@ -96,7 +96,7 @@ public class PublicService {
 
         final Game game = gameDAO.find(id);
 
-                game.setAnswer(feedback);
+                game.setFeedback(feedback);
                 gameDAO.create(game);           
 
                 return game;
