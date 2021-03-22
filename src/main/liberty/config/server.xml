@@ -47,7 +47,7 @@
         <jdbcDriver libraryRef="MySQLLib" />
         <!-- Development mode: serverName="localhost" portNumber="3307"  -->
         <!-- Continuous integration and production: serverName="db" portNumber="3306"  -->
-        <properties serverName="db" portNumber="3306" databaseName="orion-game-service" user="orion-game-service" password="orion-game-service" />
+        <properties serverName="db" portNumber="3308" databaseName="orion-game-service" user="orion-game-service" password="orion-game-service" />
     </dataSource>
 
 </server>

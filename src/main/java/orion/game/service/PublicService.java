@@ -56,6 +56,7 @@ public class PublicService {
     public Game createQuestion(@FormParam("question") final String question) throws WebApplicationException, NotFoundException, Exception {
 
         final Game game = new Game();
+        //Qual é a distância até a extratosfera?
 
                 game.setQuestion(question);;
                 gameDAO.create(game);           
