@@ -26,7 +26,6 @@ services:
             volumes:
                 - /sessions
     service:
-            # image: rodrigoprestesmachado/orion-talk-image:version-0.1
             build: .
             depends_on: 
                 - "db"
