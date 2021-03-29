@@ -1,4 +1,4 @@
-package com.game.gameId.client;
+package orion.game.client;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

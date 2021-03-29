@@ -1,4 +1,4 @@
-package com.game.gameId;
+package orion.game;
 
 import org.eclipse.microprofile.auth.LoginConfig;
 

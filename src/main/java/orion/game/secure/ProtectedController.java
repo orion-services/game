@@ -1,4 +1,4 @@
-package com.game.gameId.secure;
+package orion.game.secure;
 
 import org.eclipse.microprofile.jwt.Claim;
 import org.eclipse.microprofile.jwt.ClaimValue;
