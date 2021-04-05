@@ -19,7 +19,6 @@ package orion.game.service;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -31,13 +30,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import com.ibm.websphere.security.jwt.Claims;
-import com.ibm.websphere.security.jwt.InvalidBuilderException;
-import com.ibm.websphere.security.jwt.InvalidClaimException;
-import com.ibm.websphere.security.jwt.JwtBuilder;
-import com.ibm.websphere.security.jwt.JwtException;
 
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
@@ -56,19 +49,70 @@ public class PublicService {
     @APIResponse(responseCode = "200", description = "successfully")
     @APIResponse(responseCode = "409", description = "a conflict has occurred")
     @Tag(name="CRUD")
-    @Path("question")
+    @Path("playerquestion")
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     public Game createQuestion(@FormParam("question") final String question) throws WebApplicationException, NotFoundException, Exception {
 
         final Game game = new Game();
+        //Qual é a distância até a extratosfera?
 
-                game.setPlayerQuestion(question);
+                game.setQuestion(question);;
                 gameDAO.create(game);           
 
                 return game;
         
+    }
+
+    @POST
+    @APIResponse(responseCode = "200", description = "successfully")
+    @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    @Tag(name="CRUD")
+    @Path("playeranswer")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Game createAnswer(@FormParam("id") final long id, @FormParam("answer") final String answer) throws WebApplicationException, NotFoundException, Exception {
+
+        final Game game = gameDAO.find(id);
+
+                game.setAnswer(answer);
+                gameDAO.create(game);           
+
+                return game;
+        
+    }
+
+
+    @POST
+    @APIResponse(responseCode = "200", description = "successfully")
+    @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    @Tag(name="CRUD")
+    @Path("playerfeedback")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Game createFeedback(@FormParam("id") final long id, @FormParam("feedback") final String feedback) throws WebApplicationException, NotFoundException, Exception {
+
+        final Game game = gameDAO.find(id);
+
+                game.setFeedback(feedback);
+                gameDAO.create(game);           
+
+                return game;
+        
+    }
+
+    @GET
+    @APIResponse(responseCode ="200", description ="successfully")
+    @APIResponse(responseCode ="409", description ="a conflict has occurred")
+    @Tag(name="CRUD")
+    @Path("/list/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Game read(@PathParam("id") final long id) {
+        return gameDAO.find(id);
     }
 
 

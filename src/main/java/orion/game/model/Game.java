@@ -18,21 +18,14 @@ package orion.game.model;
 
 import java.util.List;
 
-import javax.json.bind.annotation.JsonbTransient;
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 
 import lombok.Data;
 
@@ -48,32 +41,22 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
 @GeneratedValue(strategy = GenerationType.TABLE, generator = "id_generator")
     private long id;
     
-    @JsonbTransient
     @Column(name = "QUESTION")
-    private Question question;
+    private String question;
   
-    @JsonbTransient
     @Column(name = "ANSWER")
-    private Answer answer;
+    private String answer;
 
-    @JsonbTransient
     @Column(name = "FEEDBACK")
-    private Feedback feedback;
+    private String feedback;
 
-    public Game(String playerQuestion, Answer answer, Feedback feedback) {
+    public Game(String question, String answer, String feedback) {
         super();
-        question = new Question(playerQuestion);
+        this.question = question;
         this.answer = answer;
         this.feedback = feedback;
     }
 
-    public String getPlayerQuestion() {
-        return this.question.getPlayerQuestion();
-    }
-    
-    public void setPlayerQuestion(String playerQuestion) {
-        this.question.setPlayerQuestion(playerQuestion);
-    }
 
     public Game() {
         super();

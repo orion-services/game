@@ -5,11 +5,9 @@
         <feature>microProfile-3.2</feature>
         <feature>jpa-2.2</feature>
         <feature>mpJwt-1.1</feature>
-        <feature>javaMail-1.6</feature>
         <feature>ejb-3.2</feature>
-
+        
     </featureManager>
-
 
 
 
@@ -17,8 +15,8 @@
 
     <mpMetrics authentication="false" />
 
-    <variable name="default.http.port" defaultValue="9082" />
-    <variable name="default.https.port" defaultValue="9445" />
+    <variable name="default.http.port" defaultValue="9080" />
+    <variable name="default.https.port" defaultValue="9443" />
     <variable name="app.context.root" defaultValue="/" />
 
     <httpEndpoint host="*" httpPort="${default.http.port}" httpsPort="${default.https.port}" id="defaultHttpEndpoint" />
@@ -47,7 +45,7 @@
         <jdbcDriver libraryRef="MySQLLib" />
         <!-- Development mode: serverName="localhost" portNumber="3307"  -->
         <!-- Continuous integration and production: serverName="db" portNumber="3306"  -->
-        <properties serverName="db" portNumber="3308" databaseName="orion-game-service" user="orion-game-service" password="orion-game-service" />
+        <properties serverName="db" portNumber="3306" databaseName="orion-game-service" user="orion-game-service" password="orion-game-service" />
     </dataSource>
 
 </server>
