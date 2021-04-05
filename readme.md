@@ -13,3 +13,8 @@ Have a look in the `readme.md` file in each directory which describes how each p
 Once both projects are built and started, open your browser at the following URL to launch the test page and execute both projects:
 
     http://localhost:9080/index.html
+
+
+hint: 
+to kill port: sudo kill -9 `sudo lsof -t -i:8080`
+to kill all docker files: docker rm -f $(docker ps -a -q);docker system prune --volumes -a -f

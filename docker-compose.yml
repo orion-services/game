@@ -6,7 +6,7 @@ services:
         image: mysql:latest
         container_name: game-mysql
         ports:
-            - 3308:3306
+            - 3306:3306
         volumes:
             - database:/var/lib/mysql
         environment:
@@ -22,7 +22,7 @@ services:
             links:
                 - db
             ports:
-                - 8082:80
+                - 80:80
             volumes:
                 - /sessions
     service:
@@ -32,5 +32,5 @@ services:
                 - "phpMyAdmin"
             container_name: game-service
             ports:
-                - 9082:9080
-                - 9445:9443
+                - 9080:9080
+                - 9443:9443
