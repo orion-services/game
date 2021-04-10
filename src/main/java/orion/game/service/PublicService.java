@@ -53,7 +53,7 @@ public class PublicService {
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Game createQuestion(@FormParam("question") final String question) throws WebApplicationException, NotFoundException, Exception {
+    public Game createQuestion(@FormParam("question") final String question) {
 
         final Game game = new Game();
         //Qual é a distância até a extratosfera?
@@ -68,17 +68,17 @@ public class PublicService {
     @POST
     @APIResponse(responseCode = "200", description = "successfully")
     @APIResponse(responseCode = "409", description = "a conflict has occurred")
-    @Tag(name="CRUD")
+    @Tag(name="PLAYER")
     @Path("playeranswer")
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Game createAnswer(@FormParam("id") final long id, @FormParam("answer") final String answer) throws WebApplicationException, NotFoundException, Exception {
+    public Game createAnswer(@FormParam("id") final long id, @FormParam("answer") final String answer) {
 
         final Game game = gameDAO.find(id);
 
                 game.setAnswer(answer);
-                gameDAO.create(game);           
+                gameDAO.update(game);           
 
                 return game;
         
@@ -88,7 +88,7 @@ public class PublicService {
     @POST
     @APIResponse(responseCode = "200", description = "successfully")
     @APIResponse(responseCode = "409", description = "a conflict has occurred")
-    @Tag(name="CRUD")
+    @Tag(name="PLAYER")
     @Path("playerfeedback")
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
@@ -98,7 +98,7 @@ public class PublicService {
         final Game game = gameDAO.find(id);
 
                 game.setFeedback(feedback);
-                gameDAO.create(game);           
+                gameDAO.update(game);           
 
                 return game;
         
