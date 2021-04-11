@@ -49,18 +49,37 @@ public class PublicService {
     @APIResponse(responseCode = "200", description = "successfully")
     @APIResponse(responseCode = "409", description = "a conflict has occurred")
     @Tag(name="PLAYER")
+    @Path("playerquestion")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Game createQuestion() {
+
+        final Game game = new Game();
+
+            String question=gameDAO.randomQuestion();
+            game.setQuestion(question); 
+                gameDAO.create(game);           
+
+                return game;
+        
+    }
+
+    @POST
+    @APIResponse(responseCode = "200", description = "successfully")
+    @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    @Tag(name="PLAYER")
     @Path("playeranswer")
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     public Game createAnswer(@FormParam("id") final long id, @FormParam("answer") final String answer) {
 
-        final Game game = new Game();
-        String question=gameDAO.randomQuestion();
-        game.setQuestion(question); 
+        final Game game = gameDAO.find(id);
+
 
                 game.setAnswer(answer);
-                gameDAO.create(game);           
+                gameDAO.update(game);           
 
                 return game;
         
