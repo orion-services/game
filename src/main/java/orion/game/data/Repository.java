@@ -19,8 +19,10 @@ package orion.game.data;
 
 import java.lang.reflect.ParameterizedType;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Random;
 import java.util.Base64.Encoder;
 
 import javax.persistence.EntityManager;
@@ -125,7 +127,18 @@ public abstract class Repository<T> {
     }
 
 
+    public String randomQuestion() {
+        List<String> questions = new ArrayList<String>();
+		questions.add("2 + 2 is?");
+		questions.add("Who won the world war II?");
+		questions.add("1 byte has how many bits?");
+		questions.add("Explain newton's second law");
 
+		Random random = new Random();
+		String sortQuestion = questions.get(random.nextInt(questions.size()));
+
+        return sortQuestion;
+    }
 
 
     @SuppressWarnings("unchecked")
