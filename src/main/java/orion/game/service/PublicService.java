@@ -55,12 +55,12 @@ public class PublicService {
     @Transactional
     public Game createAnswer(@FormParam("id") final long id, @FormParam("answer") final String answer) {
 
-        final Game game = gameDAO.find(id);
+        final Game game = new Game();
         String question=gameDAO.randomQuestion();
         game.setQuestion(question); 
 
                 game.setAnswer(answer);
-                gameDAO.update(game);           
+                gameDAO.create(game);           
 
                 return game;
         
