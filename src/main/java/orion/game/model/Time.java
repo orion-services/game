@@ -32,37 +32,25 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "GAME")
-public class Game {
+@Table(name = "TIME")
+public class Time {
 
 @TableGenerator(name = "id_generator", table = "ID_GEN", pkColumnName = "gen_name", valueColumnName = "gen_value",
-pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
+pkColumnValue="time_gen", initialValue=1000, allocationSize=10)
 @Id
 @GeneratedValue(strategy = GenerationType.TABLE, generator = "id_generator")
     private long id;
     
-    @Column(name = "QUESTION")
-    private String question;
-  
     @Column(name = "TIME")
     private String time;
 
-    @Column(name = "CARD")
-    private String card;
-
-    @Column(name = "RANKING")
-    private String ranking;
-
-    public Game(String question, String time, String card, String ranking) {
+    public Time(String time) {
         super();
-        this.question = question;
         this.time = time;
-        this.card = card;
-        this.ranking = ranking;
     }
 
 
-    public Game() {
+    public Time() {
         super();
     }
 
