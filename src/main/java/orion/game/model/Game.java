@@ -41,24 +41,39 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
 @GeneratedValue(strategy = GenerationType.TABLE, generator = "id_generator")
     private long id;
     
-    @Column(name = "QUESTION")
-    private String question;
-  
-    @Column(name = "TIME")
-    private String time;
+    @Column(name = "ANSWER")
+    private Answer answer;
 
     @Column(name = "CARD")
-    private String card;
+    private Card card;
+
+    @Column(name = "FEEDBACK")
+    private Feedback feedback;
+
+    @Column(name = "QUESTION")
+    private Question question;
 
     @Column(name = "RANKING")
-    private String ranking;
+    private Ranking ranking;
 
-    public Game(String question, String time, String card, String ranking) {
+    @Column(name = "TIME")
+    private Time time;
+
+    @Column(name = "USER")
+    private User user;
+
+
+
+
+    public Game(Answer answer, Card card, Feedback feedback, Question question, Ranking ranking, Time time, User user) {
         super();
-        this.question = question;
-        this.time = time;
+        this.answer = answer;
         this.card = card;
+        this.feedback = feedback;
+        this.question = question;
         this.ranking = ranking;
+        this.time = time;
+        this.user = user;
     }
 
 
