@@ -37,6 +37,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import orion.game.data.GameDAO;
 import orion.game.model.Game;
+import orion.game.model.Question;
 
 @RequestScoped
 @Path("/api/v1/")

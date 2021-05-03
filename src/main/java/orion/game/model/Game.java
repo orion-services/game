@@ -96,6 +96,72 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
         this.user = user;
     }
 
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Answer getAnswer() {
+        return this.answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer.setAnswer(answer);
+    }
+
+    public Card getCard() {
+        return this.card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
+    }
+
+    public Feedback getFeedback() {
+        return this.feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback.setFeedback(feedback);
+    }
+
+    public Question getQuestion() {
+        return this.question;
+    }
+
+    public void setQuestion(String question) {
+        this.question.setQuestion(question);
+    }
+
+    public Ranking getRanking() {
+        return this.ranking;
+    }
+
+    public void setRanking(Ranking ranking) {
+        this.ranking = ranking;
+    }
+
+    public Time getTime() {
+        return this.time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
+    }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
     private List<Role> roles;
 
     public List<Role> getRoles() {
