@@ -58,7 +58,7 @@ public class PublicService {
         final Game game = new Game();
 
             String question=gameDAO.randomQuestion();
-            game.setQuestion(question); 
+            game.setQuestion(question);
                 gameDAO.create(game);           
 
                 return game;

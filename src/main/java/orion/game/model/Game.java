@@ -62,11 +62,31 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
     @Column(name = "USER")
     private User user;
 
+    public Game(){
+        this.answer = new Answer();
+        this.card = new Card();
+        this.feedback = new Feedback();
+        this.question = new Question();
+        this.ranking = new Ranking();
+        this.time = new Time();
+        this.user = new User();
+    }
 
-
-
-    public Game(Answer answer, Card card, Feedback feedback, Question question, Ranking ranking, Time time, User user) {
+    public Game(long id) {
         super();
+        this.id = id;
+        this.answer = new Answer();
+        this.card = new Card();
+        this.feedback = new Feedback();
+        this.question = new Question();
+        this.ranking = new Ranking();
+        this.time = new Time();
+        this.user = new User();
+    }
+
+    public Game(long id, Answer answer, Card card, Feedback feedback, Question question, Ranking ranking, Time time, User user) {
+        super();
+        this.id = id;
         this.answer = answer;
         this.card = card;
         this.feedback = feedback;
@@ -74,11 +94,6 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
         this.ranking = ranking;
         this.time = time;
         this.user = user;
-    }
-
-
-    public Game() {
-        super();
     }
 
     private List<Role> roles;
