@@ -58,8 +58,8 @@ public class PublicService {
 
         final Game game = new Game();
 
-            String question=gameDAO.randomQuestion();
-            game.setQuestion(question);
+            String questions=gameDAO.randomQuestion();
+            game.setQuestion(questions);
                 gameDAO.create(game);           
 
                 return game;
@@ -74,12 +74,12 @@ public class PublicService {
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Game createAnswer(@FormParam("id") final long id, @FormParam("answer") final String answer) {
+    public Game createAnswer(@FormParam("id") final long id, @FormParam("answers") final String answers) {
 
         final Game game = gameDAO.find(id);
 
 
-                game.setAnswer(answer);
+                game.setAnswer(answers);
                 gameDAO.update(game);           
 
                 return game;
@@ -95,11 +95,11 @@ public class PublicService {
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Game createFeedback(@FormParam("id") final long id, @FormParam("feedback") final String feedback) throws WebApplicationException, NotFoundException, Exception {
+    public Game createFeedback(@FormParam("id") final long id, @FormParam("feedbacks") final String feedbacks) throws WebApplicationException, NotFoundException, Exception {
 
         final Game game = gameDAO.find(id);
 
-                game.setFeedback(feedback);
+                game.setFeedback(feedbacks);
                 gameDAO.update(game);           
 
                 return game;
