@@ -42,11 +42,11 @@ pkColumnValue="card_gen", initialValue=1000, allocationSize=10)
     private long id;
     
     @Column(name = "CARD")
-    private String card;
+    private String cards;
 
-    public Card(String card) {
+    public Card(String cards) {
         super();
-        this.card = card;
+        this.cards = cards;
     }
 
 

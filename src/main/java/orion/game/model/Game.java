@@ -62,38 +62,19 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
     @Column(name = "USER")
     private User user;
 
-    public Game(){
-        this.answer = new Answer();
-        this.card = new Card();
-        this.feedback = new Feedback();
-        this.question = new Question();
-        this.ranking = new Ranking();
-        this.team = new Team();
-        this.user = new User();
+    public Game() {
+        super();
     }
 
-    public Game(long id) {
+    public Game(String answers, String cards, String feedbacks, String questions, String rankings, String teams, String users) {
         super();
-        this.id = id;
-        this.answer = new Answer();
-        this.card = new Card();
-        this.feedback = new Feedback();
-        this.question = new Question();
-        this.ranking = new Ranking();
-        this.team = new Team();
-        this.user = new User();
-    }
-
-    public Game(long id, Answer answer, Card card, Feedback feedback, Question question, Ranking ranking, Team team, User user) {
-        super();
-        this.id = id;
-        this.answer = answer;
-        this.card = card;
-        this.feedback = feedback;
-        this.question = question;
-        this.ranking = ranking;
-        this.team = team;
-        this.user = user;
+        answer = new Answer(answers);
+        card = new Card(cards);
+        feedback = new Feedback(feedbacks);
+        question = new Question(questions);
+        ranking = new Ranking(rankings);
+        team = new Team(teams);
+        user = new User(users);
     }
 
 
@@ -109,56 +90,56 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
         return this.answer;
     }
 
-    public void setAnswer(String answer) {
-        this.answer.setAnswer(answer);
+    public void setAnswer(String answers) {
+        this.answer.setAnswers(answers);
     }
 
     public Card getCard() {
         return this.card;
     }
 
-    public void setCard(Card card) {
-        this.card = card;
+    public void setCard(String cards) {
+        this.card.setCards(cards);
     }
 
     public Feedback getFeedback() {
         return this.feedback;
     }
 
-    public void setFeedback(String feedback) {
-        this.feedback.setFeedback(feedback);
+    public void setFeedback(String feedbacks) {
+        this.feedback.setFeedbacks(feedbacks);
     }
 
     public Question getQuestion() {
         return this.question;
     }
 
-    public void setQuestion(String question) {
-        this.question.setQuestion(question);
+    public void setQuestion(String questions) {
+        this.question.setQuestions(questions);
     }
 
     public Ranking getRanking() {
         return this.ranking;
     }
 
-    public void setRanking(Ranking ranking) {
-        this.ranking = ranking;
+    public void setRanking(String rankings) {
+        this.ranking.setRankings(rankings);
     }
 
     public Team getTeam() {
         return this.team;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setTeam(String teams) {
+        this.team.setTeams(teams);
     }
 
     public User getUser() {
         return this.user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(String users) {
+        this.user.setUsers(users);
     }
 
 

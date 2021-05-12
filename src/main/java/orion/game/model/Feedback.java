@@ -42,11 +42,11 @@ pkColumnValue="feedback_gen", initialValue=1000, allocationSize=10)
     private long id;
     
     @Column(name = "FEEDBACK")
-    private String feedback;
+    private String feedbacks;
 
-    public Feedback(String feedback) {
+    public Feedback(String feedbacks) {
         super();
-        this.feedback = feedback;
+        this.feedbacks = feedbacks;
     }
 
 

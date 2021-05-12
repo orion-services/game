@@ -42,11 +42,11 @@ pkColumnValue="team_gen", initialValue=1000, allocationSize=10)
     private long id;
     
     @Column(name = "TEAM")
-    private String team;
+    private String teams;
 
-    public Team(String team) {
+    public Team(String teams) {
         super();
-        this.team = team;
+        this.teams = teams;
     }
 
 

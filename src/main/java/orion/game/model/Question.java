@@ -42,11 +42,11 @@ pkColumnValue="question_gen", initialValue=1000, allocationSize=10)
     private long id;
     
     @Column(name = "QUESTION")
-    private String question;
+    private String questions;
 
-    public Question(String question) {
+    public Question(String questions) {
         super();
-        this.question = question;
+        this.questions = questions;
     }
 
 

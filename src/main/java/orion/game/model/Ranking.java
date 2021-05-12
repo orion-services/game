@@ -42,11 +42,11 @@ pkColumnValue="ranking_gen", initialValue=1000, allocationSize=10)
     private long id;
     
     @Column(name = "RANKING")
-    private String ranking;
+    private String rankings;
 
-    public Ranking(String ranking) {
+    public Ranking(String rankings) {
         super();
-        this.ranking = ranking;
+        this.rankings = rankings;
     }
 
 

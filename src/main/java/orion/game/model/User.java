@@ -42,11 +42,11 @@ pkColumnValue="user_gen", initialValue=1000, allocationSize=10)
     private long id;
     
     @Column(name = "USER")
-    private String user;
+    private String users;
 
-    public User(String user) {
+    public User(String users) {
         super();
-        this.user = user;
+        this.users = users;
     }
 
 
