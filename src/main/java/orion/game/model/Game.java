@@ -56,8 +56,8 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
     @Column(name = "RANKING")
     private Ranking ranking;
 
-    @Column(name = "TIME")
-    private Time time;
+    @Column(name = "TEAM")
+    private Team team;
 
     @Column(name = "USER")
     private User user;
@@ -68,7 +68,7 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
         this.feedback = new Feedback();
         this.question = new Question();
         this.ranking = new Ranking();
-        this.time = new Time();
+        this.team = new Team();
         this.user = new User();
     }
 
@@ -80,11 +80,11 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
         this.feedback = new Feedback();
         this.question = new Question();
         this.ranking = new Ranking();
-        this.time = new Time();
+        this.team = new Team();
         this.user = new User();
     }
 
-    public Game(long id, Answer answer, Card card, Feedback feedback, Question question, Ranking ranking, Time time, User user) {
+    public Game(long id, Answer answer, Card card, Feedback feedback, Question question, Ranking ranking, Team team, User user) {
         super();
         this.id = id;
         this.answer = answer;
@@ -92,7 +92,7 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
         this.feedback = feedback;
         this.question = question;
         this.ranking = ranking;
-        this.time = time;
+        this.team = team;
         this.user = user;
     }
 
@@ -145,12 +145,12 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
         this.ranking = ranking;
     }
 
-    public Time getTime() {
-        return this.time;
+    public Team getTeam() {
+        return this.team;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public User getUser() {
