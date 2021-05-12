@@ -86,56 +86,56 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
         this.id = id;
     }
 
-    public Answer getAnswer() {
-        return this.answer;
+    public String getAnswer() {
+        return this.answer.getAnswers();
     }
 
     public void setAnswer(String answers) {
         this.answer.setAnswers(answers);
     }
 
-    public Card getCard() {
-        return this.card;
+    public String getCard() {
+        return this.card.getCards();
     }
 
     public void setCard(String cards) {
         this.card.setCards(cards);
     }
 
-    public Feedback getFeedback() {
-        return this.feedback;
+    public String getFeedback() {
+        return this.feedback.getFeedbacks();
     }
 
     public void setFeedback(String feedbacks) {
         this.feedback.setFeedbacks(feedbacks);
     }
 
-    public Question getQuestion() {
-        return this.question;
+    public String getQuestion() {
+        return this.question.getQuestions();
     }
 
     public void setQuestion(String questions) {
         this.question.setQuestions(questions);
     }
 
-    public Ranking getRanking() {
-        return this.ranking;
+    public String getRanking() {
+        return this.ranking.getRankings();
     }
 
     public void setRanking(String rankings) {
         this.ranking.setRankings(rankings);
     }
 
-    public Team getTeam() {
-        return this.team;
+    public String getTeam() {
+        return this.team.getTeams();
     }
 
     public void setTeam(String teams) {
         this.team.setTeams(teams);
     }
 
-    public User getUser() {
-        return this.user;
+    public String getUser() {
+        return this.user.getUsers();
     }
 
     public void setUser(String users) {
