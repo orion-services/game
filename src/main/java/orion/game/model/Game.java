@@ -43,106 +43,99 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
     private long id;
     
 
-    @Column(name = "ANSWER")
-    private Answer answer;
+    // private Answer answer;
 
-    @Column(name = "CARD")
-    private Card card;
+    // private Card card;
 
-    @Column(name = "FEEDBACK")
-    private Feedback feedback;
+    // private Feedback feedback;
 
-    @Column(name = "QUESTION")
-    private Question question;
+    // private Question question;
 
-    @Column(name = "RANKING")
-    private Ranking ranking;
+    // private Ranking ranking;
 
-    @Column(name = "TEAM")
-    private Team team;
+    // private Team team;
 
-    @Column(name = "USER")
-    private User user;
+    // private User user;
 
-    public Game() {
-        super();
-    }
+    // public Game() {
+    //     super();
+    // }
 
-    public Game(String answers, String cards, String feedbacks, String questions, String rankings, String teams, String users) {
-        super();
-        answer = new Answer(answers);
-        card = new Card(cards);
-        feedback = new Feedback(feedbacks);
-        question = new Question(questions);
-        ranking = new Ranking(rankings);
-        team = new Team(teams);
-        user = new User(users);
-    }
+    // public Game(String answers, String cards, String feedbacks, String questions, String rankings, String teams, String users) {
+    //     super();
+    //     answer = new Answer(answers);
+    //     card = new Card(cards);
+    //     feedback = new Feedback(feedbacks);
+    //     question = new Question(questions);
+    //     ranking = new Ranking(rankings);
+    //     team = new Team(teams);
+    //     user = new User(users);
+    // }
 
 
-    public long getId() {
-        return this.id;
-    }
+    // public long getId() {
+    //     return this.id;
+    // }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    // public void setId(long id) {
+    //     this.id = id;
+    // }
 
-    public String getAnswer() {
-        return this.answer.getAnswers();
-    }
+    // public String getAnswer() {
+    //     return this.answer.getAnswers();
+    // }
 
-    public void setAnswer(String answers) {
-        this.answer.setAnswers(answers);
-    }
+    // public void setAnswer(String answers) {
+    //     this.answer.setAnswers(answers);
+    // }
 
-    public String getCard() {
-        return this.card.getCards();
-    }
+    // public String getCard() {
+    //     return this.card.getCards();
+    // }
 
-    public void setCard(String cards) {
-        this.card.setCards(cards);
-    }
+    // public void setCard(String cards) {
+    //     this.card.setCards(cards);
+    // }
 
-    public String getFeedback() {
-        return this.feedback.getFeedbacks();
-    }
+    // public String getFeedback() {
+    //     return this.feedback.getFeedbacks();
+    // }
 
-    public void setFeedback(String feedbacks) {
-        this.feedback.setFeedbacks(feedbacks);
-    }
+    // public void setFeedback(String feedbacks) {
+    //     this.feedback.setFeedbacks(feedbacks);
+    // }
 
-    public String getQuestion() {
-        return this.question.getQuestions();
-    }
+    // public String getQuestion() {
+    //     return this.question.getQuestions();
+    // }
 
-    public void setQuestion(String questions) {
-        this.question.setQuestions(questions);
-    }
+    // public void setQuestion(String questions) {
+    //     this.question.setQuestions(questions);
+    // }
 
-    public String getRanking() {
-        return this.ranking.getRankings();
-    }
+    // public String getRanking() {
+    //     return this.ranking.getRankings();
+    // }
 
-    public void setRanking(String rankings) {
-        this.ranking.setRankings(rankings);
-    }
+    // public void setRanking(String rankings) {
+    //     this.ranking.setRankings(rankings);
+    // }
 
-    public String getTeam() {
-        return this.team.getTeams();
-    }
+    // public String getTeam() {
+    //     return this.team.getTeams();
+    // }
 
-    public void setTeam(String teams) {
-        this.team.setTeams(teams);
-    }
+    // public void setTeam(String teams) {
+    //     this.team.setTeams(teams);
+    // }
 
-    public String getUser() {
-        return this.user.getUsers();
-    }
+    // public String getUser() {
+    //     return this.user.getUsers();
+    // }
 
-    public void setUser(String users) {
-        this.user.setUsers(users);
-    }
+    // public void setUser(String users) {
+    //     this.user.setUsers(users);
+    // }
 
 
     private List<Role> roles;

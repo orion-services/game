@@ -18,7 +18,7 @@ package orion.game.model;
 
 import java.util.List;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,6 +27,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -44,18 +46,17 @@ pkColumnValue="question_gen", initialValue=1000, allocationSize=10)
 @GeneratedValue(strategy = GenerationType.TABLE, generator = "id_generator")
     private long id;
     
-    @Column(name = "QUESTION")
     private String questions;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
+    @JoinColumn(name = "question_id")
+    private List<Answer> answers;
 
     public Question(String questions) {
         super();
         this.questions = questions;
     }
 
-    @ManyToMany
-    @JoinTable(name = "Question_Answer",
-        joinColumns = @JoinColumn(name = "Answer_id"))
-    private List<Answer> answerlist;
 
     public Question() {
         super();

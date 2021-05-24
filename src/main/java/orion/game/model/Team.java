@@ -40,8 +40,7 @@ pkColumnValue="team_gen", initialValue=1000, allocationSize=10)
 @Id
 @GeneratedValue(strategy = GenerationType.TABLE, generator = "id_generator")
     private long id;
-    
-    @Column(name = "TEAM")
+
     private String teams;
 
     public Team(String teams) {

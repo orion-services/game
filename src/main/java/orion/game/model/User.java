@@ -41,7 +41,6 @@ pkColumnValue="user_gen", initialValue=1000, allocationSize=10)
 @GeneratedValue(strategy = GenerationType.TABLE, generator = "id_generator")
     private long id;
     
-    @Column(name = "USER")
     private String users;
 
     public User(String users) {
