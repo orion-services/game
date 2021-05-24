@@ -18,12 +18,14 @@ package orion.game.model;
 
 import java.util.List;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -42,6 +44,10 @@ pkColumnValue="feedback_gen", initialValue=1000, allocationSize=10)
     private long id;
     
     private String feedbacks;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "feedback")
+    @JoinColumn(name = "feedback_id")
+    private List<User> users;
 
     public Feedback(String feedbacks) {
         super();

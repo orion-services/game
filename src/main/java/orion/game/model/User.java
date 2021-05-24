@@ -24,6 +24,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -52,6 +53,9 @@ pkColumnValue="user_gen", initialValue=1000, allocationSize=10)
     public User() {
         super();
     }
+
+    @ManyToOne
+    private Feedback feedback;
 
     private List<Role> roles;
 
