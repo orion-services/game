@@ -24,6 +24,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -45,11 +46,14 @@ pkColumnValue="answer_gen", initialValue=1000, allocationSize=10)
     @Column(name = "ANSWER")
     private String answers;
 
-    public Answer(String answers) {
-        super();
-        this.answers = answers;
-    }
+    public Answer(String answers)    
+    {   
+        super();  
+        this.answers = answers;   
+    }    
 
+    @ManyToMany(mappedBy = "answerlist")
+    private List<Question> questionlist;
 
     public Answer() {
         super();

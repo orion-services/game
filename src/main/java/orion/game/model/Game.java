@@ -42,31 +42,25 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
 @GeneratedValue(strategy = GenerationType.TABLE, generator = "id_generator")
     private long id;
     
-    @ManyToMany(cascade = CascadeType.PERSIST)
+
     @Column(name = "ANSWER")
     private Answer answer;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
     @Column(name = "CARD")
     private Card card;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
     @Column(name = "FEEDBACK")
     private Feedback feedback;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
     @Column(name = "QUESTION")
     private Question question;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
     @Column(name = "RANKING")
     private Ranking ranking;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
     @Column(name = "TEAM")
     private Team team;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
     @Column(name = "USER")
     private User user;
 

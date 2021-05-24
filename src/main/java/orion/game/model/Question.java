@@ -24,6 +24,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -49,6 +52,10 @@ pkColumnValue="question_gen", initialValue=1000, allocationSize=10)
         this.questions = questions;
     }
 
+    @ManyToMany
+    @JoinTable(name = "Question_Answer",
+        joinColumns = @JoinColumn(name = "Answer_id"))
+    private List<Answer> answerlist;
 
     public Question() {
         super();

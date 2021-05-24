@@ -35,7 +35,12 @@ import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+import orion.game.data.AnswerDAO;
+import orion.game.data.FeedbackDAO;
 import orion.game.data.GameDAO;
+import orion.game.data.QuestionDAO;
+import orion.game.model.Answer;
+import orion.game.model.Feedback;
 import orion.game.model.Game;
 import orion.game.model.Question;
 
@@ -46,6 +51,15 @@ public class PublicService {
     @Inject
     private GameDAO gameDAO;
 
+    @Inject
+    private QuestionDAO questionDAO;
+
+    @Inject
+    private FeedbackDAO feedbackDAO;
+
+    @Inject
+    private AnswerDAO answerDAO;
+
     @POST
     @APIResponse(responseCode = "200", description = "successfully")
     @APIResponse(responseCode = "409", description = "a conflict has occurred")
@@ -54,13 +68,13 @@ public class PublicService {
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Game createQuestion() {
+    public Question createQuestion() {
 
-        final Game game = new Game();
+        final Question game = new Question();
 
             String questions=gameDAO.randomQuestion();
-            game.setQuestion(questions);
-                gameDAO.create(game);           
+            game.setQuestions(questions);
+            questionDAO.create(game);           
 
                 return game;
         
@@ -74,13 +88,13 @@ public class PublicService {
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Game createAnswer(@FormParam("id") final long id, @FormParam("answers") final String answers) {
+    public Answer createAnswer(@FormParam("id") final long id, @FormParam("answers") final String answers) {
 
-        final Game game = gameDAO.find(id);
+        final Answer game = answerDAO.find(id);
 
 
-                game.setAnswer(answers);
-                gameDAO.update(game);           
+                game.setAnswers(answers);
+                answerDAO.update(game);           
 
                 return game;
         
@@ -95,12 +109,12 @@ public class PublicService {
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Game createFeedback(@FormParam("id") final long id, @FormParam("feedbacks") final String feedbacks) throws WebApplicationException, NotFoundException, Exception {
+    public Feedback createFeedback(@FormParam("id") final long id, @FormParam("feedbacks") final String feedbacks) throws WebApplicationException, NotFoundException, Exception {
 
-        final Game game = gameDAO.find(id);
+        final Feedback game = feedbackDAO.find(id);
 
-                game.setFeedback(feedbacks);
-                gameDAO.update(game);           
+                game.setFeedbacks(feedbacks);
+                feedbackDAO.update(game);           
 
                 return game;
         
