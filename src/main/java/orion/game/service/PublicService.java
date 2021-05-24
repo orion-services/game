@@ -88,12 +88,12 @@ public class PublicService {
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Answer createAnswer(@FormParam("id") final long id, @FormParam("answers") final String answers) {
+    public Answer createAnswer(@FormParam("id") final long id, @FormParam("answers") final String text) {
 
         final Answer game = answerDAO.find(id);
 
 
-                game.setAnswers(answers);
+                game.setAnswers(text);
                 answerDAO.update(game);           
 
                 return game;

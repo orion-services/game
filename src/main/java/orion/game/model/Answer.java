@@ -44,12 +44,12 @@ pkColumnValue="answer_gen", initialValue=1000, allocationSize=10)
     private long id;
     
     
-    private String answers;
+    private String text;
 
-    public Answer(String answers)    
+    public Answer(String text)    
     {   
         super();  
-        this.answers = answers;   
+        this.text = text;   
     }    
 
     @ManyToOne

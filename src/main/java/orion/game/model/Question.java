@@ -46,15 +46,15 @@ pkColumnValue="question_gen", initialValue=1000, allocationSize=10)
 @GeneratedValue(strategy = GenerationType.TABLE, generator = "id_generator")
     private long id;
     
-    private String questions;
+    private String text;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
     @JoinColumn(name = "question_id")
     private List<Answer> answers;
 
-    public Question(String questions) {
+    public Question(String text) {
         super();
-        this.questions = questions;
+        this.text = text;
     }
 
 
