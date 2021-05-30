@@ -60,6 +60,8 @@ public class Answer {
     @ManyToOne
     private Question question;
 
+    
+
 
     private List<Role> roles;
 
