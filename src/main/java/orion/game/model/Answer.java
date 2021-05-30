@@ -16,16 +16,21 @@
  */
 package orion.game.model;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -33,31 +38,28 @@ import lombok.Data;
 
 
 @Entity
+@SequenceGenerator(name="answer_seq", sequenceName = "answer_seq",initialValue = 1, allocationSize = 1)
 @Data
 @Table(name = "ANSWER")
 public class Answer {
 
-@TableGenerator(name = "id_generator", table = "ID_GEN", pkColumnName = "gen_name", valueColumnName = "gen_value",
-pkColumnValue="answer_gen", initialValue=1000, allocationSize=10)
-@Id
-@GeneratedValue(strategy = GenerationType.TABLE, generator = "id_generator")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "answer_id")
     private long id;
     
+    private Timestamp time;
     
-    private String text;
+    private String textAnswer;
 
-    public Answer(String text)    
+    public Answer(String textAnswer)    
     {   
         super();  
-        this.text = text;   
+        this.textAnswer = textAnswer;   
     }    
 
     @ManyToOne
-    private Question questions;
+    private Question question;
 
-    public Answer() {
-        super();
-    }
 
     private List<Role> roles;
 
@@ -67,6 +69,11 @@ pkColumnValue="answer_gen", initialValue=1000, allocationSize=10)
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public Answer() {
+        Calendar calendar = Calendar.getInstance();
+        this.time = new Timestamp(calendar.getTimeInMillis());
     }
 
 

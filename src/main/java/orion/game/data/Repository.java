@@ -31,6 +31,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import orion.game.model.Answer;
+
 
 
 public abstract class Repository<T> {

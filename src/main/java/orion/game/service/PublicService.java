@@ -17,6 +17,8 @@
 package orion.game.service;
 
 
+import java.util.List;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -36,11 +38,9 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import orion.game.data.AnswerDAO;
-import orion.game.data.FeedbackDAO;
 import orion.game.data.GameDAO;
 import orion.game.data.QuestionDAO;
 import orion.game.model.Answer;
-import orion.game.model.Feedback;
 import orion.game.model.Game;
 import orion.game.model.Question;
 
@@ -54,8 +54,8 @@ public class PublicService {
     @Inject
     private QuestionDAO questionDAO;
 
-    @Inject
-    private FeedbackDAO feedbackDAO;
+    // @Inject
+    // private FeedbackDAO feedbackDAO;
 
     @Inject
     private AnswerDAO answerDAO;
@@ -72,8 +72,8 @@ public class PublicService {
 
         final Question game = new Question();
 
-            String questions=gameDAO.randomQuestion();
-            game.setQuestions(questions);
+            String textQuestion=questionDAO.randomQuestion();
+            game.setTextQuestion(textQuestion);
             questionDAO.create(game);           
 
                 return game;
@@ -88,37 +88,36 @@ public class PublicService {
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Answer createAnswer(@FormParam("id") final long id, @FormParam("answers") final String text) {
+    public Answer createAnswer(@FormParam("question_id") final long question_id, @FormParam("textAnswer") final String textAnswer) {
 
-        final Answer game = answerDAO.find(id);
+        final Answer game = new Answer();
 
-
-                game.setAnswers(text);
-                answerDAO.update(game);           
-
-                return game;
-        
-    }
-
-
-    @POST
-    @APIResponse(responseCode = "200", description = "successfully")
-    @APIResponse(responseCode = "409", description = "a conflict has occurred")
-    @Tag(name="PLAYER")
-    @Path("playerfeedback")
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Feedback createFeedback(@FormParam("id") final long id, @FormParam("feedbacks") final String feedbacks) throws WebApplicationException, NotFoundException, Exception {
-
-        final Feedback game = feedbackDAO.find(id);
-
-                game.setFeedbacks(feedbacks);
-                feedbackDAO.update(game);           
+                game.setTextAnswer(textAnswer);
+                answerDAO.create(game);           
 
                 return game;
         
     }
+
+
+    // @POST
+    // @APIResponse(responseCode = "200", description = "successfully")
+    // @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    // @Tag(name="PLAYER")
+    // @Path("playerfeedback")
+    // @Consumes("application/x-www-form-urlencoded")
+    // @Produces(MediaType.APPLICATION_JSON)
+    // @Transactional
+    // public Feedback createFeedback(@FormParam("id") final long id, @FormParam("feedbacks") final String feedbacks) throws WebApplicationException, NotFoundException, Exception {
+
+    //     final Feedback game = feedbackDAO.find(id);
+
+    //             game.setFeedbacks(feedbacks);
+    //             feedbackDAO.update(game);           
+
+    //             return game;
+        
+    // }
 
     @GET
     @APIResponse(responseCode ="200", description ="successfully")

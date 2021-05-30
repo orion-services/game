@@ -16,15 +16,19 @@
  */
 package orion.game.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -32,25 +36,30 @@ import lombok.Data;
 
 
 @Entity
+@SequenceGenerator(name="question_seq", sequenceName = "question_seq",initialValue = 1, allocationSize = 1)
 @Data
 @Table(name = "QUESTION")
 public class Question {
 
-@TableGenerator(name = "id_generator", table = "ID_GEN", pkColumnName = "gen_name", valueColumnName = "gen_value",
-pkColumnValue="question_gen", initialValue=1000, allocationSize=10)
-@Id
-@GeneratedValue(strategy = GenerationType.TABLE, generator = "id_generator")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "question_id")
+    @JsonbTransient
     private long id;
     
-    private String text;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
+    @OneToMany(
+        mappedBy = "question",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
     @JoinColumn(name = "question_id")
     private List<Answer> answers;
+ 
+    private String textQuestion;
 
-    public Question(String text) {
+    public Question(String textQuestion) {
         super();
-        this.text = text;
+        this.textQuestion = textQuestion;
     }
 
 
