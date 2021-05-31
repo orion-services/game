@@ -39,19 +39,16 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import orion.game.data.AnswerDAO;
 import orion.game.data.FeedbackDAO;
-import orion.game.data.GameDAO;
 import orion.game.data.QuestionDAO;
 import orion.game.model.Answer;
 import orion.game.model.Feedback;
-import orion.game.model.Game;
 import orion.game.model.Question;
 
 @RequestScoped
 @Path("/api/v1/")
 public class PublicService {
 
-    @Inject
-    private GameDAO gameDAO;
+
 
     @Inject
     private QuestionDAO questionDAO;
@@ -146,16 +143,6 @@ public class PublicService {
         
     }
 
-    @GET
-    @APIResponse(responseCode ="200", description ="successfully")
-    @APIResponse(responseCode ="409", description ="a conflict has occurred")
-    @Tag(name="CRUD")
-    @Path("/list/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Game read(@PathParam("id") final long id) {
-        return gameDAO.find(id);
-    }
 
 
     
