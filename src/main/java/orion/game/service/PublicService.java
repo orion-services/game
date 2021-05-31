@@ -38,9 +38,11 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import orion.game.data.AnswerDAO;
+import orion.game.data.FeedbackDAO;
 import orion.game.data.GameDAO;
 import orion.game.data.QuestionDAO;
 import orion.game.model.Answer;
+import orion.game.model.Feedback;
 import orion.game.model.Game;
 import orion.game.model.Question;
 
@@ -54,8 +56,8 @@ public class PublicService {
     @Inject
     private QuestionDAO questionDAO;
 
-    // @Inject
-    // private FeedbackDAO feedbackDAO;
+    @Inject
+    private FeedbackDAO feedbackDAO;
 
     @Inject
     private AnswerDAO answerDAO;
@@ -70,13 +72,13 @@ public class PublicService {
     @Transactional
     public Question createQuestion() {
 
-        final Question game = new Question();
+        final Question quest = new Question();
 
             String textQuestion=questionDAO.randomQuestion();
-            game.setTextQuestion(textQuestion);
-            questionDAO.create(game);           
+            quest.setTextQuestion(textQuestion);
+            questionDAO.create(quest);           
 
-                return game;
+                return quest;
         
     }
 
@@ -90,36 +92,59 @@ public class PublicService {
     @Transactional
     public Answer createAnswer(@FormParam("id") final long id, @FormParam("textAnswer") final String textAnswer) {
 
-        final Answer game = new Answer();
+        final Answer answ = new Answer();
         final Question quest = new Question();
                 quest.setId(id);
-                game.setQuestion(quest);
-                game.setTextAnswer(textAnswer);
-                answerDAO.create(game);           
+                answ.setQuestion(quest);
+                answ.setTextAnswer(textAnswer);
+                answerDAO.create(answ);           
 
-                return game;
+                return answ;
         
     }
 
 
-    // @POST
-    // @APIResponse(responseCode = "200", description = "successfully")
-    // @APIResponse(responseCode = "409", description = "a conflict has occurred")
-    // @Tag(name="PLAYER")
-    // @Path("playerfeedback")
-    // @Consumes("application/x-www-form-urlencoded")
-    // @Produces(MediaType.APPLICATION_JSON)
-    // @Transactional
-    // public Feedback createFeedback(@FormParam("id") final long id, @FormParam("feedbacks") final String feedbacks) throws WebApplicationException, NotFoundException, Exception {
+//create the feedback text
 
-    //     final Feedback game = feedbackDAO.find(id);
+    @POST
+    @APIResponse(responseCode = "200", description = "successfully")
+    @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    @Tag(name="PLAYER")
+    @Path("playerfeedback1")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Feedback createFeedback1(@FormParam("textFeedback") final String textFeedback) {
 
-    //             game.setFeedbacks(feedbacks);
-    //             feedbackDAO.update(game);           
+        final Feedback feedb = new Feedback();
+                feedb.setTextFeedback(textFeedback);
+                feedbackDAO.create(feedb);           
 
-    //             return game;
+                return feedb;
         
-    // }
+    }
+
+// looks for the "id answer" and persists in the bank the "id feedback" to have the relationship
+
+    @POST
+    @APIResponse(responseCode = "200", description = "successfully")
+    @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    @Tag(name="PLAYER")
+    @Path("playerfeedback2")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Answer createFeedback2(@FormParam("id") final long id) {
+
+        final Answer answ =  answerDAO.find(id);
+        final Feedback feedb = new Feedback();
+                feedb.setId(id);
+                answ.setFeedback(feedb);
+                answerDAO.update(answ);           
+
+                return answ;
+        
+    }
 
     @GET
     @APIResponse(responseCode ="200", description ="successfully")
