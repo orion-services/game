@@ -131,11 +131,11 @@ public class PublicService {
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Answer createFeedback2(@FormParam("id") final long id) {
+    public Answer createFeedback2(@FormParam("idAns") final long idAns, @FormParam("idFee") final long idFee) {
 
-        final Answer answ =  answerDAO.find(id);
+        final Answer answ =  answerDAO.find(idAns);
         final Feedback feedb = new Feedback();
-                feedb.setId(id);
+                feedb.setId(idFee);
                 answ.setFeedback(feedb);
                 answerDAO.update(answ);           
 
