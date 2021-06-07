@@ -27,7 +27,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -38,26 +37,26 @@ import lombok.Data;
 
 
 @Entity
-@SequenceGenerator(name="ranking_seq", sequenceName = "ranking_seq",initialValue = 1, allocationSize = 1)
+@SequenceGenerator(name="game_seq", sequenceName = "game_seq",initialValue = 1, allocationSize = 1)
 @Data
-@Table(name = "RANKING")
-public class Ranking {
+@Table(name = "GAME")
+public class Game {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ranking_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_id")
     @JsonbTransient
     private long id;
     
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="game_ranking",
-               joinColumns={@JoinColumn(name="game_id")},
-               inverseJoinColumns={@JoinColumn(name="ranking_id")})
-    private List<Game> game;
- 
-    private String textRanking;
+    @ManyToMany(mappedBy="game", cascade = CascadeType.ALL)
+    private List<Card> card;
 
-    public Ranking() {
+    @ManyToMany(mappedBy="game", cascade = CascadeType.ALL)
+    private List<Ranking> ranking;
+ 
+    private String textFeedback;
+
+    public Game() {
         super();
     }
 

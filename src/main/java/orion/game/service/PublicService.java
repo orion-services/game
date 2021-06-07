@@ -39,25 +39,18 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import orion.game.data.AnswerDAO;
 import orion.game.data.FeedbackDAO;
+import orion.game.data.GameDAO;
 import orion.game.data.QuestionDAO;
 import orion.game.model.Answer;
+import orion.game.model.Card;
 import orion.game.model.Feedback;
+import orion.game.model.Game;
 import orion.game.model.Question;
+import orion.game.model.Ranking;
 
 @RequestScoped
 @Path("/api/v1/")
-public class PublicService {
-
-
-
-    @Inject
-    private QuestionDAO questionDAO;
-
-    @Inject
-    private FeedbackDAO feedbackDAO;
-
-    @Inject
-    private AnswerDAO answerDAO;
+public class PublicService extends BaseController{
 
     @POST
     @APIResponse(responseCode = "200", description = "successfully")
@@ -143,6 +136,22 @@ public class PublicService {
         
     }
 
+    @POST
+    @APIResponse(responseCode = "200", description = "successfully")
+    @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    @Tag(name="PLAYER")
+    @Path("playergame")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Game createGame() {
+
+        final Game game = new Game();
+                gameDAO.create(game);           
+
+                return game;
+        
+    }
 
 
     
