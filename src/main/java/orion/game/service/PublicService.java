@@ -180,14 +180,15 @@ public class PublicService extends BaseController{
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     public Game createCard2(@FormParam("idCard") final long idCard, @FormParam("idGame") final long idGame) {
-
+   
+        final Card card = new Card();
         final Game game =  gameDAO.find(idGame);
-        final Card card = cardDAO.find(idCard);
-                game.setId(idGame);
-                game.addCard(card);
+                card.setId(idCard);
+                game.setCards((List<Card>) card);
                 gameDAO.update(game);         
 
                 return game;
+
 
     }
 

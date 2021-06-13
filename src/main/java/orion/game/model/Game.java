@@ -45,8 +45,7 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_id")
     @JsonbTransient
-    private long id;
-    
+    private long id;   
 
     @ManyToMany(mappedBy="game", cascade = CascadeType.ALL)
     private List<Card> cards;
@@ -55,16 +54,6 @@ public class Game {
     private List<Ranking> rankings;
  
     private String textFeedback;
-
-    public void addCard(Card card) {
-        this.cards.add(card);
-        card.getGames().add(this);
-    }
-
-    public void addRanking(Ranking ranking) {
-        this.rankings.add(ranking);
-        ranking.getGames().add(this);
-    }
 
     public Game() {
         super();
@@ -79,6 +68,7 @@ public class Game {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
 
 
    
