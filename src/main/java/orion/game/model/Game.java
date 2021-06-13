@@ -69,6 +69,10 @@ public class Game {
         this.roles = roles;
     }
 
+    public void setCards(List<Card> cards) {
+        this.cards = cards;
+  }
+
 
 
    

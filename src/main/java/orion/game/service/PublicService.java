@@ -17,6 +17,7 @@
 package orion.game.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -184,8 +185,10 @@ public class PublicService extends BaseController{
    
         final Card card = new Card();
         final Game game =  gameDAO.find(idGame);
+        List cardList = new ArrayList();
                 card.setId(idCard);
-                game.setCards((List<Card>) card);
+                cardList.add(card);
+                game.setCards(cardList);
                 gameDAO.update(game);         
 
                 return game;
