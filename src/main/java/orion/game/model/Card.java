@@ -53,7 +53,7 @@ public class Card {
     @JoinTable(name="game_card",
                joinColumns={@JoinColumn(name="game_id")},
                inverseJoinColumns={@JoinColumn(name="card_id")})
-    private List<Game> game;
+    private List<Game> games;
  
     private String textCard;
 

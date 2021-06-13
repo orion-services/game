@@ -53,7 +53,7 @@ public class Ranking {
     @JoinTable(name="game_ranking",
                joinColumns={@JoinColumn(name="game_id")},
                inverseJoinColumns={@JoinColumn(name="ranking_id")})
-    private List<Game> game;
+    private List<Game> games;
  
     private String textRanking;
 

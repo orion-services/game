@@ -49,12 +49,22 @@ public class Game {
     
 
     @ManyToMany(mappedBy="game", cascade = CascadeType.ALL)
-    private List<Card> card;
+    private List<Card> cards;
 
     @ManyToMany(mappedBy="game", cascade = CascadeType.ALL)
-    private List<Ranking> ranking;
+    private List<Ranking> rankings;
  
     private String textFeedback;
+
+    public void addCard(Card card) {
+        this.cards.add(card);
+        card.getGames().add(this);
+    }
+
+    public void addRanking(Ranking ranking) {
+        this.rankings.add(ranking);
+        ranking.getGames().add(this);
+    }
 
     public Game() {
         super();

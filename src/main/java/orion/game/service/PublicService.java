@@ -38,6 +38,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 import orion.game.data.AnswerDAO;
+import orion.game.data.CardDAO;
 import orion.game.data.FeedbackDAO;
 import orion.game.data.GameDAO;
 import orion.game.data.QuestionDAO;
@@ -151,6 +152,43 @@ public class PublicService extends BaseController{
 
                 return game;
         
+    }
+
+    @POST
+    @APIResponse(responseCode = "200", description = "successfully")
+    @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    @Tag(name="PLAYER")
+    @Path("playercard1")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Card createCard1() {
+
+        final Card card = new Card();
+                cardDAO.create(card);           
+
+                return card;
+        
+    }
+
+    @POST
+    @APIResponse(responseCode = "200", description = "successfully")
+    @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    @Tag(name="PLAYER")
+    @Path("playercard2")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Game createCard2(@FormParam("idCard") final long idCard, @FormParam("idGame") final long idGame) {
+
+        final Game game =  gameDAO.find(idGame);
+        final Card card = cardDAO.find(idCard);
+                game.setId(idGame);
+                game.addCard(card);
+                gameDAO.update(game);         
+
+                return game;
+
     }
 
 
