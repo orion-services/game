@@ -42,7 +42,7 @@ import lombok.Data;
 public class Feedback {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "feedback_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FEEDBACK_ID")
     @JsonbTransient
     private long id;
     
@@ -52,7 +52,7 @@ public class Feedback {
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
-    @JoinColumn(name = "feedback_id")
+    @JoinColumn(name = "FEEDBACK_ID")
     private List<Answer> answers;
  
     private String textFeedback;

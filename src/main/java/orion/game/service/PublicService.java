@@ -183,10 +183,9 @@ public class PublicService extends BaseController{
     @Transactional
     public Game createCard2(@FormParam("idCard") final long idCard, @FormParam("idGame") final long idGame) {
    
-        final Card card = new Card();
+        final Card card = cardDAO.find(idCard);
         final Game game =  gameDAO.find(idGame);
-        List cardList = new ArrayList();
-                card.setId(idCard);
+        List<Card> cardList = new ArrayList<Card>();
                 cardList.add(card);
                 game.setCards(cardList);
                 gameDAO.update(game);         

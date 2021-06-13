@@ -44,15 +44,15 @@ import lombok.Data;
 public class Card {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "card_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CARD_ID")
     @JsonbTransient
     private long id;
     
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="game_card",
-               joinColumns={@JoinColumn(name="game_id")},
-               inverseJoinColumns={@JoinColumn(name="card_id")})
+    @JoinTable(name="GAME_CARD",
+               joinColumns={@JoinColumn(name="GAME_ID")},
+               inverseJoinColumns={@JoinColumn(name="CARD_ID")})
     private List<Game> games;
  
     private String textCard;

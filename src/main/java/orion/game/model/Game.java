@@ -43,7 +43,7 @@ import lombok.Data;
 public class Game {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "game_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GAME_ID")
     @JsonbTransient
     private long id;   
 

@@ -42,7 +42,7 @@ import lombok.Data;
 public class Question {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "question_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "QUESTION_ID")
     @JsonbTransient
     private long id;
     
@@ -52,7 +52,7 @@ public class Question {
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
-    @JoinColumn(name = "question_id")
+    @JoinColumn(name = "QUESTION_ID")
     private List<Answer> answers;
  
     private String textQuestion;

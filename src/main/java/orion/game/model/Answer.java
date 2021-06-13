@@ -44,7 +44,7 @@ import lombok.Data;
 public class Answer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "answer_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ANSWER_ID")
     private long id;
     
     private Timestamp time;
