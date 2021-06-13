@@ -47,10 +47,10 @@ public class Game {
     @JsonbTransient
     private long id;   
 
-    @ManyToMany(mappedBy="game", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
     private List<Card> cards;
 
-    @ManyToMany(mappedBy="game", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
     private List<Ranking> rankings;
  
     private String textFeedback;
