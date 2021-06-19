@@ -30,6 +30,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -56,6 +57,14 @@ public class Answer {
         super();  
         this.textAnswer = textAnswer;   
     }    
+
+    @OneToMany(
+        mappedBy = "answer",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    @JoinColumn(name = "ANSWER_ID")
+    private List<Team> teams;
 
     @ManyToOne
     private Question question;

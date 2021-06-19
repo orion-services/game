@@ -8,6 +8,8 @@ import orion.game.data.FeedbackDAO;
 import orion.game.data.GameDAO;
 import orion.game.data.QuestionDAO;
 import orion.game.data.RankingDAO;
+import orion.game.data.TeamDAO;
+import orion.game.data.UserDAO;
 
 public class BaseController {
     @Inject
@@ -27,4 +29,10 @@ public class BaseController {
 
     @Inject
     protected RankingDAO rankingDAO;
+
+    @Inject
+    protected UserDAO userDAO;
+
+    @Inject
+    protected TeamDAO teamDAO;
 }

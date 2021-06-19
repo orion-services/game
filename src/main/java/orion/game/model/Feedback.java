@@ -54,6 +54,9 @@ public class Feedback {
     )
     @JoinColumn(name = "FEEDBACK_ID")
     private List<Answer> answers;
+
+    @JoinColumn(name = "FEEDBACK_ID")
+    private List<User> users;
  
     private String textFeedback;
 

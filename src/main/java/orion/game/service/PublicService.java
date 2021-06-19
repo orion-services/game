@@ -49,10 +49,47 @@ import orion.game.model.Feedback;
 import orion.game.model.Game;
 import orion.game.model.Question;
 import orion.game.model.Ranking;
+import orion.game.model.Team;
+import orion.game.model.User;
 
 @RequestScoped
 @Path("/api/v1/")
 public class PublicService extends BaseController{
+
+    @POST
+    @APIResponse(responseCode = "200", description = "successfully")
+    @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    @Tag(name="PLAYER")
+    @Path("playeruser")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public User createUser() {
+
+        final User user = new User();
+            userDAO.create(user);           
+                return user;
+        
+    }
+
+    @POST
+    @APIResponse(responseCode = "200", description = "successfully")
+    @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    @Tag(name="PLAYER")
+    @Path("playerteam")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Team createTeam(@FormParam("idUser") final long idUser) {
+
+        final Team team = new Team();
+        final User user =  userDAO.find(idUser);
+        user.setId(idUser);
+            teamDAO.create(team);           
+                return team;
+
+        
+    }
 
     @POST
     @APIResponse(responseCode = "200", description = "successfully")
@@ -160,13 +197,16 @@ public class PublicService extends BaseController{
     @APIResponse(responseCode = "200", description = "successfully")
     @APIResponse(responseCode = "409", description = "a conflict has occurred")
     @Tag(name="PLAYER")
-    @Path("playercard1")
+    @Path("playercard")
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Card createCard1() {
+    public Card createCard(@FormParam("idGame") final long idGame) {
 
         final Card card = new Card();
+        final Game game =  gameDAO.find(idGame);
+        game.setId(idGame);
+        game.addCard(card);
                 cardDAO.create(card);           
 
                 return card;
@@ -177,22 +217,20 @@ public class PublicService extends BaseController{
     @APIResponse(responseCode = "200", description = "successfully")
     @APIResponse(responseCode = "409", description = "a conflict has occurred")
     @Tag(name="PLAYER")
-    @Path("playercard2")
+    @Path("playerranking")
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Game createCard2(@FormParam("idCard") final long idCard, @FormParam("idGame") final long idGame) {
-   
-        final Card card = cardDAO.find(idCard);
+    public Ranking createRanking(@FormParam("idGame") final long idGame) {
+
+        final Ranking rank = new Ranking();
         final Game game =  gameDAO.find(idGame);
-        List<Card> cardList = new ArrayList<Card>();
-                cardList.add(card);
-                game.setCards(cardList);
-                gameDAO.update(game);         
+        game.setId(idGame);
+        game.addRanking(rank);
+                rankingDAO.create(rank);           
 
-                return game;
-
-
+                return rank;
+        
     }
 
 
