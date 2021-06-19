@@ -27,6 +27,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -54,6 +56,12 @@ public class Question {
     )
     @JoinColumn(name = "QUESTION_ID")
     private List<Answer> answers;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="GAME_QUESTION",
+               joinColumns={@JoinColumn(name="GAME_ID")},
+               inverseJoinColumns={@JoinColumn(name="QUESTION_ID")})
+    private List<Game> games;
  
     private String textQuestion;
 
