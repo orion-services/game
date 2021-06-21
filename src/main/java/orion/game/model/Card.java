@@ -61,6 +61,12 @@ public class Card {
         super();
     }
 
+
+    public Card(String textCard) {
+        this.textCard = textCard;
+    }
+
+
     private List<Role> roles;
 
     public List<Role> getRoles() {

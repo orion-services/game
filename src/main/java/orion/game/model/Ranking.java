@@ -61,6 +61,10 @@ public class Ranking {
         super();
     }
 
+    public Ranking(String textRanking) {
+        this.textRanking = textRanking;
+    }
+
     private List<Role> roles;
 
     public List<Role> getRoles() {

@@ -57,10 +57,14 @@ public class Team {
                inverseJoinColumns={@JoinColumn(name="TEAM_ID")})
     private List<Game> games;
  
-    private String textFeedback;
+    private String textTeam;
 
     public Team() {
         super();
+    }
+
+    public Team(String textTeam) {
+        this.textTeam = textTeam;
     }
 
     private List<Role> roles;
@@ -76,8 +80,5 @@ public class Team {
     public void addUser(User user) {
         this.users.add(user);
     }
-
-
-
    
 }
