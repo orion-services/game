@@ -49,11 +49,11 @@ public class Ranking {
     private long id;
     
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name="GAME_RANKING",
                joinColumns={@JoinColumn(name="GAME_ID")},
                inverseJoinColumns={@JoinColumn(name="RANKING_ID")})
-    private List<Game> games;
+    private List<Game> games= new ArrayList<>();
  
     private String textRanking;
 

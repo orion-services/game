@@ -47,22 +47,27 @@ public class Game {
     @JsonbTransient
     private long id;   
 
-    @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
-    private List<Card> cards;
+    @ManyToMany(mappedBy="games", cascade = CascadeType.MERGE)
+    private List<Card> cards= new ArrayList<>();
 
-    @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
-    private List<Ranking> rankings;
+    @ManyToMany(mappedBy="games", cascade = CascadeType.MERGE)
+    private List<Ranking> rankings= new ArrayList<>();
 
-    // @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
-    // private List<Team> teams;
+    @ManyToMany(mappedBy="games", cascade = CascadeType.MERGE)
+    private List<Team> teams= new ArrayList<>();
 
-    @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
-    private List<Question> questions;
+    @ManyToMany(mappedBy="games", cascade = CascadeType.MERGE)
+    private List<Question> questions= new ArrayList<>();
  
-    private String textFeedback;
+    private String textGame;
 
     public Game() {
         super();
+    }
+
+    public Game(String textGame) {
+        super();
+        this.textGame = textGame;
     }
 
     private List<Role> roles;
@@ -83,9 +88,9 @@ public class Game {
         this.rankings.add(ranking);
     }
 
-    // public void addTeam(Team team) {
-    //     this.teams.add(team);
-    // }
+    public void addTeam(Team team) {
+        this.teams.add(team);
+    }
 
     public void addQuestion(Question question) {
         this.questions.add(question);

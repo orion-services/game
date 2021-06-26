@@ -54,7 +54,7 @@ public class Feedback {
         orphanRemoval = true
     )
     @JoinColumn(name = "FEEDBACK_ID")
-    private List<Answer> answers;
+    private List<Answer> answers= new ArrayList<>();
 
     @ManyToOne
     private User user;

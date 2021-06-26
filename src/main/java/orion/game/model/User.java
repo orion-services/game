@@ -57,14 +57,11 @@ public class User {
     @JoinColumn(name = "USER_ID")
     private List<Feedback> feedbacks;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name="TEAM_USER",
                joinColumns={@JoinColumn(name="TEAM_ID")},
                inverseJoinColumns={@JoinColumn(name="USER_ID")})
-    private List<Team> teams;
-
-    // @ManyToMany(mappedBy="users", cascade = CascadeType.ALL)
-    // private List<Team> teams;
+    private List<Team> teams= new ArrayList<>();
  
     private String textUser;
 

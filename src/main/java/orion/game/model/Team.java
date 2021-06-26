@@ -49,23 +49,17 @@ public class Team {
     @JsonbTransient
     private long id;   
 
-    // @ManyToMany(cascade = CascadeType.ALL)
-    // @JoinTable(name="USER_TEAM",
-    //            joinColumns={@JoinColumn(name="USER_ID")},
-    //            inverseJoinColumns={@JoinColumn(name="TEAM_ID")})
-    // private List<User> users;
-
     @ManyToOne
     private Answer answer;
 
-    @ManyToMany(mappedBy="teams", cascade = CascadeType.ALL)
-    private List<User> users;
+    @ManyToMany(mappedBy="teams", cascade = CascadeType.MERGE)
+    private List<User> users = new ArrayList<>();
 
-    // @ManyToMany(cascade = CascadeType.ALL)
-    // @JoinTable(name="GAME_TEAM",
-    //            joinColumns={@JoinColumn(name="GAME_ID")},
-    //            inverseJoinColumns={@JoinColumn(name="TEAM_ID")})
-    // private List<Game> games;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name="GAME_TEAM",
+               joinColumns={@JoinColumn(name="GAME_ID")},
+               inverseJoinColumns={@JoinColumn(name="TEAM_ID")})
+    private List<Game> games= new ArrayList<>();
  
     private String textTeam;
 

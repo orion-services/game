@@ -55,13 +55,13 @@ public class Question {
         orphanRemoval = true
     )
     @JoinColumn(name = "QUESTION_ID")
-    private List<Answer> answers;
+    private List<Answer> answers= new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name="GAME_QUESTION",
                joinColumns={@JoinColumn(name="GAME_ID")},
                inverseJoinColumns={@JoinColumn(name="QUESTION_ID")})
-    private List<Game> games;
+    private List<Game> games= new ArrayList<>();
  
     private String textQuestion;
 

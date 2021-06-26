@@ -17,6 +17,7 @@
 package orion.game.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class Answer {
         orphanRemoval = true
     )
     @JoinColumn(name = "ANSWER_ID")
-    private List<Team> teams;
+    private List<Team> teams= new ArrayList<>();
 
     @ManyToOne
     private Question question;
