@@ -29,6 +29,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -48,14 +49,23 @@ public class Team {
     @JsonbTransient
     private long id;   
 
+    // @ManyToMany(cascade = CascadeType.ALL)
+    // @JoinTable(name="USER_TEAM",
+    //            joinColumns={@JoinColumn(name="USER_ID")},
+    //            inverseJoinColumns={@JoinColumn(name="TEAM_ID")})
+    // private List<User> users;
+
+    @ManyToOne
+    private Answer answer;
+
     @ManyToMany(mappedBy="teams", cascade = CascadeType.ALL)
     private List<User> users;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="GAME_TEAM",
-               joinColumns={@JoinColumn(name="GAME_ID")},
-               inverseJoinColumns={@JoinColumn(name="TEAM_ID")})
-    private List<Game> games;
+    // @ManyToMany(cascade = CascadeType.ALL)
+    // @JoinTable(name="GAME_TEAM",
+    //            joinColumns={@JoinColumn(name="GAME_ID")},
+    //            inverseJoinColumns={@JoinColumn(name="TEAM_ID")})
+    // private List<Game> games;
  
     private String textTeam;
 

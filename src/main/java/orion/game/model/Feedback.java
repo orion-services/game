@@ -27,6 +27,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -55,8 +56,8 @@ public class Feedback {
     @JoinColumn(name = "FEEDBACK_ID")
     private List<Answer> answers;
 
-    @JoinColumn(name = "FEEDBACK_ID")
-    private List<User> users;
+    @ManyToOne
+    private User user;
  
     private String textFeedback;
 

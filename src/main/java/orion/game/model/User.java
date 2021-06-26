@@ -62,6 +62,9 @@ public class User {
                joinColumns={@JoinColumn(name="TEAM_ID")},
                inverseJoinColumns={@JoinColumn(name="USER_ID")})
     private List<Team> teams;
+
+    // @ManyToMany(mappedBy="users", cascade = CascadeType.ALL)
+    // private List<Team> teams;
  
     private String textUser;
 
@@ -85,6 +88,10 @@ public class User {
         this.roles = roles;
     }
 
+    public void addTeam(Team team) {
+        this.teams.add(team);
+    }
+   
 
    
 }

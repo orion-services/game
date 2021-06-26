@@ -53,8 +53,8 @@ public class Game {
     @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
     private List<Ranking> rankings;
 
-    @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
-    private List<Team> teams;
+    // @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
+    // private List<Team> teams;
 
     @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
     private List<Question> questions;
@@ -83,9 +83,9 @@ public class Game {
         this.rankings.add(ranking);
     }
 
-    public void addTeam(Team team) {
-        this.teams.add(team);
-    }
+    // public void addTeam(Team team) {
+    //     this.teams.add(team);
+    // }
 
     public void addQuestion(Question question) {
         this.questions.add(question);

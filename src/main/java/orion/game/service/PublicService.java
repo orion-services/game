@@ -60,14 +60,33 @@ public class PublicService extends BaseController{
     @APIResponse(responseCode = "200", description = "successfully")
     @APIResponse(responseCode = "409", description = "a conflict has occurred")
     @Tag(name="PLAYER")
+    @Path("playeruser")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public User createUser(@FormParam("textUser") final String textUser) {
+
+        final User user =  new User();
+        user.setTextUser(textUser);
+            userDAO.create(user);           
+                return user;
+
+        
+    }
+
+    @POST
+    @APIResponse(responseCode = "200", description = "successfully")
+    @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    @Tag(name="PLAYER")
     @Path("playerteam")
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Team createTeam() {
+    public Team createTeam(@FormParam("textTeam") final String textTeam, @FormParam("idUser") final long idUser) {
 
-        final Team team = new Team();
-        final User user =  new User("user 1");
+        final User user =  userDAO.find(idUser);
+        final Team team =  new Team();
+        team.setTextTeam(textTeam);
         team.addUser(user);
             teamDAO.create(team);           
                 return team;
@@ -76,120 +95,7 @@ public class PublicService extends BaseController{
     }
 
 
-    @POST
-    @APIResponse(responseCode = "200", description = "successfully")
-    @APIResponse(responseCode = "409", description = "a conflict has occurred")
-    @Tag(name="PLAYER")
-    @Path("playergame")
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Game createGame() {
-
-        final Game game = new Game();
-
-        final Card card = new Card("teste");
-        final Question question = new Question("teste");
-        final Ranking ranking = new Ranking("teste");
-        final User user =  new User("user 1");
-        final Team team = new Team("teste");
-        team.addUser(user);
-
-        game.addCard(card);
-        game.addQuestion(question);
-        game.addRanking(ranking);
-        game.addTeam(team);
-
-                gameDAO.create(game); 
-            
-
-                return game;
-        
-    }
-
-    @POST
-    @APIResponse(responseCode = "200", description = "successfully")
-    @APIResponse(responseCode = "409", description = "a conflict has occurred")
-    @Tag(name="PLAYER")
-    @Path("playerquestion")
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Question createQuestion() {
-
-        final Question quest = new Question();
-
-            String textQuestion=questionDAO.randomQuestion();
-            quest.setTextQuestion(textQuestion);
-            questionDAO.create(quest);           
-
-                return quest;
-        
-    }
-
-    @POST
-    @APIResponse(responseCode = "200", description = "successfully")
-    @APIResponse(responseCode = "409", description = "a conflict has occurred")
-    @Tag(name="PLAYER")
-    @Path("playeranswer")
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Answer createAnswer(@FormParam("id") final long id, @FormParam("textAnswer") final String textAnswer) {
-
-        final Answer answ = new Answer();
-        final Question quest = new Question();
-                quest.setId(id);
-                answ.setQuestion(quest);
-                answ.setTextAnswer(textAnswer);
-                answerDAO.create(answ);           
-
-                return answ;
-        
-    }
-
-
-//create the feedback text
-
-    @POST
-    @APIResponse(responseCode = "200", description = "successfully")
-    @APIResponse(responseCode = "409", description = "a conflict has occurred")
-    @Tag(name="PLAYER")
-    @Path("playerfeedback1")
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Feedback createFeedback1(@FormParam("textFeedback") final String textFeedback) {
-
-        final Feedback feedb = new Feedback();
-                feedb.setTextFeedback(textFeedback);
-                feedbackDAO.create(feedb);           
-
-                return feedb;
-        
-    }
-
-// looks for the "id answer" and persists in the bank the "id feedback" to have the relationship
-
-    @POST
-    @APIResponse(responseCode = "200", description = "successfully")
-    @APIResponse(responseCode = "409", description = "a conflict has occurred")
-    @Tag(name="PLAYER")
-    @Path("playerfeedback2")
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Answer createFeedback2(@FormParam("idAns") final long idAns, @FormParam("idFee") final long idFee) {
-
-        final Answer answ =  answerDAO.find(idAns);
-        final Feedback feedb = new Feedback();
-                feedb.setId(idFee);
-                answ.setFeedback(feedb);
-                answerDAO.update(answ);           
-
-                return answ;
-        
-    }
+ 
 
 
 
