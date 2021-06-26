@@ -91,6 +91,8 @@ public class Answer {
         this.time = new Timestamp(calendar.getTimeInMillis());
     }
 
-
+    public void addTeam(Team team) {
+        this.teams.add(team);
+    }
    
 }

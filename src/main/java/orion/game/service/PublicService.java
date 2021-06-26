@@ -114,6 +114,73 @@ public class PublicService extends BaseController{
         
     }
 
+    @POST
+    @APIResponse(responseCode = "200", description = "successfully")
+    @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    @Tag(name="PLAYER")
+    @Path("playerquestion")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Question createQuestion(@FormParam("idGame") final long idGame) {
+
+        final Game game = gameDAO.find(idGame);
+        final Question question =  new Question();
+        question.addGame(game);
+            questionDAO.create(question);           
+                return question;
+
+        
+    }
+
+    @POST
+    @APIResponse(responseCode = "200", description = "successfully")
+    @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    @Tag(name="PLAYER")
+    @Path("playeranswer")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Answer createAnswer(@FormParam("idQuestion") final long idQuestion, @FormParam("idTeam") final long idTeam, @FormParam("textAnswer") final String textAnswer) {
+
+        final Question question = questionDAO.find(idQuestion);
+        final Team team = teamDAO.find(idTeam);
+        final Answer answer =  new Answer();
+
+        answer.setTextAnswer(textAnswer);
+        answer.addTeam(team);
+        answer.setQuestion(question);
+            answerDAO.create(answer);           
+                return answer;
+
+        
+    }
+
+    @POST
+    @APIResponse(responseCode = "200", description = "successfully")
+    @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    @Tag(name="PLAYER")
+    @Path("playerfeedback")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Feedback createFeedback(@FormParam("idUser") final long idUser, @FormParam("idAnswer") final long idAnswer, @FormParam("textFeedback") final String textFeedback) {
+
+        final Feedback feedback = new Feedback();
+        final User user = userDAO.find(idUser);
+        final Answer answer = answerDAO.find(idAnswer);
+
+        feedback.addAnswer(answer);
+        feedback.setUser(user);
+        feedback.setTextFeedback(textFeedback);
+        
+
+            feedbackDAO.create(feedback);           
+                return feedback;
+
+        
+    }
+
 
  
 

@@ -85,6 +85,10 @@ public class Question {
         this.roles = roles;
     }
 
+    public void addGame(Game game) {
+        this.games.add(game);
+    }
+
 
    
 }

@@ -81,6 +81,9 @@ public class Feedback {
         this.roles = roles;
     }
 
+    public void addAnswer(Answer answer) {
+        this.answers.add(answer);
+    }
 
    
 }
