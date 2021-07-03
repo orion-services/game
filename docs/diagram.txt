@@ -1,4 +1,6 @@
 @startuml
+!define DARKBLUE
+!include https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml 
 
 package java.orion.game.model {
     class Game {
