@@ -1,17 +1,25 @@
 @startuml
-!define DARKGREEN
+!define LIGHTORANGE
 !include https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml 
 
 left to right direction
 skinparam packageStyle rectangle
-actor user
+actor student
+note left : Student answering the questions
 actor teacher
+note right : Teacher behind feedback for students' answers
 rectangle game {
-    user -- (answer)
+    student -- (answer)
     (question) <. (game)
+    note right :In a match there will be times when the player will need to answer questions
     (feedback) <. (answer)
     (answer) <. (question)
+    note right : There is a bank of issues to be drawn for students to respond
     (feedback) -- teacher
+
+    
 }
+
+
 
 @enduml
