@@ -1,0 +1,18 @@
+@startuml
+!define DARKGREEN
+!include https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml 
+
+left to right direction
+skinparam packageStyle rectangle
+actor user
+actor teacher
+rectangle game {
+    user -- (answer)
+    (question) <. (game)
+    (feedback) <. (answer)
+    (answer) <. (question)
+    (question) -- teacher
+    (feedback) -- teacher
+}
+
+@enduml
