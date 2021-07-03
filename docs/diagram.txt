@@ -53,13 +53,13 @@ package java.orion.game.model {
     }
 
      Team "1..*" -- "0..*" Game
-     Card "1..*" - "0..*" Game
+     Card "1..*" -- "0..*" Game
      Ranking "0..*" -- "1..*" Game
      Question "1..*" -- "0..*" Game
      Question "1" -- "1..*" Answer
      Answer "1" -- "1..*" Team
-     Answer "0..*" - "1" Feedback
-     Feedback "0..*" - "1" User
-     User "1..*" - "0..*" Team
+     Answer "0..*" -- "1" Feedback
+     Feedback "0..*" -- "1" User
+     User "1..*" -- "0..*" Team
 }
 @enduml
