@@ -16,14 +16,20 @@
  */
 package orion.game.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-
-import javax.persistence.Column;
+import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -31,35 +37,37 @@ import lombok.Data;
 
 
 @Entity
+@SequenceGenerator(name="game_seq", sequenceName = "game_seq",initialValue = 1, allocationSize = 1)
 @Data
 @Table(name = "GAME")
 public class Game {
 
-@TableGenerator(name = "id_generator", table = "ID_GEN", pkColumnName = "gen_name", valueColumnName = "gen_value",
-pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
-@Id
-@GeneratedValue(strategy = GenerationType.TABLE, generator = "id_generator")
-    private long id;
-    
-    @Column(name = "QUESTION")
-    private String question;
-  
-    @Column(name = "ANSWER")
-    private String answer;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GAME_ID")
+    @JsonbTransient
+    private long id;   
 
-    @Column(name = "FEEDBACK")
-    private String feedback;
+    @ManyToMany(mappedBy="games", cascade = CascadeType.MERGE)
+    private List<Card> cards= new ArrayList<>();
 
-    public Game(String question, String answer, String feedback) {
-        super();
-        this.question = question;
-        this.answer = answer;
-        this.feedback = feedback;
-    }
+    @ManyToMany(mappedBy="games", cascade = CascadeType.MERGE)
+    private List<Ranking> rankings= new ArrayList<>();
 
+    @ManyToMany(mappedBy="games", cascade = CascadeType.MERGE)
+    private List<Team> teams= new ArrayList<>();
+
+    @ManyToMany(mappedBy="games", cascade = CascadeType.MERGE)
+    private List<Question> questions= new ArrayList<>();
+ 
+    private String textGame;
 
     public Game() {
         super();
+    }
+
+    public Game(String textGame) {
+        super();
+        this.textGame = textGame;
     }
 
     private List<Role> roles;
@@ -71,6 +79,23 @@ pkColumnValue="game_gen", initialValue=1000, allocationSize=10)
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
+    public void addCard(Card card) {
+        this.cards.add(card);
+    }
+
+    public void addRanking(Ranking ranking) {
+        this.rankings.add(ranking);
+    }
+
+    public void addTeam(Team team) {
+        this.teams.add(team);
+    }
+
+    public void addQuestion(Question question) {
+        this.questions.add(question);
+    }
+
 
 
    
