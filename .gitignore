@@ -1,3 +1,5 @@
+docs/uml/diagram.png
+
 target/
 .settings/
 .vscode/
@@ -7,5 +9,5 @@ target/
 .github
 .factorypath
 .DS_Store
-reimage.sh
-revolume.sh
+
+
