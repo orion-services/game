@@ -55,7 +55,7 @@ public class User {
         orphanRemoval = true
     )
     @JoinColumn(name = "USER_ID")
-    private List<Feedback> feedbacks;
+    private List<Feedback> feedbacks= new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name="TEAM_USER",
