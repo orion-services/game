@@ -1,6 +1,4 @@
 @startuml
-!define LIGHTORANGE
-!include https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml 
 
 left to right direction
 skinparam packageStyle rectangle
