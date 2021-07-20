@@ -2,9 +2,9 @@
 
 left to right direction
 skinparam packageStyle rectangle
-actor student
+actor user_student as student
 note left : Student answering the questions
-actor teacher
+actor user_teacher as teacher
 note right : Teacher behind feedback for students' answers
 rectangle game {
     student -- (answer)
