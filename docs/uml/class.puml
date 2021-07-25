@@ -1,6 +1,6 @@
 @startuml
 
-package java.orion.game.model {
+package dev.orion.game.model {
     class Game {
         - cards: ArrayList<Card>
         - rankings: ArrayList<Ranking>
