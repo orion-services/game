@@ -8,5 +8,5 @@
     user-->game: /game/api/v1/buycard
     game->game: public Game buyCard(@FormParam("idGame") final long idGame)
     game->db: return object
-    db-->>game: Card card
+    db-->>user: Card card
 @enduml
