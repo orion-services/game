@@ -1,0 +1,12 @@
+@startuml
+    title Method buyCard
+
+    participant user_team as user
+    participant Game as game
+    participant Database as db
+
+    user-->game: /game/api/v1/buycard
+    game->game: public Game buyCard(@FormParam("idGame") final long idGame)
+    game->db: return object
+    db-->>game: Card card
+@enduml

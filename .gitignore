@@ -1,6 +1,7 @@
 docs/uml/class.png
-docs/uml/usecaseStudentTeacher.png
-docs/uml/sequenceBuyCard.png
+docs/uml/ucStudentTeacher.png
+docs/uml/sBuyCard.png
+docs/uml/ucStartGame.png
 
 target/
 .settings/

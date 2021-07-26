@@ -117,6 +117,25 @@ public class PublicService extends BaseController{
     @POST
     @APIResponse(responseCode = "200", description = "successfully")
     @APIResponse(responseCode = "409", description = "a conflict has occurred")
+    @Tag(name="GAME")
+    @Path("buycard")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Game buyCard(@FormParam("idGame") final long idGame) {
+
+        final Game game = gameDAO.find(idGame);
+        final Card card = new Card();
+        game.addCard(card);
+            gameDAO.update(game);         
+                return game;
+
+        
+    }
+
+    @POST
+    @APIResponse(responseCode = "200", description = "successfully")
+    @APIResponse(responseCode = "409", description = "a conflict has occurred")
     @Tag(name="PLAYER")
     @Path("playerquestion")
     @Consumes("application/x-www-form-urlencoded")
