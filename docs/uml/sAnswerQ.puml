@@ -1,0 +1,12 @@
+@startuml
+    title Method create answer
+
+    participant user_team as user
+    participant Game as game
+    participant Database as db
+
+    user-->game: /game/api/v1/createAnswer
+    game->game: public Answer createAnswer(long idQuestion, long idTeam, String textAnswer)
+    game->db: return object
+    db-->>user: Answer answer
+@enduml

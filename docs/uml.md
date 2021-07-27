@@ -15,3 +15,5 @@ nav_order: 2
 * [Class](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/orion-services/game/master/docs/uml/class.puml)
 
 * [Sequence](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/orion-services/game/master/docs/uml/sBuyCard.puml)
+   
+    *[Create answer](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/orion-services/game/master/docs/uml/sAnswerQ.puml)
