@@ -1,10 +1,10 @@
 @startuml NFD_Game
 
-Player -> Interface : 
-Player <- Interface : 
-Player -> Interface : 
-Interface -> Service : 
-Interface <- Service : 
-Player <- Interface : 
+Player -> App : Choose new game
+Player <- App : Return screen with options
+Player -> App : User choose a team or solo mode and begin match
+App -> Game : 
+App <- Game : 
+Player <- App : 
 
 @enduml
