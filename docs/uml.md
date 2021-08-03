@@ -13,7 +13,7 @@ nav_order: 2
 
     * [Chat](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/orion-services/game/master/docs/uml/NFD_Chat.puml)
 
-    * [Game](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/orion-services/game/master/docs/uml/NFD_Game.puml)
+    * [Create team](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/orion-services/game/master/docs/uml/NFD_Game.puml)
 
     * [Start game](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/orion-services/game/master/docs/uml/ucStartGame.puml)
 
