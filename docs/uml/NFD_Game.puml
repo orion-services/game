@@ -1,0 +1,10 @@
+@startuml NFD_Game
+
+Player -> Interface : 
+Player <- Interface : 
+Player -> Interface : 
+Interface -> Service : 
+Interface <- Service : 
+Player <- Interface : 
+
+@enduml

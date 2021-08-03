@@ -1,0 +1,23 @@
+@startuml NFD_Authentication
+
+Player -> App : Provides data
+App -> User : Authentication request
+App <- User : Authentication response
+'if (registered user? && correct password) then
+Player <- App : Enter the account
+'else if(incorrect password)
+App <- User : Erro
+Player <- App : Password reset option
+Player -> App : Confirm password reset
+App -> User : Password reset request
+User -> Email : Send link to password reset
+'else
+App <- User : Erro
+Player <- App : Option to register
+Player -> App : Provides data to record
+App -> User : Registration request
+App <- User : Registration response
+Player <- App : Enter the account
+@enduml
+
+
