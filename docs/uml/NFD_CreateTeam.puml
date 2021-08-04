@@ -3,8 +3,28 @@
 Player -> App : Choose new game
 Player <- App : Return screen with options
 Player -> App : User choose a team or solo mode and begin match
-App -> Game : 
-App <- Game : 
-Player <- App : 
+
+alt solo mode
+    App -> Game : Request game begin
+    App <- Game : send a question
+    Player <- App : Return interface with game screen
+
+else challenge 1x1
+    App -> Game : Request game begin
+    App <- Game : send a question
+    Player <- App : Return interface with game screen
+    
+else challenge 2x2
+    App -> Game : Request game begin
+    App <- Game : send a question
+    Player <- App : Return interface with game screen
+    
+else challenge 3x3
+    App -> Game : Request game begin
+    App <- Game : send a question
+    Player <- App : Return interface with game screen
+  
+
+end
 
 @enduml
