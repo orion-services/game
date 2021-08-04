@@ -16,14 +16,14 @@ else challenge 1x1
     Player <- App : Return interface with game screen
     
 else challenge 2x2
-    App -> Player : Returns Screen Team
+    App -> Player : Returns Team Create Screen
     Player -> App: Sends data to form team and invites or draw the team
     App -> Game : Request game begin
     App <- Game : Send a question
     Player <- App : Return interface with game screen
     
 else challenge 3x3
-    App -> Player : Returns Screen Team
+    App -> Player : Returns Team Create Screen
     Player -> App: Sends data to form team and invites or draw the team
     App -> Game : Request game begin
     App <- Game : Send a question
