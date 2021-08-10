@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>orion-game-service</name>
+	<name>orion-user-service</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -22,7 +22,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1615858120748</id>
+			<id>1598993300745</id>
 			<name></name>
 			<type>30</type>
 			<matcher>

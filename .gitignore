@@ -1,23 +1,39 @@
-docs/uml/class.png
-docs/uml/ucStudentTeacher.png
-docs/uml/sBuyCard.png
-docs/uml/ucStartGame.png
-docs/uml/sAnswerQ.png
-docs/uml/tcc1.puml
-docs/uml/tcc1.png
-docs/uml/NFD_Authentication.png
-docs/uml/NFD_Chat.png
-docs/uml/NFD_Game.png
-docs/uml/UC Game.png
-
+#Maven
 target/
-.settings/
-.vscode/
-.project/
-.factorypath/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+
+# Eclipse
+.project
 .classpath
-.github
+.settings/
+bin/
+
+# IntelliJ
+.idea
+*.ipr
+*.iml
+*.iws
+
+# NetBeans
+nb-configuration.xml
+
+# Visual Studio Code
+.vscode
 .factorypath
+
+# OSX
 .DS_Store
 
+# Vim
+*.swp
+*.swo
 
+# patch
+*.orig
+*.rej
+
+# Local environment
+.env
