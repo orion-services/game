@@ -1,4 +1,4 @@
-@startuml NFD_Game
+@startuml NFD_CreateTeam
 
 Player -> App : Choose new game
 Player <- App : Return screen with options
@@ -17,19 +17,30 @@ else challenge 1x1
     
 else challenge 2x2
     App -> Player : Returns Team Create Screen
-    Player -> App: Sends data to form team and invites or draw the team
+    Player -> App: Search by user name
+    App -> Game : Send a user name request
+    Game -> App : Returns corresponding options
+    App -> Player : Show the screen
+    Player -> App: Select the user and click Invite
     App -> Game : Request game begin
     App <- Game : Send a question
     Player <- App : Return interface with game screen
     
 else challenge 3x3
     App -> Player : Returns Team Create Screen
-    Player -> App: Sends data to form team and invites or draw the team
+    Player -> App: Search by user name
+    App -> Game : Send a user name request
+    Game -> App : Returns corresponding options
+    App -> Player : Show the screen
+    Player -> App: Select the user and click Invite
+    Player -> App: Search by user name
+    App -> Game : Send a user name request
+    Game -> App : Returns corresponding options
+    App -> Player : Show the screen
+    Player -> App: Select the user and click Invite
     App -> Game : Request game begin
     App <- Game : Send a question
     Player <- App : Return interface with game screen
-    
-
 end
 
 @enduml
