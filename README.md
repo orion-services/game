@@ -65,3 +65,17 @@ The Quarkus application configuration is located in `src/main/resources/applicat
 Easily start your RESTful Web Services
 
 [Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
+
+## hint:
+
+- to kill port: sudo kill -9 `sudo lsof -t -i:8080`
+- to kill all docker files: docker rm -f $(docker ps -a -q);docker system prune --volumes -a -f
+
+or 
+
+- netstat -anop | grep 8080
+- kill -9 id
+
+or
+
+-p kill -9 -f tomcat
