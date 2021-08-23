@@ -51,9 +51,8 @@ public class User extends PanacheEntityBase{
     @OneToMany(
         mappedBy = "user",
         cascade = CascadeType.ALL,
-        orphanRemoval = true
+        orphanRemoval = true, fetch = FetchType.EAGER
     )
-    @JoinColumn(name = "USER_ID")
     private List<Feedback> feedbacks= new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.MERGE)
@@ -74,15 +73,15 @@ public class User extends PanacheEntityBase{
         super();
     }
 
-    private List<Role> roles;
+    // private List<Role> roles;
 
-    public List<Role> getRoles() {
-        return roles;
-    }
+    // public List<Role> getRoles() {
+    //     return roles;
+    // }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
+    // public void setRoles(List<Role> roles) {
+    //     this.roles = roles;
+    // }
 
     public void addTeam(Team team) {
         this.teams.add(team);

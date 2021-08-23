@@ -49,6 +49,7 @@ public class Team extends PanacheEntityBase{
     private long id;   
 
     @ManyToOne
+    @JoinColumn(name = "ANSWER_ID")
     private Answer answer;
 
     @ManyToMany(mappedBy="teams", cascade = CascadeType.MERGE)
@@ -70,15 +71,6 @@ public class Team extends PanacheEntityBase{
         this.textTeam = textTeam;
     }
 
-    private List<Role> roles;
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
 
     public void addUser(User user) {
         this.users.add(user);

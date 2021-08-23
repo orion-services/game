@@ -68,15 +68,7 @@ public class Game extends PanacheEntityBase{
         this.textGame = textGame;
     }
 
-    private List<Role> roles;
 
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
 
     public void addCard(Card card) {
         this.cards.add(card);

@@ -50,12 +50,12 @@ public class Feedback extends PanacheEntityBase{
     @OneToMany(
         mappedBy = "feedback",
         cascade = CascadeType.ALL,
-        orphanRemoval = true
+        orphanRemoval = true, fetch = FetchType.EAGER
     )
-    @JoinColumn(name = "FEEDBACK_ID")
     private List<Answer> answers= new ArrayList<>();
 
     @ManyToOne
+    @JoinColumn(name = "USER_ID")
     private User user;
  
     private String textFeedback;
@@ -70,15 +70,6 @@ public class Feedback extends PanacheEntityBase{
         super();
     }
 
-    private List<Role> roles;
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
 
     public void addAnswer(Answer answer) {
         this.answers.add(answer);

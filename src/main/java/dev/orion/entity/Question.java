@@ -51,9 +51,8 @@ public class Question extends PanacheEntityBase{
     @OneToMany(
         mappedBy = "question",
         cascade = CascadeType.ALL,
-        orphanRemoval = true
+        orphanRemoval = true, fetch = FetchType.EAGER
     )
-    @JoinColumn(name = "QUESTION_ID")
     private List<Answer> answers= new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.MERGE)
@@ -74,15 +73,7 @@ public class Question extends PanacheEntityBase{
         super();
     }
 
-    private List<Role> roles;
 
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
 
     public void addGame(Game game) {
         this.games.add(game);

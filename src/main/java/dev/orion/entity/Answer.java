@@ -63,29 +63,19 @@ public class Answer extends PanacheEntityBase{
     @OneToMany(
         mappedBy = "answer",
         cascade = CascadeType.ALL,
-        orphanRemoval = true
+        orphanRemoval = true, fetch = FetchType.EAGER
     )
-    @JoinColumn(name = "ANSWER_ID")
     private List<Team> teams= new ArrayList<>();
 
     @ManyToOne
+    @JoinColumn(name = "FEEDBACK_ID")
     private Question question;
 
     @ManyToOne
+    @JoinColumn(name = "QUESTION_ID")
     private Feedback feedback;
 
-    
 
-
-    private List<Role> roles;
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
 
     public Answer() {
         Calendar calendar = Calendar.getInstance();
