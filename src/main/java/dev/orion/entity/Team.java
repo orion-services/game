@@ -49,7 +49,6 @@ public class Team extends PanacheEntityBase{
     private long id;   
 
     @ManyToOne
-    @JoinColumn(name = "ANSWER_ID")
     private Answer answer;
 
     @ManyToMany(mappedBy="teams", cascade = CascadeType.MERGE)

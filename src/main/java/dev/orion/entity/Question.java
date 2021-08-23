@@ -53,6 +53,7 @@ public class Question extends PanacheEntityBase{
         cascade = CascadeType.ALL,
         orphanRemoval = true, fetch = FetchType.EAGER
     )
+    @JoinColumn(name = "FEEDBACK_ID")
     private List<Answer> answers= new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.MERGE)

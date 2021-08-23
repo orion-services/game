@@ -52,10 +52,10 @@ public class Feedback extends PanacheEntityBase{
         cascade = CascadeType.ALL,
         orphanRemoval = true, fetch = FetchType.EAGER
     )
+    @JoinColumn(name = "QUESTION_ID")
     private List<Answer> answers= new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
     private User user;
  
     private String textFeedback;
