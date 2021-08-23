@@ -51,9 +51,8 @@ public class User extends PanacheEntityBase{
     @OneToMany(
         mappedBy = "user",
         cascade = CascadeType.ALL,
-        orphanRemoval = true, fetch = FetchType.EAGER
+        orphanRemoval = true, fetch = FetchType.LAZY
     )
-    @JoinColumn(name = "USER_ID")
     private List<Feedback> feedbacks= new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.MERGE)

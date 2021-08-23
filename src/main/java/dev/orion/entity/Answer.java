@@ -63,15 +63,16 @@ public class Answer extends PanacheEntityBase{
     @OneToMany(
         mappedBy = "answer",
         cascade = CascadeType.ALL,
-        orphanRemoval = true, fetch = FetchType.EAGER
+        orphanRemoval = true, fetch = FetchType.LAZY
     )
-    @JoinColumn(name = "ANSWER_ID")
     private List<Team> teams= new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "QUESTION_ID")
     private Question question;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FEEDBACK_ID")
     private Feedback feedback;
 
 

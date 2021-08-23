@@ -50,12 +50,12 @@ public class Feedback extends PanacheEntityBase{
     @OneToMany(
         mappedBy = "feedback",
         cascade = CascadeType.ALL,
-        orphanRemoval = true, fetch = FetchType.EAGER
+        orphanRemoval = true, fetch = FetchType.LAZY
     )
-    @JoinColumn(name = "QUESTION_ID")
     private List<Answer> answers= new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID")
     private User user;
  
     private String textFeedback;

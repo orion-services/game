@@ -51,9 +51,8 @@ public class Question extends PanacheEntityBase{
     @OneToMany(
         mappedBy = "question",
         cascade = CascadeType.ALL,
-        orphanRemoval = true, fetch = FetchType.EAGER
+        orphanRemoval = true, fetch = FetchType.LAZY
     )
-    @JoinColumn(name = "FEEDBACK_ID")
     private List<Answer> answers= new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.MERGE)

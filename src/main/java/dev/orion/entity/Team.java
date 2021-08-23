@@ -48,7 +48,8 @@ public class Team extends PanacheEntityBase{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TEAM_ID")
     private long id;   
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ANSWER_ID")
     private Answer answer;
 
     @ManyToMany(mappedBy="teams", cascade = CascadeType.MERGE)
