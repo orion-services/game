@@ -14,10 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.orion.entity;
+package dev.orion.game.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -26,7 +27,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -38,42 +40,32 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 
 @Entity
-@SequenceGenerator(name="feedback_seq", sequenceName = "feedback_seq",initialValue = 1, allocationSize = 1)
-@Table(name = "FEEDBACK")
-public class Feedback extends PanacheEntityBase{
+@SequenceGenerator(name="ranking_seq", sequenceName = "ranking_seq",initialValue = 1, allocationSize = 1)
+@Table(name = "RANKING")
+public class Ranking{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FEEDBACK_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RANKING_ID")
     private long id;
     
 
-    @OneToMany(
-        mappedBy = "feedback",
-        cascade = CascadeType.ALL,
-        orphanRemoval = true, fetch = FetchType.LAZY
-    )
-    private List<Answer> answers= new ArrayList<>();
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID")
-    private User user;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name="GAME_RANKING",
+               joinColumns={@JoinColumn(name="GAME_ID")},
+               inverseJoinColumns={@JoinColumn(name="RANKING_ID")})
+    private List<Game> games= new ArrayList<>();
  
-    private String textFeedback;
+    private String textRanking;
 
-    public Feedback(String textFeedback) {
-        super();
-        this.textFeedback = textFeedback;
-    }
-
-
-    public Feedback() {
+    public Ranking() {
         super();
     }
 
-
-    public void addAnswer(Answer answer) {
-        this.answers.add(answer);
+    public Ranking(String textRanking) {
+        this.textRanking = textRanking;
     }
+
+
 
 
     public long getId() {
@@ -84,28 +76,20 @@ public class Feedback extends PanacheEntityBase{
         this.id = id;
     }
 
-    public List<Answer> getAnswers() {
-        return this.answers;
+    public List<Game> getGames() {
+        return this.games;
     }
 
-    public void setAnswers(List<Answer> answers) {
-        this.answers = answers;
+    public void setGames(List<Game> games) {
+        this.games = games;
     }
 
-    public User getUser() {
-        return this.user;
+    public String getTextRanking() {
+        return this.textRanking;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getTextFeedback() {
-        return this.textFeedback;
-    }
-
-    public void setTextFeedback(String textFeedback) {
-        this.textFeedback = textFeedback;
+    public void setTextRanking(String textRanking) {
+        this.textRanking = textRanking;
     }
    
 }

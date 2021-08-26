@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.orion.entity;
+package dev.orion.game.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 @Entity
 @SequenceGenerator(name="game_seq", sequenceName = "game_seq",initialValue = 1, allocationSize = 1)
 @Table(name = "GAME")
-public class Game extends PanacheEntityBase{
+public class Game{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GAME_ID")

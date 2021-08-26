@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.orion.entity;
+package dev.orion.game.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -40,41 +39,33 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 
 @Entity
-@SequenceGenerator(name="team_seq", sequenceName = "team_seq",initialValue = 1, allocationSize = 1)
-@Table(name = "TEAM")
-public class Team extends PanacheEntityBase{
+@SequenceGenerator(name="card_seq", sequenceName = "card_seq",initialValue = 1, allocationSize = 1)
+@Table(name = "CARD")
+public class Card{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TEAM_ID")
-    private long id;   
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ANSWER_ID")
-    private Answer answer;
-
-    @ManyToMany(mappedBy="teams", cascade = CascadeType.MERGE)
-    private List<User> users = new ArrayList<>();
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CARD_ID")
+    private long id;
+    
 
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name="GAME_TEAM",
+    @JoinTable(name="GAME_CARD",
                joinColumns={@JoinColumn(name="GAME_ID")},
-               inverseJoinColumns={@JoinColumn(name="TEAM_ID")})
+               inverseJoinColumns={@JoinColumn(name="CARD_ID")})
     private List<Game> games= new ArrayList<>();
  
-    private String textTeam;
+    private String textCard;
 
-    public Team() {
+    public Card() {
         super();
     }
 
-    public Team(String textTeam) {
-        this.textTeam = textTeam;
+
+    public Card(String textCard) {
+        this.textCard = textCard;
     }
 
 
-    public void addUser(User user) {
-        this.users.add(user);
-    }
 
     public long getId() {
         return this.id;
@@ -82,22 +73,6 @@ public class Team extends PanacheEntityBase{
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Answer getAnswer() {
-        return this.answer;
-    }
-
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
-    }
-
-    public List<User> getUsers() {
-        return this.users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 
     public List<Game> getGames() {
@@ -108,12 +83,13 @@ public class Team extends PanacheEntityBase{
         this.games = games;
     }
 
-    public String getTextTeam() {
-        return this.textTeam;
+    public String getTextCard() {
+        return this.textCard;
     }
 
-    public void setTextTeam(String textTeam) {
-        this.textTeam = textTeam;
+    public void setTextCard(String textCard) {
+        this.textCard = textCard;
     }
+
    
 }

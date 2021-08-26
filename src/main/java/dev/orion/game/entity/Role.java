@@ -1,4 +1,4 @@
-package dev.orion.entity;
+package dev.orion.game.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

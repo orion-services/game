@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.orion.entity;
+package dev.orion.game.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +26,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -39,32 +38,42 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 
 @Entity
-@SequenceGenerator(name="card_seq", sequenceName = "card_seq",initialValue = 1, allocationSize = 1)
-@Table(name = "CARD")
-public class Card extends PanacheEntityBase{
+@SequenceGenerator(name="feedback_seq", sequenceName = "feedback_seq",initialValue = 1, allocationSize = 1)
+@Table(name = "FEEDBACK")
+public class Feedback{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CARD_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FEEDBACK_ID")
     private long id;
     
 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name="GAME_CARD",
-               joinColumns={@JoinColumn(name="GAME_ID")},
-               inverseJoinColumns={@JoinColumn(name="CARD_ID")})
-    private List<Game> games= new ArrayList<>();
- 
-    private String textCard;
+    @OneToMany(
+        mappedBy = "feedback",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true, fetch = FetchType.LAZY
+    )
+    private List<Answer> answers= new ArrayList<>();
 
-    public Card() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "USER_ID")
+    private User user;
+ 
+    private String textFeedback;
+
+    public Feedback(String textFeedback) {
+        super();
+        this.textFeedback = textFeedback;
+    }
+
+
+    public Feedback() {
         super();
     }
 
 
-    public Card(String textCard) {
-        this.textCard = textCard;
+    public void addAnswer(Answer answer) {
+        this.answers.add(answer);
     }
-
 
 
     public long getId() {
@@ -75,21 +84,28 @@ public class Card extends PanacheEntityBase{
         this.id = id;
     }
 
-    public List<Game> getGames() {
-        return this.games;
+    public List<Answer> getAnswers() {
+        return this.answers;
     }
 
-    public void setGames(List<Game> games) {
-        this.games = games;
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
     }
 
-    public String getTextCard() {
-        return this.textCard;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setTextCard(String textCard) {
-        this.textCard = textCard;
+    public void setUser(User user) {
+        this.user = user;
     }
 
+    public String getTextFeedback() {
+        return this.textFeedback;
+    }
+
+    public void setTextFeedback(String textFeedback) {
+        this.textFeedback = textFeedback;
+    }
    
 }

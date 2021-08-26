@@ -14,11 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.orion.entity;
+package dev.orion.game.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -29,6 +28,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -40,33 +40,41 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 
 @Entity
-@SequenceGenerator(name="ranking_seq", sequenceName = "ranking_seq",initialValue = 1, allocationSize = 1)
-@Table(name = "RANKING")
-public class Ranking extends PanacheEntityBase{
+@SequenceGenerator(name="team_seq", sequenceName = "team_seq",initialValue = 1, allocationSize = 1)
+@Table(name = "TEAM")
+public class Team{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RANKING_ID")
-    private long id;
-    
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TEAM_ID")
+    private long id;   
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ANSWER_ID")
+    private Answer answer;
+
+    @ManyToMany(mappedBy="teams", cascade = CascadeType.MERGE)
+    private List<User> users = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name="GAME_RANKING",
+    @JoinTable(name="GAME_TEAM",
                joinColumns={@JoinColumn(name="GAME_ID")},
-               inverseJoinColumns={@JoinColumn(name="RANKING_ID")})
+               inverseJoinColumns={@JoinColumn(name="TEAM_ID")})
     private List<Game> games= new ArrayList<>();
  
-    private String textRanking;
+    private String textTeam;
 
-    public Ranking() {
+    public Team() {
         super();
     }
 
-    public Ranking(String textRanking) {
-        this.textRanking = textRanking;
+    public Team(String textTeam) {
+        this.textTeam = textTeam;
     }
 
 
-
+    public void addUser(User user) {
+        this.users.add(user);
+    }
 
     public long getId() {
         return this.id;
@@ -74,6 +82,22 @@ public class Ranking extends PanacheEntityBase{
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Answer getAnswer() {
+        return this.answer;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
+    }
+
+    public List<User> getUsers() {
+        return this.users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     public List<Game> getGames() {
@@ -84,12 +108,12 @@ public class Ranking extends PanacheEntityBase{
         this.games = games;
     }
 
-    public String getTextRanking() {
-        return this.textRanking;
+    public String getTextTeam() {
+        return this.textTeam;
     }
 
-    public void setTextRanking(String textRanking) {
-        this.textRanking = textRanking;
+    public void setTextTeam(String textTeam) {
+        this.textTeam = textTeam;
     }
    
 }

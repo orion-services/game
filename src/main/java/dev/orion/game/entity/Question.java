@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.orion.entity;
+package dev.orion.game.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,54 +39,46 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 
 @Entity
-@SequenceGenerator(name="user_seq", sequenceName = "user_seq",initialValue = 1, allocationSize = 1)
-@Table(name = "USER")
-public class User extends PanacheEntityBase{
+@SequenceGenerator(name="question_seq", sequenceName = "question_seq",initialValue = 1, allocationSize = 1)
+@Table(name = "QUESTION")
+public class Question{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "QUESTION_ID")
     private long id;
     
 
     @OneToMany(
-        mappedBy = "user",
+        mappedBy = "question",
         cascade = CascadeType.ALL,
         orphanRemoval = true, fetch = FetchType.LAZY
     )
-    private List<Feedback> feedbacks= new ArrayList<>();
+    private List<Answer> answers= new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name="TEAM_USER",
-               joinColumns={@JoinColumn(name="TEAM_ID")},
-               inverseJoinColumns={@JoinColumn(name="USER_ID")})
-    private List<Team> teams= new ArrayList<>();
+    @JoinTable(name="GAME_QUESTION",
+               joinColumns={@JoinColumn(name="GAME_ID")},
+               inverseJoinColumns={@JoinColumn(name="QUESTION_ID")})
+    private List<Game> games= new ArrayList<>();
  
-    private String textUser;
+    private String textQuestion;
 
-    public User(String textUser) {
+    public Question(String textQuestion) {
         super();
-        this.textUser = textUser;
+        this.textQuestion = textQuestion;
     }
 
 
-    public User() {
+    public Question() {
         super();
     }
 
-    // private List<Role> roles;
 
-    // public List<Role> getRoles() {
-    //     return roles;
-    // }
 
-    // public void setRoles(List<Role> roles) {
-    //     this.roles = roles;
-    // }
-
-    public void addTeam(Team team) {
-        this.teams.add(team);
+    public void addGame(Game game) {
+        this.games.add(game);
     }
-   
+
 
     public long getId() {
         return this.id;
@@ -96,28 +88,28 @@ public class User extends PanacheEntityBase{
         this.id = id;
     }
 
-    public List<Feedback> getFeedbacks() {
-        return this.feedbacks;
+    public List<Answer> getAnswers() {
+        return this.answers;
     }
 
-    public void setFeedbacks(List<Feedback> feedbacks) {
-        this.feedbacks = feedbacks;
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
     }
 
-    public List<Team> getTeams() {
-        return this.teams;
+    public List<Game> getGames() {
+        return this.games;
     }
 
-    public void setTeams(List<Team> teams) {
-        this.teams = teams;
+    public void setGames(List<Game> games) {
+        this.games = games;
     }
 
-    public String getTextUser() {
-        return this.textUser;
+    public String getTextQuestion() {
+        return this.textQuestion;
     }
 
-    public void setTextUser(String textUser) {
-        this.textUser = textUser;
+    public void setTextQuestion(String textQuestion) {
+        this.textQuestion = textQuestion;
     }
 
    

@@ -14,77 +14,80 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.orion.entity;
+package dev.orion.game.entity;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 
 
 
 @Entity
-@SequenceGenerator(name="answer_seq", sequenceName = "answer_seq",initialValue = 1, allocationSize = 1)
-@Table(name = "ANSWER")
-public class Answer extends PanacheEntityBase{
+@SequenceGenerator(name="user_seq", sequenceName = "user_seq",initialValue = 1, allocationSize = 1)
+@Table(name = "USER")
+public class User{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ANSWER_ID")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_ID")
     private long id;
     
-    private Timestamp time;
-    
-    private String textAnswer;
-
-    public Answer(String textAnswer)    
-    {   
-        super();  
-        this.textAnswer = textAnswer;   
-    }    
 
     @OneToMany(
-        mappedBy = "answer",
+        mappedBy = "user",
         cascade = CascadeType.ALL,
         orphanRemoval = true, fetch = FetchType.LAZY
     )
+    private List<Feedback> feedbacks= new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name="TEAM_USER",
+               joinColumns={@JoinColumn(name="TEAM_ID")},
+               inverseJoinColumns={@JoinColumn(name="USER_ID")})
     private List<Team> teams= new ArrayList<>();
+ 
+    private String textUser;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "QUESTION_ID")
-    private Question question;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "FEEDBACK_ID")
-    private Feedback feedback;
-
-
-
-    public Answer() {
-        Calendar calendar = Calendar.getInstance();
-        this.time = new Timestamp(calendar.getTimeInMillis());
+    public User(String textUser) {
+        super();
+        this.textUser = textUser;
     }
+
+
+    public User() {
+        super();
+    }
+
+    // private List<Role> roles;
+
+    // public List<Role> getRoles() {
+    //     return roles;
+    // }
+
+    // public void setRoles(List<Role> roles) {
+    //     this.roles = roles;
+    // }
 
     public void addTeam(Team team) {
         this.teams.add(team);
     }
+   
 
     public long getId() {
         return this.id;
@@ -94,20 +97,12 @@ public class Answer extends PanacheEntityBase{
         this.id = id;
     }
 
-    public Timestamp getTime() {
-        return this.time;
+    public List<Feedback> getFeedbacks() {
+        return this.feedbacks;
     }
 
-    public void setTime(Timestamp time) {
-        this.time = time;
-    }
-
-    public String getTextAnswer() {
-        return this.textAnswer;
-    }
-
-    public void setTextAnswer(String textAnswer) {
-        this.textAnswer = textAnswer;
+    public void setFeedbacks(List<Feedback> feedbacks) {
+        this.feedbacks = feedbacks;
     }
 
     public List<Team> getTeams() {
@@ -118,20 +113,13 @@ public class Answer extends PanacheEntityBase{
         this.teams = teams;
     }
 
-    public Question getQuestion() {
-        return this.question;
+    public String getTextUser() {
+        return this.textUser;
     }
 
-    public void setQuestion(Question question) {
-        this.question = question;
+    public void setTextUser(String textUser) {
+        this.textUser = textUser;
     }
 
-    public Feedback getFeedback() {
-        return this.feedback;
-    }
-
-    public void setFeedback(Feedback feedback) {
-        this.feedback = feedback;
-    }
    
 }
