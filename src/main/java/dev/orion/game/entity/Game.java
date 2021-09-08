@@ -32,29 +32,32 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 
 
 @Entity
 @SequenceGenerator(name="game_seq", sequenceName = "game_seq",initialValue = 1, allocationSize = 1)
-@Table(name = "GAME")
-public class Game{
+@Table(name = "game")
+public class Game {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GAME_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;   
 
-    @ManyToMany(mappedBy="games", cascade = CascadeType.MERGE)
+    @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
     private List<Card> cards= new ArrayList<>();
 
-    @ManyToMany(mappedBy="games", cascade = CascadeType.MERGE)
+    @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
     private List<Ranking> rankings= new ArrayList<>();
 
-    @ManyToMany(mappedBy="games", cascade = CascadeType.MERGE)
+    @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
     private List<Team> teams= new ArrayList<>();
 
-    @ManyToMany(mappedBy="games", cascade = CascadeType.MERGE)
+    @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
     private List<Question> questions= new ArrayList<>();
  
     private String textGame;
@@ -67,7 +70,6 @@ public class Game{
         super();
         this.textGame = textGame;
     }
-
 
 
     public void addCard(Card card) {

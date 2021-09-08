@@ -33,6 +33,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
@@ -41,25 +44,27 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Entity
 @SequenceGenerator(name="user_seq", sequenceName = "user_seq",initialValue = 1, allocationSize = 1)
-@Table(name = "USER")
-public class User{
+@Table(name = "user")
+public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
 
     @OneToMany(
         mappedBy = "user",
         cascade = CascadeType.ALL,
-        orphanRemoval = true, fetch = FetchType.LAZY
+        orphanRemoval = true,
+        fetch = FetchType.EAGER
     )
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Feedback> feedbacks= new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name="TEAM_USER",
-               joinColumns={@JoinColumn(name="TEAM_ID")},
-               inverseJoinColumns={@JoinColumn(name="USER_ID")})
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="team_user",
+               joinColumns={@JoinColumn(name="user_id",referencedColumnName = "id")},
+               inverseJoinColumns={@JoinColumn(name="team_id",referencedColumnName = "id")})
     private List<Team> teams= new ArrayList<>();
  
     private String textUser;

@@ -36,6 +36,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 
@@ -43,11 +46,12 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Entity
 @SequenceGenerator(name="answer_seq", sequenceName = "answer_seq",initialValue = 1, allocationSize = 1)
-@Table(name = "ANSWER")
+@Table(name = "answer")
 public class Answer{
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ANSWER_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
     private Timestamp time;
@@ -63,16 +67,18 @@ public class Answer{
     @OneToMany(
         mappedBy = "answer",
         cascade = CascadeType.ALL,
-        orphanRemoval = true, fetch = FetchType.LAZY
+        orphanRemoval = true,
+        fetch = FetchType.EAGER
     )
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Team> teams= new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "QUESTION_ID")
+    @ManyToOne
+    @JoinColumn(name = "question_id",referencedColumnName = "id")
     private Question question;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "FEEDBACK_ID")
+    @ManyToOne
+    @JoinColumn(name = "feedback_id",referencedColumnName = "id")
     private Feedback feedback;
 
 

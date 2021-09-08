@@ -25,9 +25,9 @@ public class GameController extends BaseController{
 
     @POST
     @Path("playeruser")
-    @Transactional
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
     public User createUser(@FormParam("textUser") final String textUser) {
         final User user = new User();
         user.setTextUser(textUser);
@@ -36,111 +36,115 @@ public class GameController extends BaseController{
 
     }
 
-    // @POST
-    // @Path("playeruser")
-    // @Transactional
-    // @Consumes("application/x-www-form-urlencoded")
-    // @Produces(MediaType.APPLICATION_JSON)
-    // public User createUser(@FormParam("textUser") final String textUser) {
-    //     final User user = new User();
-    //     user.persist();
-    //     return user;
-    // }
 
-    // @POST
-    // @Path("playerteam")
-    // @Consumes("application/x-www-form-urlencoded")
-    // @Produces(MediaType.APPLICATION_JSON)
-    // @Transactional
-    // public Team createTeam(@FormParam("textTeam") final String textTeam, @FormParam("idUser") final long idUser) {
-    //    final User userEntity = userDAO.findById(idUser);
-    //    final Team gameEntity = new Team();
-    //     gameEntity.setTextTeam(textTeam);
-    //     gameEntity.addUser(userEntity);
-    //     return gameEntity;
-    // }
+    @POST
+    @Path("playerteam")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Team createTeam(@FormParam("textTeam") final String textTeam, @FormParam("idUser") final long idUser) {
+        
+        final User user = userDAO.findById(idUser);
+        final Team team = new Team();
+        try {
+            team.setTextTeam(textTeam);
+            team.addUser(user);
+            teamDAO.persist(team);
 
-    // @POST
-    // @Path("playergame")
-    // @Consumes("application/x-www-form-urlencoded")
-    // @Produces(MediaType.APPLICATION_JSON)
-    // @Transactional
-    // public Game createGame(@FormParam("idTeam") final long idTeam) {
-    //   final Game gameEntity = new Game();
-    //   final Team teamEntity = Team.findById(idTeam);
+       } catch (Exception e) {
+           System.out.println(e);
+       }
+     
+        return team;
+    }
 
-    //     gameEntity.addTeam(teamEntity);
+    @POST
+    @Path("playergame")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Game createGame(@FormParam("idTeam") final long idTeam) {
+      final Game game = new Game();
+      final Team team = teamDAO.findById(idTeam);
 
-    //     return gameEntity;
-    // }
+        game.addTeam(team);
+        gameDAO.persist(game);
 
-    // @POST
-    // @Path("buycard")
-    // @Consumes("application/x-www-form-urlencoded")
-    // @Produces(MediaType.APPLICATION_JSON)
-    // @Transactional
-    // public Game buyCard(@FormParam("idGame") final long idGame) {
-    //     final Game gameEntity = Game.findById(idGame);
-    //     final Card cardEntity = new Card();
+        return game;
+    }
 
-    //     gameEntity.addCard(cardEntity);
+    @POST
+    @Path("buycard")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Game buyCard(@FormParam("idGame") final long idGame) {
+        final Game game = gameDAO.findById(idGame);
+        final Card card = new Card();
 
-    //     return gameEntity;
-    // }
+        game.addCard(card);
+        //change this, for update
+        gameDAO.persist(game);
+
+        return game;
+    }
 
 
-    // @POST
-    // @Path("playerquestion")
-    // @Consumes("application/x-www-form-urlencoded")
-    // @Produces(MediaType.APPLICATION_JSON)
-    // @Transactional
-    // public Question createQuestion(@FormParam("idGame") final long idGame) {
+    @POST
+    @Path("playerquestion")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Question createQuestion(@FormParam("idGame") final long idGame) {
 
-    //     final Game gameEntity = Game.findById(idGame);
-    //     final Question questionEntity =  new Question();
-    //     questionEntity.addGame(gameEntity);         
-    //             return questionEntity;
+        final Game game = gameDAO.findById(idGame);
+        final Question question =  new Question();
+        question.addGame(game); 
+        questionDAO.persist(question);        
+                return question;
 
         
-    // }
+    }
 
-    // @POST
-    // @Path("playeranswer")
-    // @Consumes("application/x-www-form-urlencoded")
-    // @Produces(MediaType.APPLICATION_JSON)
-    // @Transactional
-    // public Answer createAnswer(@FormParam("idQuestion") final long idQuestion, @FormParam("idTeam") final long idTeam, @FormParam("textAnswer") final String textAnswer) {
+    @POST
+    @Path("playeranswer")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Answer createAnswer(@FormParam("idQuestion") final long idQuestion, @FormParam("idTeam") final long idTeam, @FormParam("textAnswer") final String textAnswer) {
 
-    //     final Question questionEntity = Question.findById(idQuestion);
-    //     final Team teamEntity = Team.findById(idTeam);
-    //     final Answer answerEntity =  new Answer();
+        final Question question = questionDAO.findById(idQuestion);
+        final Team team = teamDAO.findById(idTeam);
+        final Answer answer =  new Answer();
 
-    //     answerEntity.setTextAnswer(textAnswer);
-    //     answerEntity.addTeam(teamEntity);
-    //     answerEntity.setQuestion(questionEntity);         
-    //             return answerEntity;
+        answer.setTextAnswer(textAnswer);
+        answer.addTeam(team);
+        answer.setQuestion(question);    
+        answerDAO.persist(answer);     
+                return answer;
 
         
-    // }
+    }
 
-    // @POST
-    // @Path("playerfeedback")
-    // @Consumes("application/x-www-form-urlencoded")
-    // @Produces(MediaType.APPLICATION_JSON)
-    // @Transactional
-    // public Feedback createFeedback(@FormParam("idUser") final long idUser, @FormParam("idAnswer") final long idAnswer, @FormParam("textFeedback") final String textFeedback) {
+    @POST
+    @Path("playerfeedback")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Feedback createFeedback(@FormParam("idUser") final long idUser, @FormParam("idAnswer") final long idAnswer, @FormParam("textFeedback") final String textFeedback) {
 
-    //     final Feedback feedbackEntity = new Feedback();
-    //     final User userEntity = User.findById(idUser);
-    //     final Answer answerEntity = Answer.findById(idAnswer);
+        final Feedback feedback = new Feedback();
+        final User user = userDAO.findById(idUser);
+        final Answer answer = answerDAO.findById(idAnswer);
 
-    //     feedbackEntity.addAnswer(answerEntity);
-    //     feedbackEntity.setUser(userEntity);
-    //     feedbackEntity.setTextFeedback(textFeedback);
+        feedback.addAnswer(answer);
+        feedback.setUser(user);
+        feedback.setTextFeedback(textFeedback);
+        feedbackDAO.persist(feedback);
                 
-    //             return feedbackEntity;
+                return feedback;
 
         
-    // }
+    }
 
 }

@@ -40,18 +40,18 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Entity
 @SequenceGenerator(name="card_seq", sequenceName = "card_seq",initialValue = 1, allocationSize = 1)
-@Table(name = "CARD")
-public class Card{
+@Table(name = "card")
+public class Card {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CARD_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name="GAME_CARD",
-               joinColumns={@JoinColumn(name="GAME_ID")},
-               inverseJoinColumns={@JoinColumn(name="CARD_ID")})
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="game_card",
+               joinColumns={@JoinColumn(name="card_id",referencedColumnName = "id")},
+               inverseJoinColumns={@JoinColumn(name="game_id",referencedColumnName = "id")})
     private List<Game> games= new ArrayList<>();
  
     private String textCard;
@@ -64,8 +64,6 @@ public class Card{
     public Card(String textCard) {
         this.textCard = textCard;
     }
-
-
 
     public long getId() {
         return this.id;

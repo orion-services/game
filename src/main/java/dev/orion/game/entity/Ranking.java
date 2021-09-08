@@ -34,6 +34,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 
@@ -41,18 +44,18 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Entity
 @SequenceGenerator(name="ranking_seq", sequenceName = "ranking_seq",initialValue = 1, allocationSize = 1)
-@Table(name = "RANKING")
-public class Ranking{
+@Table(name = "ranking")
+public class Ranking {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RANKING_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name="GAME_RANKING",
-               joinColumns={@JoinColumn(name="GAME_ID")},
-               inverseJoinColumns={@JoinColumn(name="RANKING_ID")})
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="game_ranking",
+               joinColumns={@JoinColumn(name="ranking_id",referencedColumnName = "id")},
+               inverseJoinColumns={@JoinColumn(name="game_id",referencedColumnName = "id")})
     private List<Game> games= new ArrayList<>();
  
     private String textRanking;
@@ -64,7 +67,6 @@ public class Ranking{
     public Ranking(String textRanking) {
         this.textRanking = textRanking;
     }
-
 
 
 

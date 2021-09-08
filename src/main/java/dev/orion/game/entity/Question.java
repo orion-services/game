@@ -33,6 +33,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 
@@ -40,25 +43,27 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Entity
 @SequenceGenerator(name="question_seq", sequenceName = "question_seq",initialValue = 1, allocationSize = 1)
-@Table(name = "QUESTION")
-public class Question{
+@Table(name = "question")
+public class Question {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "QUESTION_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
 
     @OneToMany(
         mappedBy = "question",
         cascade = CascadeType.ALL,
-        orphanRemoval = true, fetch = FetchType.LAZY
+        orphanRemoval = true,
+        fetch = FetchType.EAGER
     )
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Answer> answers= new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name="GAME_QUESTION",
-               joinColumns={@JoinColumn(name="GAME_ID")},
-               inverseJoinColumns={@JoinColumn(name="QUESTION_ID")})
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="game_question",
+               joinColumns={@JoinColumn(name="question_id",referencedColumnName = "id")},
+               inverseJoinColumns={@JoinColumn(name="game_id",referencedColumnName = "id")})
     private List<Game> games= new ArrayList<>();
  
     private String textQuestion;
@@ -72,8 +77,6 @@ public class Question{
     public Question() {
         super();
     }
-
-
 
     public void addGame(Game game) {
         this.games.add(game);

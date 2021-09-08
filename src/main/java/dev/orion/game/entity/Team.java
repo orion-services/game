@@ -41,24 +41,24 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Entity
 @SequenceGenerator(name="team_seq", sequenceName = "team_seq",initialValue = 1, allocationSize = 1)
-@Table(name = "TEAM")
-public class Team{
+@Table(name = "team")
+public class Team {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TEAM_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;   
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ANSWER_ID")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "answer_id",referencedColumnName = "id")
     private Answer answer;
 
-    @ManyToMany(mappedBy="teams", cascade = CascadeType.MERGE)
+    @ManyToMany(mappedBy="teams", cascade = CascadeType.ALL)
     private List<User> users = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name="GAME_TEAM",
-               joinColumns={@JoinColumn(name="GAME_ID")},
-               inverseJoinColumns={@JoinColumn(name="TEAM_ID")})
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="game_team",
+               joinColumns={@JoinColumn(name="team_id", referencedColumnName = "id")},
+               inverseJoinColumns={@JoinColumn(name="game_id", referencedColumnName = "id")})
     private List<Game> games= new ArrayList<>();
  
     private String textTeam;
@@ -70,7 +70,6 @@ public class Team{
     public Team(String textTeam) {
         this.textTeam = textTeam;
     }
-
 
     public void addUser(User user) {
         this.users.add(user);
