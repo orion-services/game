@@ -53,17 +53,18 @@ public class Question {
 
     @OneToMany(
         mappedBy = "question",
-        cascade = CascadeType.ALL,
+        cascade = CascadeType.PERSIST,
         orphanRemoval = true,
         fetch = FetchType.EAGER
     )
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Answer> answers= new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
     @JoinTable(name="game_question",
                joinColumns={@JoinColumn(name="question_id",referencedColumnName = "id")},
                inverseJoinColumns={@JoinColumn(name="game_id",referencedColumnName = "id")})
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Game> games= new ArrayList<>();
  
     private String textQuestion;

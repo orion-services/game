@@ -52,14 +52,14 @@ public class Feedback {
 
     @OneToMany(
         mappedBy = "feedback",
-        cascade = CascadeType.ALL,
+        cascade = CascadeType.PERSIST,
         orphanRemoval = true,
         fetch = FetchType.EAGER
     )
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Answer> answers= new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
  

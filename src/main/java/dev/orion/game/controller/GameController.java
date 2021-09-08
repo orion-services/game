@@ -20,7 +20,6 @@ import javax.ws.rs.core.Response.Status;
 
 @RequestScoped
 @Path("/api/v1/")
-
 public class GameController extends BaseController{
 
     @POST

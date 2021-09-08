@@ -66,18 +66,18 @@ public class Answer{
 
     @OneToMany(
         mappedBy = "answer",
-        cascade = CascadeType.ALL,
+        cascade = CascadeType.PERSIST,
         orphanRemoval = true,
         fetch = FetchType.EAGER
     )
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Team> teams= new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "question_id",referencedColumnName = "id")
     private Question question;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "feedback_id",referencedColumnName = "id")
     private Feedback feedback;
 

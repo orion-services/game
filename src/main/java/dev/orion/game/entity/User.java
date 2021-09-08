@@ -54,17 +54,18 @@ public class User {
 
     @OneToMany(
         mappedBy = "user",
-        cascade = CascadeType.ALL,
+        cascade = CascadeType.PERSIST,
         orphanRemoval = true,
         fetch = FetchType.EAGER
     )
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Feedback> feedbacks= new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
     @JoinTable(name="team_user",
                joinColumns={@JoinColumn(name="user_id",referencedColumnName = "id")},
                inverseJoinColumns={@JoinColumn(name="team_id",referencedColumnName = "id")})
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Team> teams= new ArrayList<>();
  
     private String textUser;

@@ -52,10 +52,11 @@ public class Ranking {
     private long id;
     
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
     @JoinTable(name="game_ranking",
                joinColumns={@JoinColumn(name="ranking_id",referencedColumnName = "id")},
                inverseJoinColumns={@JoinColumn(name="game_id",referencedColumnName = "id")})
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Game> games= new ArrayList<>();
  
     private String textRanking;

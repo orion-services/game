@@ -48,16 +48,20 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;   
 
-    @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy="games", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Card> cards= new ArrayList<>();
 
-    @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy="games", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Ranking> rankings= new ArrayList<>();
 
-    @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy="games", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Team> teams= new ArrayList<>();
 
-    @ManyToMany(mappedBy="games", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy="games", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Question> questions= new ArrayList<>();
  
     private String textGame;

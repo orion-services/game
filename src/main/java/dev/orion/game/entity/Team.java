@@ -18,6 +18,7 @@ package dev.orion.game.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -34,6 +35,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 
@@ -48,17 +52,19 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;   
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "answer_id",referencedColumnName = "id")
     private Answer answer;
 
-    @ManyToMany(mappedBy="teams", cascade = CascadeType.ALL)
-    private List<User> users = new ArrayList<>();
+    @ManyToMany(mappedBy="teams", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<User> users= new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
     @JoinTable(name="game_team",
                joinColumns={@JoinColumn(name="team_id", referencedColumnName = "id")},
                inverseJoinColumns={@JoinColumn(name="game_id", referencedColumnName = "id")})
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Game> games= new ArrayList<>();
  
     private String textTeam;
@@ -74,6 +80,7 @@ public class Team {
     public void addUser(User user) {
         this.users.add(user);
     }
+
 
     public long getId() {
         return this.id;

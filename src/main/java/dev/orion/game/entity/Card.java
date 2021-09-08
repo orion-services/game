@@ -33,6 +33,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 
@@ -48,10 +51,11 @@ public class Card {
     private long id;
     
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
     @JoinTable(name="game_card",
                joinColumns={@JoinColumn(name="card_id",referencedColumnName = "id")},
                inverseJoinColumns={@JoinColumn(name="game_id",referencedColumnName = "id")})
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Game> games= new ArrayList<>();
  
     private String textCard;
