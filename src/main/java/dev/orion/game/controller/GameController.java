@@ -10,6 +10,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -72,7 +73,7 @@ public class GameController extends BaseController{
         return game;
     }
 
-    @POST
+    @PUT
     @Path("buycard")
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
@@ -82,8 +83,7 @@ public class GameController extends BaseController{
         final Card card = new Card();
 
         game.addCard(card);
-        //change this, for update
-        gameDAO.persist(game);
+        gameDAO.isPersistent(game);
 
         return game;
     }
