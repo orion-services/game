@@ -33,7 +33,7 @@ public class GameController extends BaseController{
         user.setTextUser(textUser);
         userDAO.persist(user);
         return user;
-
+        
     }
 
 

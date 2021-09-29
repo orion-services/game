@@ -33,6 +33,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -58,6 +60,7 @@ public class User {
         orphanRemoval = true,
         fetch = FetchType.EAGER
     )
+    @JsonManagedReference
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Feedback> feedbacks= new ArrayList<>();
 

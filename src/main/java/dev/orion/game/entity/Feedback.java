@@ -32,6 +32,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -56,10 +59,12 @@ public class Feedback {
         orphanRemoval = true,
         fetch = FetchType.EAGER
     )
+    @JsonManagedReference
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Answer> answers= new ArrayList<>();
 
     @ManyToOne(cascade = CascadeType.PERSIST)
+    @JsonBackReference
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
  
