@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,6 +33,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -52,7 +55,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
+
+    @Email(message = "{user.email.invalid}")
+    @NotEmpty(message = "Please enter email")
+    @Column(unique = true)
+    private String email;
+  
+    @NotEmpty(message = "Password is required.")
+    private String password;
+
+    @NotEmpty(message = "Please enter name")
+    private String name;
 
     @OneToMany(
         mappedBy = "user",
@@ -129,6 +142,57 @@ public class User {
     public void setTextUser(String textUser) {
         this.textUser = textUser;
     }
+
+    public String setPassword(String md5) {
+        try {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+            byte[] array = md.digest(md5.getBytes());
+            StringBuffer sb = new StringBuffer();
+            for (int i = 0; i < array.length; ++i) {
+                sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
+            }
+            return this.password = sb.toString();
+        } catch (java.security.NoSuchAlgorithmException e) {
+        }
+        return null;
+    }
+    
+    public String getPassword() {
+        
+        return this.password;
+    }
+    
+    
+    public String MD5(String md5) {
+        try {
+             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+             byte[] array = md.digest(md5.getBytes());
+             StringBuffer sb = new StringBuffer();
+             for (int i = 0; i < array.length; ++i) {
+               sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1,3));
+            }
+             return sb.toString();
+         } catch (java.security.NoSuchAlgorithmException e) {
+         }
+         return null;
+     }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 
    
 }

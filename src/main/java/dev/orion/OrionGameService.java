@@ -2,6 +2,7 @@ package dev.orion;
 
 import org.eclipse.microprofile.auth.LoginConfig;
 
+import dev.orion.game.controller.UserController;
 import dev.orion.game.controller.GameController;
 import io.quarkus.vertx.http.runtime.cors.CORSFilter;
 
@@ -25,6 +26,7 @@ public class OrionGameService extends Application {
     public Set<Class<?>> getClasses() {
         final Set<Class<?>> resources = new HashSet<Class<?>>();
 
+        resources.add(UserController.class);
         resources.add(GameController.class);
         resources.add(CORSFilter.class);
 

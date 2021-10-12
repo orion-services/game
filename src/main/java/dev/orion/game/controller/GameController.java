@@ -1,43 +1,36 @@
 package dev.orion.game.controller;
 
-import dev.orion.game.entity.*;
-import io.quarkus.panache.common.Sort;
-
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+
+import dev.orion.game.entity.Answer;
+import dev.orion.game.entity.Card;
+import dev.orion.game.entity.Feedback;
+import dev.orion.game.entity.Game;
+import dev.orion.game.entity.Question;
+import dev.orion.game.entity.Team;
+import dev.orion.game.entity.User;
 
 @RequestScoped
 @Path("/api/v1/")
 public class GameController extends BaseController{
 
-    @POST
-    @Path("playeruser")
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public User createUser(@FormParam("textUser") final String textUser) {
-        final User user = new User();
-        user.setTextUser(textUser);
-        userDAO.persist(user);
-        return user;
-        
-    }
+  
 
 
     @POST
+    @Tag(name="GAME")
     @Path("playerteam")
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
@@ -59,6 +52,7 @@ public class GameController extends BaseController{
     }
 
     @POST
+    @Tag(name="GAME")
     @Path("playergame")
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
@@ -74,6 +68,7 @@ public class GameController extends BaseController{
     }
 
     @PUT
+    @Tag(name="GAME")
     @Path("buycard")
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
@@ -90,6 +85,7 @@ public class GameController extends BaseController{
 
 
     @POST
+    @Tag(name="GAME")
     @Path("playerquestion")
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
@@ -106,6 +102,7 @@ public class GameController extends BaseController{
     }
 
     @POST
+    @Tag(name="GAME")
     @Path("playeranswer")
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
@@ -126,6 +123,7 @@ public class GameController extends BaseController{
     }
 
     @POST
+    @Tag(name="GAME")
     @Path("playerfeedback")
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
