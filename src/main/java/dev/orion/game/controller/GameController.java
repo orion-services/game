@@ -172,17 +172,14 @@ public class GameController extends BaseController{
     @Transactional
     public Game createGame3x3(
         @FormParam("idTeam1") final long idTeam1,
-        @FormParam("idTeam2") final long idTeam2,
-        @FormParam("idTeam3") final long idTeam3) {
+        @FormParam("idTeam2") final long idTeam2) {
 
       final Game game = new Game();
       final Team team1 = teamDAO.findById(idTeam1);
       final Team team2 = teamDAO.findById(idTeam2);
-      final Team team3 = teamDAO.findById(idTeam3);
 
         game.addTeam(team1);
         game.addTeam(team2);
-        game.addTeam(team3);
         gameDAO.persist(game);
 
         return game;
