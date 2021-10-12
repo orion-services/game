@@ -90,30 +90,6 @@ public class UserController extends BaseController{
         
     }
 
-    @POST
-    @Tag(name="USER")
-    @Path("playerteamsolo")
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Team teamSolo(
-        @FormParam("textTeam") final String textTeam, 
-        @FormParam("name") final String name
-        ) {
-        
-        final User user = userDAO.find("name", name).firstResult();
-        final Team team = new Team();
-        try {
-            team.setTextTeam(textTeam);
-            team.addUser(user);
-            teamDAO.persist(team);
-
-       } catch (Exception e) {
-           System.out.println(e);
-       }
-     
-        return team;
-    }
 
     @POST
     @Tag(name="USER")
@@ -121,14 +97,39 @@ public class UserController extends BaseController{
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Team team1x1(
+    public Team team1(
+        @FormParam("textTeam") final String textTeam, 
+        @FormParam("name1") final String name1
+        ) {
+        
+        final User user1 = userDAO.find("name", name1).firstResult();
+        final Team team = new Team();
+        try {
+            team.setTextTeam(textTeam);
+            team.addUser(user1);
+            teamDAO.persist(team);
+
+       } catch (Exception e) {
+           System.out.println(e);
+       }
+     
+        return team;
+    }
+
+    @POST
+    @Tag(name="USER")
+    @Path("playerteam2")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Team team2(
         @FormParam("textTeam") final String textTeam, 
         @FormParam("name1") final String name1, 
         @FormParam("name2") final String name2
         ) {
         
-        final User user1 = userDAO.find("name", name1).firstResult();
-        final User user2 = userDAO.find("name", name2).firstResult();
+            final User user1 = userDAO.find("name", name1).firstResult();
+            final User user2 = userDAO.find("name", name2).firstResult();
         final Team team = new Team();
         try {
             team.setTextTeam(textTeam);
@@ -145,69 +146,26 @@ public class UserController extends BaseController{
 
     @POST
     @Tag(name="USER")
-    @Path("playerteam2x2")
+    @Path("playerteam3")
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Team team2x2(
+    public Team team3(
         @FormParam("textTeam") final String textTeam, 
         @FormParam("name1") final String name1, 
         @FormParam("name2") final String name2,
-        @FormParam("name3") final String name3,
-        @FormParam("name4") final String name4
+        @FormParam("name3") final String name3
         ) {
         
             final User user1 = userDAO.find("name", name1).firstResult();
             final User user2 = userDAO.find("name", name2).firstResult();
             final User user3 = userDAO.find("name", name3).firstResult();
-            final User user4 = userDAO.find("name", name4).firstResult();
         final Team team = new Team();
         try {
             team.setTextTeam(textTeam);
             team.addUser(user1);
             team.addUser(user2);
             team.addUser(user3);
-            team.addUser(user4);
-            teamDAO.persist(team);
-
-       } catch (Exception e) {
-           System.out.println(e);
-       }
-     
-        return team;
-    }
-
-    @POST
-    @Tag(name="USER")
-    @Path("playerteam3x3")
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Team team3x3(
-        @FormParam("textTeam") final String textTeam, 
-        @FormParam("name1") final String name1, 
-        @FormParam("name2") final String name2,
-        @FormParam("name3") final String name3,
-        @FormParam("name4") final String name4,
-        @FormParam("name5") final String name5,
-        @FormParam("name6") final String name6
-        ) {
-        
-            final User user1 = userDAO.find("name", name1).firstResult();
-            final User user2 = userDAO.find("name", name2).firstResult();
-            final User user3 = userDAO.find("name", name3).firstResult();
-            final User user4 = userDAO.find("name", name4).firstResult();
-            final User user5 = userDAO.find("name", name5).firstResult();
-            final User user6 = userDAO.find("name", name6).firstResult();
-        final Team team = new Team();
-        try {
-            team.setTextTeam(textTeam);
-            team.addUser(user1);
-            team.addUser(user2);
-            team.addUser(user3);
-            team.addUser(user4);
-            team.addUser(user5);
-            team.addUser(user6);
             teamDAO.persist(team);
 
        } catch (Exception e) {
