@@ -14,6 +14,7 @@ import javax.ws.rs.WebApplicationException;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import java.util.List;
 import dev.orion.game.entity.User;
+import dev.orion.game.entity.Team;
 
 @RequestScoped
 @Tag(name="USER")
@@ -88,6 +89,134 @@ public class UserController extends BaseController{
         }
         
     }
+
+    @POST
+    @Tag(name="USER")
+    @Path("playerteamsolo")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Team teamSolo(
+        @FormParam("textTeam") final String textTeam, 
+        @FormParam("name") final String name
+        ) {
+        
+        final User user = userDAO.find("name", name).firstResult();
+        final Team team = new Team();
+        try {
+            team.setTextTeam(textTeam);
+            team.addUser(user);
+            teamDAO.persist(team);
+
+       } catch (Exception e) {
+           System.out.println(e);
+       }
+     
+        return team;
+    }
+
+    @POST
+    @Tag(name="USER")
+    @Path("playerteam1x1")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Team team1x1(
+        @FormParam("textTeam") final String textTeam, 
+        @FormParam("name1") final String name1, 
+        @FormParam("name2") final String name2
+        ) {
+        
+        final User user1 = userDAO.find("name", name1).firstResult();
+        final User user2 = userDAO.find("name", name2).firstResult();
+        final Team team = new Team();
+        try {
+            team.setTextTeam(textTeam);
+            team.addUser(user1);
+            team.addUser(user2);
+            teamDAO.persist(team);
+
+       } catch (Exception e) {
+           System.out.println(e);
+       }
+     
+        return team;
+    }
+
+    @POST
+    @Tag(name="USER")
+    @Path("playerteam2x2")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Team team2x2(
+        @FormParam("textTeam") final String textTeam, 
+        @FormParam("name1") final String name1, 
+        @FormParam("name2") final String name2,
+        @FormParam("name3") final String name3,
+        @FormParam("name4") final String name4
+        ) {
+        
+            final User user1 = userDAO.find("name", name1).firstResult();
+            final User user2 = userDAO.find("name", name2).firstResult();
+            final User user3 = userDAO.find("name", name3).firstResult();
+            final User user4 = userDAO.find("name", name4).firstResult();
+        final Team team = new Team();
+        try {
+            team.setTextTeam(textTeam);
+            team.addUser(user1);
+            team.addUser(user2);
+            team.addUser(user3);
+            team.addUser(user4);
+            teamDAO.persist(team);
+
+       } catch (Exception e) {
+           System.out.println(e);
+       }
+     
+        return team;
+    }
+
+    @POST
+    @Tag(name="USER")
+    @Path("playerteam3x3")
+    @Consumes("application/x-www-form-urlencoded")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Team team3x3(
+        @FormParam("textTeam") final String textTeam, 
+        @FormParam("name1") final String name1, 
+        @FormParam("name2") final String name2,
+        @FormParam("name3") final String name3,
+        @FormParam("name4") final String name4,
+        @FormParam("name5") final String name5,
+        @FormParam("name6") final String name6
+        ) {
+        
+            final User user1 = userDAO.find("name", name1).firstResult();
+            final User user2 = userDAO.find("name", name2).firstResult();
+            final User user3 = userDAO.find("name", name3).firstResult();
+            final User user4 = userDAO.find("name", name4).firstResult();
+            final User user5 = userDAO.find("name", name5).firstResult();
+            final User user6 = userDAO.find("name", name6).firstResult();
+        final Team team = new Team();
+        try {
+            team.setTextTeam(textTeam);
+            team.addUser(user1);
+            team.addUser(user2);
+            team.addUser(user3);
+            team.addUser(user4);
+            team.addUser(user5);
+            team.addUser(user6);
+            teamDAO.persist(team);
+
+       } catch (Exception e) {
+           System.out.println(e);
+       }
+     
+        return team;
+    }
+
 
 
 }

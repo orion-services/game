@@ -27,30 +27,6 @@ import dev.orion.game.entity.User;
 public class GameController extends BaseController{
 
   
-
-
-    @POST
-    @Tag(name="GAME")
-    @Path("playerteam")
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Team createTeam(@FormParam("textTeam") final String textTeam, @FormParam("idUser") final long idUser) {
-        
-        final User user = userDAO.findById(idUser);
-        final Team team = new Team();
-        try {
-            team.setTextTeam(textTeam);
-            team.addUser(user);
-            teamDAO.persist(team);
-
-       } catch (Exception e) {
-           System.out.println(e);
-       }
-     
-        return team;
-    }
-
     @POST
     @Tag(name="GAME")
     @Path("playergame")
