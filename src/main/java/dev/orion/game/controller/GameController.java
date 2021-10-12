@@ -151,20 +151,14 @@ public class GameController extends BaseController{
     @Transactional
     public Game createGame2x2(
         @FormParam("idTeam1") final long idTeam1,
-        @FormParam("idTeam2") final long idTeam2,
-        @FormParam("idTeam3") final long idTeam3,
-        @FormParam("idTeam4") final long idTeam4) {
+        @FormParam("idTeam2") final long idTeam2) {
 
       final Game game = new Game();
       final Team team1 = teamDAO.findById(idTeam1);
       final Team team2 = teamDAO.findById(idTeam2);
-      final Team team3 = teamDAO.findById(idTeam3);
-      final Team team4 = teamDAO.findById(idTeam4);
 
         game.addTeam(team1);
         game.addTeam(team2);
-        game.addTeam(team3);
-        game.addTeam(team4);
         gameDAO.persist(game);
 
         return game;
@@ -179,25 +173,16 @@ public class GameController extends BaseController{
     public Game createGame3x3(
         @FormParam("idTeam1") final long idTeam1,
         @FormParam("idTeam2") final long idTeam2,
-        @FormParam("idTeam3") final long idTeam3,
-        @FormParam("idTeam4") final long idTeam4,
-        @FormParam("idTeam5") final long idTeam5,
-        @FormParam("idTeam6") final long idTeam6) {
+        @FormParam("idTeam3") final long idTeam3) {
 
       final Game game = new Game();
       final Team team1 = teamDAO.findById(idTeam1);
       final Team team2 = teamDAO.findById(idTeam2);
       final Team team3 = teamDAO.findById(idTeam3);
-      final Team team4 = teamDAO.findById(idTeam4);
-      final Team team5 = teamDAO.findById(idTeam5);
-      final Team team6 = teamDAO.findById(idTeam6);
 
         game.addTeam(team1);
         game.addTeam(team2);
         game.addTeam(team3);
-        game.addTeam(team4);
-        game.addTeam(team5);
-        game.addTeam(team6);
         gameDAO.persist(game);
 
         return game;
