@@ -83,13 +83,6 @@ public class User {
                inverseJoinColumns={@JoinColumn(name="team_id",referencedColumnName = "id")})
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Team> teams= new ArrayList<>();
- 
-    private String textUser;
-
-    public User(String textUser) {
-        super();
-        this.textUser = textUser;
-    }
 
 
     public User() {
@@ -135,13 +128,6 @@ public class User {
         this.teams = teams;
     }
 
-    public String getTextUser() {
-        return this.textUser;
-    }
-
-    public void setTextUser(String textUser) {
-        this.textUser = textUser;
-    }
 
     public String setPassword(String md5) {
         try {
