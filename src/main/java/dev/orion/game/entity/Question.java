@@ -33,6 +33,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import org.hibernate.annotations.Fetch;
@@ -68,6 +69,7 @@ public class Question {
                joinColumns={@JoinColumn(name="question_id",referencedColumnName = "id")},
                inverseJoinColumns={@JoinColumn(name="game_id",referencedColumnName = "id")})
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonIgnoreProperties("questions")
     private List<Game> games= new ArrayList<>();
  
     private String textQuestion;
@@ -84,6 +86,12 @@ public class Question {
 
     public void addGame(Game game) {
         this.games.add(game);
+        game.getQuestions().add(this);
+    }
+
+    public void addAnswer(Answer answer) {
+        this.answers.add(answer);
+        answer.setQuestion(this);
     }
 
 

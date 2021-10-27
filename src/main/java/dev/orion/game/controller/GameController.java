@@ -1,5 +1,7 @@
 package dev.orion.game.controller;
 
+import java.util.ArrayList;
+
 import javax.enterprise.context.RequestScoped;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
@@ -108,83 +110,58 @@ public class GameController extends BaseController{
 
     @POST
     @Tag(name="GAME")
-    @Path("playergamesolo")
-    @Consumes("application/x-www-form-urlencoded")
+    @Path("playerteam")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Game createGameSolo(@FormParam("idTeam") final long idTeam) {
-      final Game game = new Game();
-      final Team team = teamDAO.findById(idTeam);
-
-        game.addTeam(team);
-        gameDAO.persist(game);
-
-        return game;
+    public Team teams(ArrayList<String> names){
+        
+        final ArrayList<Team> teams = new ArrayList<Team>();
+        final Team team = new Team();
+       
+        if(names.isEmpty()){
+            throw new IllegalStateException("a was null");
+        }else{
+        try {
+            for(String name: names){
+                team.addUser(userDAO.find("name", name).firstResult());
+                teams.add(team);
+            }
+            teamDAO.persist(team);
+        } catch (Exception e) {
+                System.out.println(e);
+            }
+            return team;
+        }
     }
 
     @POST
     @Tag(name="GAME")
-    @Path("playergame1x1")
-    @Consumes("application/x-www-form-urlencoded")
+    @Path("playergame")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Game createGame1x1(
-        @FormParam("idTeam1") final long idTeam1,
-        @FormParam("idTeam2") final long idTeam2) {
-
+    public Game createGame(ArrayList<Long> ids) {
+      final ArrayList<Game> games = new ArrayList<Game>();
       final Game game = new Game();
-      final Team team1 = teamDAO.findById(idTeam1);
-      final Team team2 = teamDAO.findById(idTeam2);
+       
+      if(ids.isEmpty()){
+            throw new IllegalStateException("a was null");
+        }else{
+            try {
+                for(Long id: ids){
+                    game.addTeam(teamDAO.findById(id));
+                    games.add(game);
+                }
+                gameDAO.persist(game);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            return game;
+        }
+      }
+        
 
-        game.addTeam(team1);
-        game.addTeam(team2);
-        gameDAO.persist(game);
-
-        return game;
-    }
-
-    @POST
-    @Tag(name="GAME")
-    @Path("playergame2x2")
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Game createGame2x2(
-        @FormParam("idTeam1") final long idTeam1,
-        @FormParam("idTeam2") final long idTeam2) {
-
-      final Game game = new Game();
-      final Team team1 = teamDAO.findById(idTeam1);
-      final Team team2 = teamDAO.findById(idTeam2);
-
-        game.addTeam(team1);
-        game.addTeam(team2);
-        gameDAO.persist(game);
-
-        return game;
-    }
-
-    @POST
-    @Tag(name="GAME")
-    @Path("playergame3x3")
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Game createGame3x3(
-        @FormParam("idTeam1") final long idTeam1,
-        @FormParam("idTeam2") final long idTeam2) {
-
-      final Game game = new Game();
-      final Team team1 = teamDAO.findById(idTeam1);
-      final Team team2 = teamDAO.findById(idTeam2);
-
-        game.addTeam(team1);
-        game.addTeam(team2);
-        gameDAO.persist(game);
-
-        return game;
-    }
-
-
+   
 
 }

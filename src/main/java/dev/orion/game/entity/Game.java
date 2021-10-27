@@ -32,6 +32,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -50,18 +52,22 @@ public class Game {
 
     @ManyToMany(mappedBy="games", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonIgnoreProperties("games")
     private List<Card> cards= new ArrayList<>();
 
     @ManyToMany(mappedBy="games", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonIgnoreProperties("games")
     private List<Ranking> rankings= new ArrayList<>();
 
     @ManyToMany(mappedBy="games", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonIgnoreProperties("games")
     private List<Team> teams= new ArrayList<>();
 
     @ManyToMany(mappedBy="games", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonIgnoreProperties("games")
     private List<Question> questions= new ArrayList<>();
  
     private String textGame;
@@ -78,18 +84,22 @@ public class Game {
 
     public void addCard(Card card) {
         this.cards.add(card);
+        card.getGames().add(this);
     }
 
     public void addRanking(Ranking ranking) {
         this.rankings.add(ranking);
+        ranking.getGames().add(this);
     }
 
     public void addTeam(Team team) {
         this.teams.add(team);
+        team.getGames().add(this);
     }
 
     public void addQuestion(Question question) {
         this.questions.add(question);
+        question.getGames().add(this);
     }
 
 

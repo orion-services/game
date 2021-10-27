@@ -83,7 +83,9 @@ public class Feedback {
 
     public void addAnswer(Answer answer) {
         this.answers.add(answer);
+        answer.setFeedback(this);
     }
+
 
 
     public long getId() {

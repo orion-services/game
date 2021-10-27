@@ -12,6 +12,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.WebApplicationException;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+
+import java.util.ArrayList;
 import java.util.List;
 import dev.orion.game.entity.User;
 import dev.orion.game.entity.Team;
@@ -55,19 +57,18 @@ public class UserController extends BaseController{
     @Transactional
     public User createUser(@FormParam("name") final String name, @FormParam("email") final String email,
     @FormParam("password") final String password) {
+        
         final User user = new User();
-        try {
+        if(name.isEmpty() || email.isEmpty() || password.isEmpty()){
+            throw new IllegalStateException("a was null");
+        }else{
             user.setName(name);
             user.setEmail(email);
             user.setPassword(password);
             userDAO.persist(user);
 
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
         }
-        
         return user;
-        
     }
 
     @GET
@@ -91,89 +92,9 @@ public class UserController extends BaseController{
     }
 
 
-    @POST
-    @Tag(name="USER")
-    @Path("playerteam1x1")
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Team team1(
-        @FormParam("textTeam") final String textTeam, 
-        @FormParam("name1") final String name1
-        ) {
-        
-        final User user1 = userDAO.find("name", name1).firstResult();
-        final Team team = new Team();
-        try {
-            team.setTextTeam(textTeam);
-            team.addUser(user1);
-            teamDAO.persist(team);
 
-       } catch (Exception e) {
-           System.out.println(e);
-       }
-     
-        return team;
-    }
 
-    @POST
-    @Tag(name="USER")
-    @Path("playerteam2")
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Team team2(
-        @FormParam("textTeam") final String textTeam, 
-        @FormParam("name1") final String name1, 
-        @FormParam("name2") final String name2
-        ) {
-        
-            final User user1 = userDAO.find("name", name1).firstResult();
-            final User user2 = userDAO.find("name", name2).firstResult();
-        final Team team = new Team();
-        try {
-            team.setTextTeam(textTeam);
-            team.addUser(user1);
-            team.addUser(user2);
-            teamDAO.persist(team);
-
-       } catch (Exception e) {
-           System.out.println(e);
-       }
-     
-        return team;
-    }
-
-    @POST
-    @Tag(name="USER")
-    @Path("playerteam3")
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public Team team3(
-        @FormParam("textTeam") final String textTeam, 
-        @FormParam("name1") final String name1, 
-        @FormParam("name2") final String name2,
-        @FormParam("name3") final String name3
-        ) {
-        
-            final User user1 = userDAO.find("name", name1).firstResult();
-            final User user2 = userDAO.find("name", name2).firstResult();
-            final User user3 = userDAO.find("name", name3).firstResult();
-        final Team team = new Team();
-        try {
-            team.setTextTeam(textTeam);
-            team.addUser(user1);
-            team.addUser(user2);
-            team.addUser(user3);
-            teamDAO.persist(team);
-
-       } catch (Exception e) {
-           System.out.println(e);
-       }
-     
-        return team;
-    }
+  
 
 
 

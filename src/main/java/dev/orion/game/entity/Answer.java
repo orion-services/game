@@ -96,6 +96,7 @@ public class Answer{
 
     public void addTeam(Team team) {
         this.teams.add(team);
+        team.setAnswer(this);
     }
 
     public long getId() {

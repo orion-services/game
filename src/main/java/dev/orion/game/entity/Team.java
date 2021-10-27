@@ -36,6 +36,7 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -61,6 +62,7 @@ public class Team {
 
     @ManyToMany(mappedBy="teams", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonIgnoreProperties("teams")
     private List<User> users= new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
@@ -68,6 +70,7 @@ public class Team {
                joinColumns={@JoinColumn(name="team_id", referencedColumnName = "id")},
                inverseJoinColumns={@JoinColumn(name="game_id", referencedColumnName = "id")})
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonIgnoreProperties("teams")
     private List<Game> games= new ArrayList<>();
  
     private String textTeam;
@@ -82,6 +85,7 @@ public class Team {
 
     public void addUser(User user) {
         this.users.add(user);
+        user.getTeams().add(this);
     }
 
 

@@ -36,6 +36,7 @@ import javax.persistence.TableGenerator;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import org.hibernate.annotations.Fetch;
@@ -82,11 +83,17 @@ public class User {
                joinColumns={@JoinColumn(name="user_id",referencedColumnName = "id")},
                inverseJoinColumns={@JoinColumn(name="team_id",referencedColumnName = "id")})
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonIgnoreProperties("users")
     private List<Team> teams= new ArrayList<>();
 
 
     public User() {
         super();
+    }
+
+    public void addFeedback(Feedback feedback) {
+        this.feedbacks.add(feedback);
+        feedback.setUser(this);
     }
 
     // private List<Role> roles;
@@ -101,6 +108,7 @@ public class User {
 
     public void addTeam(Team team) {
         this.teams.add(team);
+        team.getUsers().add(this);
     }
    
 
