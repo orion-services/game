@@ -57,7 +57,7 @@ public class UserController extends BaseController{
     @Transactional
     public User createUser(@FormParam("name") final String name, @FormParam("email") final String email,
     @FormParam("password") final String password) {
-        
+
         final User user = new User();
         if(name.isEmpty() || email.isEmpty() || password.isEmpty()){
             throw new IllegalStateException("a was null");
@@ -71,24 +71,48 @@ public class UserController extends BaseController{
         return user;
     }
 
-    @GET
+    @POST
     @Tag(name="USER")
-    @Path("playerall")
-    @Consumes("application/x-www-form-urlencoded")
+    @Path("playerlist")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)  
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public List<User> listall() {
+    public List<User> listUsers(@FormParam("name") String nameuser) {
 
-        String errorMessage = null;
-        try {
-            return userDAO.listAll();
-        
-        } catch (Exception e) {
-            errorMessage = "The database is out of service ";
-            throw new WebApplicationException(errorMessage, Response.Status.INTERNAL_SERVER_ERROR);
-        
+        final List<User> userList = userDAO.list("name", nameuser);
+
+        if(userList==null){
+            throw new IllegalStateException("a was null");
+        }else{
+            return userList;
         }
+    }
+
+    @POST
+    @Tag(name="GAME")
+    @Path("playerteam")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Team teams(@FormParam("names") ArrayList<String> names){
         
+        final ArrayList<Team> teams = new ArrayList<Team>();
+        final Team team = new Team();
+       
+        if(names.isEmpty()){
+            throw new IllegalStateException("a was null");
+        }else{
+        try {
+            for(String name: names){
+                team.addUser(userDAO.find("name", name).firstResult());
+                teams.add(team);
+            }
+            teamDAO.persist(team);
+        } catch (Exception e) {
+                System.out.println(e);
+            }
+            return team;
+        }
     }
 
 
