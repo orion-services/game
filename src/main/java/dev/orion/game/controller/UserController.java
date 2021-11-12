@@ -36,7 +36,7 @@ public class UserController extends BaseController{
             final User user = userDAO.find("email", email).firstResult();
 
             if(user.getPassword().equals(user.MD5(password))){
-               return message="ok";
+               return message="login sucessful";
 
             } else { 
             message = "The user provides a wrong e-mail or password";
