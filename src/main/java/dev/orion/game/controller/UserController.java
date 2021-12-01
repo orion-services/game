@@ -1,22 +1,40 @@
+/**
+ * Copyright 2021 Game Service @ https://github.com/orion-services/game
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package dev.orion.game.controller;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.WebApplicationException;
-import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
-import java.util.ArrayList;
-import java.util.List;
-import dev.orion.game.entity.User;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+import org.jboss.resteasy.specimpl.ResponseBuilderImpl;
+
 import dev.orion.game.entity.Team;
+import dev.orion.game.entity.User;
 
 @RequestScoped
 @Tag(name="USER")
@@ -56,11 +74,15 @@ public class UserController extends BaseController{
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     public User createUser(@FormParam("name") final String name, @FormParam("email") final String email,
-    @FormParam("password") final String password) {
+    @FormParam("password") final String password) throws WebApplicationException{
 
         final User user = new User();
         if(name.isEmpty() || email.isEmpty() || password.isEmpty()){
-            throw new IllegalStateException("a was null");
+            ResponseBuilderImpl builder = new ResponseBuilderImpl();
+            builder.status(Response.Status.BAD_REQUEST);
+            builder.entity("cannot be empty");
+            Response response = builder.build();
+            throw new WebApplicationException(response);
         }else{
             user.setName(name);
             user.setEmail(email);
@@ -77,12 +99,16 @@ public class UserController extends BaseController{
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)  
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public List<User> listUsers(@FormParam("name") String nameuser) {
+    public List<User> listUsers(@FormParam("name") String nameuser) throws WebApplicationException{
 
         final List<User> userList = userDAO.list("name", nameuser);
 
         if(userList==null){
-            throw new IllegalStateException("a was null");
+            ResponseBuilderImpl builder = new ResponseBuilderImpl();
+            builder.status(Response.Status.BAD_REQUEST);
+            builder.entity("cannot be empty");
+            Response response = builder.build();
+            throw new WebApplicationException(response);
         }else{
             return userList;
         }
@@ -94,23 +120,24 @@ public class UserController extends BaseController{
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Team teams(@FormParam("names") ArrayList<String> names){
+    public Team teams(@FormParam("names") ArrayList<String> names) throws WebApplicationException{
         
         final ArrayList<Team> teams = new ArrayList<Team>();
         final Team team = new Team();
        
         if(names.isEmpty()){
-            throw new IllegalStateException("a was null");
+            ResponseBuilderImpl builder = new ResponseBuilderImpl();
+            builder.status(Response.Status.BAD_REQUEST);
+            builder.entity("cannot be empty");
+            Response response = builder.build();
+            throw new WebApplicationException(response);
         }else{
-        try {
             for(String name: names){
                 team.addUser(userDAO.find("name", name).firstResult());
                 teams.add(team);
             }
             teamDAO.persist(team);
-        } catch (Exception e) {
-                System.out.println(e);
-            }
+
             return team;
         }
     }

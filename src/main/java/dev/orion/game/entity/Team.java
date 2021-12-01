@@ -1,6 +1,5 @@
 /**
- * @License
- * Copyright 2020 Orion Services
+ * Copyright 2021 Game Service @ https://github.com/orion-services/game
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+ 
 package dev.orion.game.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -30,18 +30,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.TableGenerator;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 
 
@@ -53,7 +49,7 @@ public class Team {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;   
+    private Long id;   
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JsonBackReference
@@ -89,11 +85,11 @@ public class Team {
     }
 
 
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
