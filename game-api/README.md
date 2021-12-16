@@ -66,7 +66,7 @@ Easily start your RESTful Web Services
 
 [Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
 
-## hint:
+## hint (for development):
 
 - to kill port: sudo kill -9 `sudo lsof -t -i:8080`
 - to kill all docker files: docker rm -f $(docker ps -a -q);docker system prune --volumes -a -f
