@@ -1,0 +1,16 @@
+@startuml UC Game
+left to right direction
+actor Player as pl
+
+package Game{
+  usecase "Authenticate" as UC1
+  usecase "Create team" as UC2
+  usecase "Chat" as UC3
+}
+
+pl --> UC1
+pl --> UC2
+pl --> UC3
+
+
+@enduml

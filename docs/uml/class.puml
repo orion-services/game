@@ -1,0 +1,65 @@
+@startuml
+
+package dev.orion.game.model {
+    class Game {
+        - cards: ArrayList<Card>
+        - rankings: ArrayList<Ranking>
+        - teams: ArrayList<Team>
+        - questions: ArrayList<Question>
+        + addCard(): void
+        + addRanking(): void
+        + addTeam(): void
+        + addQuestion(): void
+    }
+
+    class Team {
+        -games: ArrayList<Game>
+        -users: ArrayList<User>
+        -Answer answer
+        +addUser(): void
+    }
+
+    class Card {
+        -games: ArrayList<Game>
+    }
+
+    class Ranking {
+        -games: ArrayList<Game>
+    }
+
+    class Answer {
+        -teams: ArrayList<Team>
+        -Question question
+        -Feedback feedback
+        +addTeam(): void
+    }
+
+    class Feedback {
+        -answers: ArrayList<Answer>
+        -User user
+        +addAnswer(): void
+    }
+
+    class User {
+        -feedbacks: ArrayList<Feedback>
+        -teams: ArrayList<Team>
+        +addTeam(): void
+    }
+
+    class Question {
+        -answers: ArrayList<Answer>
+        -games: ArrayList<Game>
+        +addGame(): void
+    }
+
+     Team "1..*" -- "0..*" Game
+     Card "1..*" -- "0..*" Game
+     Ranking "0..*" -- "1..*" Game
+     Question "1..*" -- "0..*" Game
+     Question "1" -- "1..*" Answer
+     Answer "1" -- "1..*" Team
+     Answer "0..*" -- "1" Feedback
+     Feedback "0..*" -- "1" User
+     User "1..*" -- "0..*" Team
+}
+@enduml
