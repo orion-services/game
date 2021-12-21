@@ -9,7 +9,6 @@ cd game-api
 cd src/main/docker
 docker-compose up -d
 cd ../../..
-cd src/main/java
 ./mvnw compile quarkus:dev
 ```
 
