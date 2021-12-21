@@ -1,8 +1,5 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### Orion Game Service
 
-## Orion Game
-
-### Game service
 
 ```bash
 cd game-api
@@ -16,6 +13,16 @@ cd ../../..
 
 
 ```bash
+
+cd src/main/java
+./mvnw compile quarkus:dev
+```
+
+### Orion Game App
+
+
+```bash
+cd game-web
 npm run dev
 # or
 yarn dev
