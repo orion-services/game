@@ -5,37 +5,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "cypress:open": "cypress open"
+    "lint": "next lint"
   },
   "dependencies": {
-    "babel-preset-next": "^1.4.0",
-    "next": "12.0.4",
-    "next-images": "^1.8.4",
+    "next": "12.0.7",
+    "next-pwa": "^5.4.4",
     "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "styled-components": "^5.3.3"
+    "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.0",
-    "@babel/preset-env": "^7.16.4",
-    "@types/node": "^16.11.11",
-    "@types/react": "^17.0.37",
-    "@types/styled-components": "^5.1.16",
-    "babel-plugin-inline-react-svg": "^2.0.1",
-    "cypress": "^9.1.0",
-    "eslint": "^8.3.0",
-    "eslint-config-airbnb-typescript": "^16.1.0",
-    "eslint-config-next": "12.0.4",
-    "typescript": "^4.5.2"
-  },
-  "version": "1.0.0",
-  "main": "index.js",
-  "authors": [
-    "Guilherme Moreira <guilhermemoreira55@gmail.com>",
-    "Kauana Henriques <karoltvbl@gmail.com>",
-    "Miguel <>"
-  ],
-  "license": "MIT"
+    "eslint": "8.5.0",
+    "eslint-config-next": "12.0.7"
+  }
 }
