@@ -1,6 +1,8 @@
-### Orion Game Service
+# Orion Game
 
-### Game app
+Made with Quarkus and React.js
+
+## Orion Game Service
 
 ```bash
 cd game-api
@@ -10,7 +12,7 @@ cd ../../..
 ./mvnw compile quarkus:dev
 ```
 
-### Orion Game App
+## Orion Game App
 
 ```bash
 cd game-web
