@@ -6,5 +6,6 @@ module.exports = withPWA({
     register: true,
     distDir: 'build',
     skipWaiting: true,
+    target: serverless
   },
 });
