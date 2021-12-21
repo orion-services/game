@@ -1,5 +1,6 @@
 ### Orion Game Service
 
+### Game app
 
 ```bash
 cd game-api
@@ -9,17 +10,7 @@ cd ../../..
 ./mvnw compile quarkus:dev
 ```
 
-### Game app
-
-
-```bash
-
-cd src/main/java
-./mvnw compile quarkus:dev
-```
-
 ### Orion Game App
-
 
 ```bash
 cd game-web
