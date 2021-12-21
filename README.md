@@ -1,6 +1,6 @@
 ## Orion Game
 
-### Game service
+### Orion Game Service
 
 ```bash
 cd game-api
@@ -11,10 +11,12 @@ cd src/main/java
 ./mvnw compile quarkus:dev
 ```
 
-### Game app
+### Orion Game App
 
 
 ```bash
+
+cd game-web
 npm run dev
 # or
 yarn dev
