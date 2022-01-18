@@ -16,14 +16,13 @@
 
 
 
-package dev.orion.game.controller;
+package dev.orion.game.service;
 
 import java.util.ArrayList;
 
 import javax.enterprise.context.RequestScoped;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -32,20 +31,21 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jboss.resteasy.specimpl.ResponseBuilderImpl;
 
-import dev.orion.game.entity.Answer;
-import dev.orion.game.entity.Card;
-import dev.orion.game.entity.Feedback;
-import dev.orion.game.entity.Game;
-import dev.orion.game.entity.Question;
-import dev.orion.game.entity.Team;
-import dev.orion.game.entity.User;
+import dev.orion.game.model.Answer;
+import dev.orion.game.model.Card;
+import dev.orion.game.model.Feedback;
+import dev.orion.game.model.Game;
+import dev.orion.game.model.Question;
+import dev.orion.game.model.Team;
+import dev.orion.game.model.User;
 
 @RequestScoped
 @Path("/api/v1/")
-public class GameController extends BaseController{
+public class GameService extends BaseRepository{
 
   
 
@@ -53,15 +53,15 @@ public class GameController extends BaseController{
     @POST
     @Tag(name="GAME")
     @Path("playerquestion")
-    @Consumes("application/x-www-form-urlencoded")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Question createQuestion(@FormParam("idGame") final Long idGame) throws WebApplicationException{
+    public Question createQuestion(@RequestBody Game game) throws WebApplicationException{
 
-        final Game game = gameDAO.findById(idGame);
+        game = gameRepository.findById(game.getId());
         final Question question =  new Question();
 
-        if(idGame.equals(null)) {
+        if(game.getId().equals(null)) {
             ResponseBuilderImpl builder = new ResponseBuilderImpl();
             builder.status(Response.Status.BAD_REQUEST);
             builder.entity("cannot be empty");
@@ -71,7 +71,7 @@ public class GameController extends BaseController{
         }else{
 
             question.addGame(game); 
-            questionDAO.persist(question);              
+            questionRepository.persist(question);              
         }
             return question;
         
@@ -80,26 +80,26 @@ public class GameController extends BaseController{
     @POST
     @Tag(name="GAME")
     @Path("playeranswer")
-    @Consumes("application/x-www-form-urlencoded")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Answer createAnswer(@FormParam("idQuestion") final Long idQuestion, @FormParam("idTeam") final Long idTeam, @FormParam("textAnswer") final String textAnswer) throws WebApplicationException{
+    public Answer createAnswer(
+        @RequestBody Question question, @RequestBody Team team, @RequestBody Answer answer) throws WebApplicationException{
 
-        final Question question = questionDAO.findById(idQuestion);
-        final Team team = teamDAO.findById(idTeam);
-        final Answer answer =  new Answer();
+        question = questionRepository.findById(question.getId());
+        team = teamRepository.findById(team.getId());
 
-        if(idQuestion.equals(null) || idTeam.equals(null) || textAnswer.equals(null)) {
+        if(question.getId().equals(null) || team.getId().equals(null) || answer.getTextAnswer().equals(null)) {
             ResponseBuilderImpl builder = new ResponseBuilderImpl();
             builder.status(Response.Status.BAD_REQUEST);
             builder.entity("cannot be empty");
             Response response = builder.build();
             throw new WebApplicationException(response);
         }else{
-            answer.setTextAnswer(textAnswer);
+            answer.setTextAnswer(answer.getTextAnswer());
             answer.addTeam(team);
             answer.setQuestion(question);    
-            answerDAO.persist(answer);   
+            answerRepository.persist(answer);   
         }
   
             return answer;
@@ -110,24 +110,24 @@ public class GameController extends BaseController{
     @POST
     @Tag(name="GAME")
     @Path("playerfeedback")
-    @Consumes("application/x-www-form-urlencoded")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Feedback createFeedback(@FormParam("idUser") final Long idUser, @FormParam("idAnswer") final Long idAnswer, @FormParam("textFeedback") final String textFeedback) throws WebApplicationException{
+    public Feedback createFeedback(
+        @RequestBody User user, @RequestBody Answer answer, @RequestBody Feedback feedback) throws WebApplicationException{
 
-        final Feedback feedback = new Feedback();
-        final User user = userDAO.findById(idUser);
-        final Answer answer = answerDAO.findById(idAnswer);
+        user = userRepository.findById(user.getId());
+        answer = answerRepository.findById(user.getId());
         
-        if(idUser.equals(null) || idAnswer.equals(null) || textFeedback.isEmpty()) {
+        if(user.getId().equals(null) || answer.getId().equals(null) || feedback.getTextFeedback().isEmpty()) {
             ResponseBuilderImpl builder = new ResponseBuilderImpl();
             builder.status(Response.Status.BAD_REQUEST);
             builder.entity("cannot be empty");
         }else{
             feedback.addAnswer(answer);
             feedback.setUser(user);
-            feedback.setTextFeedback(textFeedback);
-            feedbackDAO.persist(feedback);
+            feedback.setTextFeedback(feedback.getTextFeedback());
+            feedbackRepository.persist(feedback);
         }     
         return feedback;
 
@@ -138,14 +138,14 @@ public class GameController extends BaseController{
     @PUT
     @Tag(name="GAME")
     @Path("buycard")
-    @Consumes("application/x-www-form-urlencoded")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Game buyCard(@FormParam("idGame") final Long idGame) throws WebApplicationException{
-        final Game game = gameDAO.findById(idGame);
+    public Game buyCard(@RequestBody Game game) throws WebApplicationException{
+        game = gameRepository.findById(game.getId());
         final Card card = new Card();
 
-        if(idGame.equals(null)) {
+        if(game.getId().equals(null)) {
             ResponseBuilderImpl builder = new ResponseBuilderImpl();
             builder.status(Response.Status.BAD_REQUEST);
             builder.entity("cannot be empty");
@@ -153,7 +153,7 @@ public class GameController extends BaseController{
             throw new WebApplicationException(response);
         }else{
             game.addCard(card);
-            gameDAO.isPersistent(game);
+            gameRepository.isPersistent(game);
         }
         return game;
     }
@@ -164,23 +164,23 @@ public class GameController extends BaseController{
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Team teams(ArrayList<String> names) throws WebApplicationException{
+    public Team teams(@RequestBody ArrayList<User> users) throws WebApplicationException{
         
         final ArrayList<Team> teams = new ArrayList<Team>();
         final Team team = new Team();
        
-        if(names.isEmpty()) {
+        if(users.isEmpty()) {
             ResponseBuilderImpl builder = new ResponseBuilderImpl();
             builder.status(Response.Status.BAD_REQUEST);
             builder.entity("cannot be empty");
             Response response = builder.build();
             throw new WebApplicationException(response);
         }else{
-            for(String name: names){
-                team.addUser(userDAO.find("name", name).firstResult());
+            for(User name: users){
+                team.addUser(userRepository.find("name", name).firstResult());
                 teams.add(team);
             }
-            teamDAO.persist(team);
+            teamRepository.persist(team);
          }
       
             return team;
@@ -192,7 +192,7 @@ public class GameController extends BaseController{
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Game createGame(ArrayList<Long> ids) throws WebApplicationException{
+    public Game createGame(@RequestBody ArrayList<Long> ids) throws WebApplicationException{
       final ArrayList<Game> games = new ArrayList<Game>();
       final Game game = new Game();
        
@@ -204,10 +204,10 @@ public class GameController extends BaseController{
             throw new WebApplicationException(response);
       }else{
             for(Long id: ids){
-                game.addTeam(teamDAO.findById(id));
+                game.addTeam(teamRepository.findById(id));
                 games.add(game);
             }
-            gameDAO.persist(game);
+            gameRepository.persist(game);
         }
             return game;
     }

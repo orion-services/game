@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-
-package dev.orion.game.entity;
+ 
+package dev.orion.game.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +27,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -41,33 +41,49 @@ import org.hibernate.annotations.FetchMode;
 
 
 @Entity
-@SequenceGenerator(name="card_seq", sequenceName = "card_seq",initialValue = 1, allocationSize = 1)
-@Table(name = "card")
-public class Card {
+@SequenceGenerator(name="feedback_seq", sequenceName = "feedback_seq",initialValue = 1, allocationSize = 1)
+@Table(name = "feedback")
+public class Feedback {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
-    @JoinTable(name="game_card",
-               joinColumns={@JoinColumn(name="card_id",referencedColumnName = "id")},
-               inverseJoinColumns={@JoinColumn(name="game_id",referencedColumnName = "id")})
+    @OneToMany(
+        mappedBy = "feedback",
+        cascade = CascadeType.PERSIST,
+        orphanRemoval = true,
+        fetch = FetchType.EAGER
+    )
+    @JsonIgnore
     @Fetch(value = FetchMode.SUBSELECT)
-    @JsonIgnoreProperties("cards")
-    private List<Game> games= new ArrayList<>();
- 
-    private String textCard;
+    private List<Answer> answers= new ArrayList<>();
 
-    public Card() {
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    private User user;
+ 
+    private String textFeedback;
+
+    public Feedback(String textFeedback) {
+        super();
+        this.textFeedback = textFeedback;
+    }
+
+
+    public Feedback() {
         super();
     }
 
 
-    public Card(String textCard) {
-        this.textCard = textCard;
+    public void addAnswer(Answer answer) {
+        this.answers.add(answer);
+        answer.setFeedback(this);
     }
+
+
 
     public Long getId() {
         return this.id;
@@ -77,21 +93,28 @@ public class Card {
         this.id = id;
     }
 
-    public List<Game> getGames() {
-        return this.games;
+    public List<Answer> getAnswers() {
+        return this.answers;
     }
 
-    public void setGames(List<Game> games) {
-        this.games = games;
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
     }
 
-    public String getTextCard() {
-        return this.textCard;
+    public User getUser() {
+        return this.user;
     }
 
-    public void setTextCard(String textCard) {
-        this.textCard = textCard;
+    public void setUser(User user) {
+        this.user = user;
     }
 
+    public String getTextFeedback() {
+        return this.textFeedback;
+    }
+
+    public void setTextFeedback(String textFeedback) {
+        this.textFeedback = textFeedback;
+    }
    
 }

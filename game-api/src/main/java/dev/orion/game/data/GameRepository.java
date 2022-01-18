@@ -18,10 +18,10 @@ package dev.orion.game.data;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import dev.orion.game.entity.User;
+import dev.orion.game.model.Game;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
 @ApplicationScoped
-public class UserDAO implements PanacheRepository<User> {
+public class GameRepository implements PanacheRepository<Game> {
     
 }

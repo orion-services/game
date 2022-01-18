@@ -14,42 +14,14 @@
  * limitations under the License.
  */
 
- 
+package dev.orion.game.data;
 
-package dev.orion.game.entity;
+import javax.enterprise.context.ApplicationScoped;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import dev.orion.game.model.Card;
+import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
-
-
-@Entity
-@Table(name = "ROLES")
-public class Role{
-
-    @Id
-    @GeneratedValue
-    private Long id;
-
-    private String role;
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public Role() {
-    }
-
-    public Role(String role) {
-        this.role = role;
-    }
+@ApplicationScoped
+public class CardRepository implements PanacheRepository<Card> {
     
-
-
 }
