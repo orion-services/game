@@ -15,7 +15,7 @@
  */
 
  
-package dev.orion.game.entity;
+package dev.orion.game.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -48,22 +48,22 @@ public class Game {
 
     @ManyToMany(mappedBy="games", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
-    @JsonIgnoreProperties("games")
+    @JsonIgnore
     private List<Card> cards= new ArrayList<>();
 
     @ManyToMany(mappedBy="games", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
-    @JsonIgnoreProperties("games")
+    @JsonIgnore
     private List<Ranking> rankings= new ArrayList<>();
 
     @ManyToMany(mappedBy="games", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
-    @JsonIgnoreProperties("games")
+    @JsonIgnore
     private List<Team> teams= new ArrayList<>();
 
     @ManyToMany(mappedBy="games", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
-    @JsonIgnoreProperties("games")
+    @JsonIgnore
     private List<Question> questions= new ArrayList<>();
  
     private String textGame;

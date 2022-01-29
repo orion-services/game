@@ -14,33 +14,14 @@
  * limitations under the License.
  */
 
-package dev.orion.game.controller;
+package dev.orion.game.data;
 
-import dev.orion.game.data.*;
-import javax.inject.Inject;
+import javax.enterprise.context.ApplicationScoped;
 
-public class BaseController {
-    @Inject
-    protected QuestionDAO questionDAO;
+import dev.orion.game.model.Team;
+import io.quarkus.hibernate.orm.panache.PanacheRepository;
 
-    @Inject
-    protected FeedbackDAO feedbackDAO;
-
-    @Inject
-    protected AnswerDAO answerDAO;
-
-    @Inject
-    protected GameDAO gameDAO;
-
-    @Inject
-    protected CardDAO cardDAO;
-
-    @Inject
-    protected RankingDAO rankingDAO;
-
-    @Inject
-    protected UserDAO userDAO;
-
-    @Inject
-    protected TeamDAO teamDAO;
+@ApplicationScoped
+public class TeamRepository implements PanacheRepository<Team> {
+    
 }
