@@ -2,20 +2,16 @@ import React from 'react';
 import './login.scss';
 
 export default function Login() {
+
   return(
-    <div className="login-wrapper">
-      <h1>Please Log In</h1>
+    <div className="login">
+      <h1>aqui vai o logo</h1>
       <form>
-        <label>
-          <p>Username</p>
-          <input type="text" />
-        </label>
-        <label>
-          <p>Password</p>
-          <input type="password" />
-        </label>
+        <Field
+          component= {Input}
+        />
         <div>
-          <button type="submit">Submit</button>
+          <button type="submit">LOGIN</button>
         </div>
       </form>
     </div>
