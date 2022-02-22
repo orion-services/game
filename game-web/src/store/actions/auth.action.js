@@ -18,7 +18,7 @@ export const removeToken = () => ({
 
 export const loginSuccess = bool => ({
     type: actionType.SUCCESS,
-    payload
+    bool
 });
 
 export const loginError = (error) => ({
