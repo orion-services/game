@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
 import { Button } from '@material-ui/core';
 import { TextField } from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link'; 
 import { lightGreen } from '@material-ui/core/colors';
 import {login, changeValue} from '../../store/actions/auth.action';
@@ -34,9 +33,6 @@ export class Login extends Component {
           <div className="mt-3 mt-md-3">
             <div className="text-center">
               <img src="../../../assets/logo_alterada.png"/>
-              <Typography className="mt-3" component="h1" variant="h6">
-                Pense e Resonda
-              </Typography>
             </div>
             <div className='mt-4'>
               <TextField 
