@@ -7,6 +7,7 @@ import { TextField } from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link'; 
 import { lightGreen } from '@material-ui/core/colors';
+import {login, changeValue} from '../../store/actions/auth.action';
 
 const ColorButton = withStyles(theme => ({
   root: {
@@ -19,6 +20,13 @@ const ColorButton = withStyles(theme => ({
 }))(Button);
 
 export class Login extends Component {
+
+  login = () => {
+    const { credentials } = this.props;
+    this.props.login(credentials).then(() => {
+
+    });
+  }
   render() {
     return (
       <div>
@@ -40,6 +48,8 @@ export class Login extends Component {
                 label="Email"
                 name="username"
                 type="email"
+                value={ this.props.credentials.username}
+                onChange={ (text) => this.props.changeValue({username: text.target.value})}
                 />
 
               <TextField 
@@ -51,6 +61,8 @@ export class Login extends Component {
                 label="Senha"
                 name="password"
                 type="password"
+                value={ this.props.credentials.passsword}
+                onChange={ (text) => this.props.changeValue({password: text.target.value})}
                 />
 
               <Button
@@ -60,6 +72,7 @@ export class Login extends Component {
                 color="primary"
                 size="large"
                 className="mb-3 mb-md-4 mt-4"
+                onClick={() => this.login}
               > Entrar </Button>
 
               <Link href="/cadastrar">
@@ -79,10 +92,13 @@ export class Login extends Component {
   }
 }
 
-const mapStateToProps = dispatch => ({
+const mapStateToProps = (state) => ({
+  credentials: state.authReducer.credentials,
+});
 
-})
-
-const mapDispatchToProps = {}
+const mapDispatchToProps = dispatch => ({
+  login: (credentials) => dispatch(login(credentials)),
+  changeValue: (value) => dispatch(changeValue(value))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
