@@ -1,0 +1,100 @@
+* {
+  background-color: #222;
+  color: white;
+}
+.auth {
+  text-align: center;
+}
+
+.game-logo {
+  display: center;
+  margin-top: 120px;
+}
+
+.game-logo img {
+  width: 300px;
+  height: 230px;
+  padding: 50px;
+}
+
+.input-name input{
+    display: center;
+    margin: 5px;
+    color: #ddd;
+    background-color: #333;
+    border-radius: 10px;
+    padding: 5px;
+    width: 230px;
+    height: 20px;
+    border: none;
+}
+
+.input-email input{
+    display: center;
+    margin: 5px;
+    color: #ddd;
+    background-color: #333;
+    border-radius: 10px;
+    padding: 5px;
+    width: 230px;
+    height: 20px;
+    border: none;
+}
+
+.input-password input{
+    display: center;
+    margin: 5px;
+    color: #ddd;
+    background-color: #333;
+    border-radius: 10px;
+    padding: 5px;
+    width: 230px;
+    height: 20px;
+    border: none;
+}
+
+
+.button1 button{
+        display: center;
+        background-color: #ccff00;
+        color: #333;
+        font-weight: 800;
+        margin-top: 40px;
+        margin-bottom: 5px;
+        width: 230px;
+        height: 30px;
+        font-size: 12px;
+        border-radius: 10px;
+        padding: 5px;
+        border: none;
+    }
+    
+.button1 button:hover {
+    background-color: #df1;
+    color: #eeeeee;
+    cursor: pointer;
+}
+
+.button2 button{
+    display: center;
+    background-color: #444;
+    color: #ddd;
+    font-weight: 800;
+    margin: 5px;
+    width: 230px;
+    height: 30px;
+    font-size: 12px;
+    border-radius: 10px;
+    padding: 5px;
+    border: none;
+}
+
+.button2 button:hover {
+background-color: #333;
+color: #eeeeee;
+cursor: pointer;
+}
+
+
+  
+  
