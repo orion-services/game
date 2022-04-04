@@ -1,49 +1,47 @@
-import React, {useState} from "react";
+import React, { useState, useContext} from "react";
+import { AuthContext} from "../../contexts/auth";
+
 import logo from'./logo.png';
 // import axios from 'axios';
-import { HiEye, HiEyeOff } from "react-icons/hi";
+//import { HiEye, HiEyeOff } from "react-icons/hi";
 import './auth.css';
 
 function Auth() {
+    const { authenticated, login } = useContext(AuthContext);
+    // const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [show, setShow] = useState(false);
+    //const [show, setShow] = useState(false);
+    //const [isSignup, setIsSignup] = useState(false);
  
     const handleClick = (e) => {
        e.preventDefault()
-       setShow(!show);
+    //    setShow(!show);
+    console.log("submit", {email, password});
+    login(email, password);
     }
-    // const handleSubmit = values => {
-    //     axios.post('http://localhost:8080/v1/api/user', values)
-    //         .then(res => {
-    //             const { data } = res;
-    //             if (data) {
-    //                 history.push('/create');
-    //             }
-    //         })
-    // }
-
-    // const validations = yup.object().shape({
-    //     email: yup.string().email().required(),
-    //     password: yup.string().min(8).required()
-    // })
  
     return (
-        <div className="auth">          
+        <div className="auth">       
+        <p> {String(authenticated)}</p>   
           <div className="game-logo">
             <img src={logo} alt="logo" />
           </div>
-          <div className="auth-card">
-                <div className="input-name">
-                    <input 
-                        type="text"
-                        placeholder="Nome"
-                    /> 
-                </div> 
+            <form className="auth-form" onSubmit={handleClick}>
+             {/* <div className="input-name">
+                <input 
+                    type="text"
+                    placeholder="Nome"
+                    id="name"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                /> 
+              </div>  */}
               <div className="input-email">
                     <input 
                         type="email"
                         placeholder="Email"
+                        id="email"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                     /> 
@@ -51,12 +49,14 @@ function Auth() {
               <div className="input-password">
                     <input 
                         placeholder="Senha"
-                        type={show ? "text" : "password"}
+                        // type={show ? "text" : "password"}
+                        type="password"
+                        id="password"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                     /> 
-                <div className="auth-eye">
-                    {show ? (
+                {/* <div className="auth-eye">
+                    { {show ? (
                         <HiEye
                             size={20}
                             onClick={handleClick}
@@ -66,18 +66,21 @@ function Auth() {
                             size={20}
                             onClick={handleClick}
                         />
-                    )}
-                </div>
+                    )} }
+                </div> */}
             </div>
-    
-              <div className="button1">
-                    <button className="signup-button" type="submit">Cadastrar</button>          
-              </div>
-              <div className="button2">
-                    <button className="login-button" type="submit">Entrar</button>
-              </div>
+            
+            {/* <div className="button1">
+                <button className="signup-button" type="submit">Cadastrar</button>          
+            </div> */}
+            <div className="button2">
+                <button className="login-button" type="submit">Entrar</button>
+            </div>
+              
+              </form>
           </div>
-        </div>
+          
+      
     )
 }
 export default Auth;
