@@ -1,12 +1,12 @@
 import React from 'react'
 import './App.css';
 
-import Auth from '../src/pages/Auth'
+import AppRoutes from "./components/AppRoutes";
 
 function App() {
   return (
     <div className="app">
-       <Auth />
+       <AppRoutes/>
     </div>
   );
 }
