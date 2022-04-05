@@ -14,14 +14,42 @@
  * limitations under the License.
  */
 
-package dev.orion.game.data;
+ 
 
-import javax.enterprise.context.ApplicationScoped;
+package dev.orion.game.model;
 
-import dev.orion.game.entity.Card;
-import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@ApplicationScoped
-public class CardDAO implements PanacheRepository<Card> {
+
+
+@Entity
+@Table(name = "ROLES")
+public class Role{
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Role() {
+    }
+
+    public Role(String role) {
+        this.role = role;
+    }
     
+
+
 }

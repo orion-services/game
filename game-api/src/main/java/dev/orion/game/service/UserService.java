@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package dev.orion.game.controller;
+package dev.orion.game.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,6 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -30,30 +29,31 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jboss.resteasy.specimpl.ResponseBuilderImpl;
 
-import dev.orion.game.entity.Team;
-import dev.orion.game.entity.User;
+import dev.orion.game.model.Team;
+import dev.orion.game.model.User;
 
 @RequestScoped
 @Tag(name="USER")
 @Path("/api/v1/")
-public class UserController extends BaseController{
+public class UserService extends BaseRepository{
     @POST
     @Path("playerlogin")
-    @Consumes("application/x-www-form-urlencoded")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public String login(@FormParam("email") final String email, @FormParam("password") final String password)
+    public String login(@RequestBody User user)
             throws WebApplicationException  {
 
         String message=null;
         
         try {
-            final User user = userDAO.find("email", email).firstResult();
+            final User userFind = userRepository.find("email", user.getEmail()).firstResult();
 
-            if(user.getPassword().equals(user.MD5(password))){
+            if(userFind.getPassword().equals(userFind.MD5(user.getPassword()))){
                return message="login sucessful";
 
             } else { 
@@ -67,41 +67,40 @@ public class UserController extends BaseController{
         
 }
 
-    @POST
-    @Tag(name="USER")
-    @Path("playeruser")
-    @Consumes("application/x-www-form-urlencoded")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
-    public User createUser(@FormParam("name") final String name, @FormParam("email") final String email,
-    @FormParam("password") final String password) throws WebApplicationException{
+@POST
+@Path("playeruser")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+@Transactional
+public User createUser(@RequestBody User user) throws WebApplicationException{
 
-        final User user = new User();
-        if(name.isEmpty() || email.isEmpty() || password.isEmpty()){
-            ResponseBuilderImpl builder = new ResponseBuilderImpl();
-            builder.status(Response.Status.BAD_REQUEST);
-            builder.entity("cannot be empty");
-            Response response = builder.build();
-            throw new WebApplicationException(response);
-        }else{
-            user.setName(name);
-            user.setEmail(email);
-            user.setPassword(password);
-            userDAO.persist(user);
+    if(user.getName().isEmpty() || user.getEmail().isEmpty() || user.getPassword().isEmpty()){
+        ResponseBuilderImpl builder = new ResponseBuilderImpl();
+        builder.status(Response.Status.BAD_REQUEST);
+        builder.entity("cannot be empty");
+        Response response = builder.build();
+        throw new WebApplicationException(response);
+    }else{
+        user.setName(user.getName());
+        user.setEmail(user.getEmail());
+        user.setPassword(user.getPassword());
+        userRepository.persist(user);
 
-        }
-        return user;
     }
+    return user;
+}
+
+
 
     @POST
     @Tag(name="USER")
     @Path("playerlist")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)  
+    @Consumes(MediaType.APPLICATION_JSON)  
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public List<User> listUsers(@FormParam("name") String nameuser) throws WebApplicationException{
+    public List<User> listUsers(@RequestBody User user) throws WebApplicationException{
 
-        final List<User> userList = userDAO.list("name", nameuser);
+        final List<User> userList = userRepository.list("name", user.getName());
 
         if(userList==null){
             ResponseBuilderImpl builder = new ResponseBuilderImpl();
@@ -117,10 +116,10 @@ public class UserController extends BaseController{
     @POST
     @Tag(name="GAME")
     @Path("playerteam")
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Team teams(@FormParam("names") ArrayList<String> names) throws WebApplicationException{
+    public Team teams(@RequestBody ArrayList<String> names) throws WebApplicationException{
         
         final ArrayList<Team> teams = new ArrayList<Team>();
         final Team team = new Team();
@@ -133,10 +132,10 @@ public class UserController extends BaseController{
             throw new WebApplicationException(response);
         }else{
             for(String name: names){
-                team.addUser(userDAO.find("name", name).firstResult());
+                team.addUser(userRepository.find("name", name).firstResult());
                 teams.add(team);
             }
-            teamDAO.persist(team);
+            teamRepository.persist(team);
 
             return team;
         }

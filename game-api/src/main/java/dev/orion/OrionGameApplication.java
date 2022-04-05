@@ -18,19 +18,17 @@
 
 package dev.orion;
 
-import org.eclipse.microprofile.auth.LoginConfig;
-
-import dev.orion.game.controller.UserController;
-import dev.orion.game.controller.GameController;
-import io.quarkus.vertx.http.runtime.cors.CORSFilter;
-
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.annotation.security.DeclareRoles;
-
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
+
+import org.eclipse.microprofile.auth.LoginConfig;
+
+import dev.orion.game.service.GameService;
+import dev.orion.game.service.UserService;
 
 /**
  * path application
@@ -38,15 +36,14 @@ import javax.ws.rs.core.Application;
 @ApplicationPath("/game")
 @LoginConfig(authMethod = "MP-JWT", realmName = "jwt-jaspi")
 @DeclareRoles({ "protected" })
-public class OrionGameService extends Application {
+public class OrionGameApplication extends Application {
 
     @Override
     public Set<Class<?>> getClasses() {
         final Set<Class<?>> resources = new HashSet<Class<?>>();
 
-        resources.add(UserController.class);
-        resources.add(GameController.class);
-        resources.add(CORSFilter.class);
+        resources.add(UserService.class);
+        resources.add(GameService.class);
 
         return resources;
     }

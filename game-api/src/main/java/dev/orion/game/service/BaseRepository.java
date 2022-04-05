@@ -14,14 +14,33 @@
  * limitations under the License.
  */
 
-package dev.orion.game.data;
+package dev.orion.game.service;
 
-import javax.enterprise.context.ApplicationScoped;
+import dev.orion.game.data.*;
+import javax.inject.Inject;
 
-import dev.orion.game.entity.Ranking;
-import io.quarkus.hibernate.orm.panache.PanacheRepository;
+public class BaseRepository {
+    @Inject
+    protected QuestionRepository questionRepository;
 
-@ApplicationScoped
-public class RankingDAO implements PanacheRepository<Ranking> {
-    
+    @Inject
+    protected FeedbackRepository feedbackRepository;
+
+    @Inject
+    protected AnswerRepository answerRepository;
+
+    @Inject
+    protected GameRepository gameRepository;
+
+    @Inject
+    protected CardRepository cardRepository;
+
+    @Inject
+    protected RankingRepository rankingRepository;
+
+    @Inject
+    protected UserRepository userRepository;
+
+    @Inject
+    protected TeamRepository teamRepository;
 }

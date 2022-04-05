@@ -15,7 +15,7 @@
  */
 
  
-package dev.orion.game.entity;
+package dev.orion.game.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +36,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -71,7 +70,7 @@ public class User {
         orphanRemoval = true,
         fetch = FetchType.EAGER
     )
-    @JsonManagedReference
+    @JsonIgnore
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Feedback> feedbacks= new ArrayList<>();
 
@@ -80,7 +79,7 @@ public class User {
                joinColumns={@JoinColumn(name="user_id",referencedColumnName = "id")},
                inverseJoinColumns={@JoinColumn(name="team_id",referencedColumnName = "id")})
     @Fetch(value = FetchMode.SUBSELECT)
-    @JsonIgnoreProperties("users")
+    @JsonIgnore
     private List<Team> teams= new ArrayList<>();
 
 

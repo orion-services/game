@@ -3,8 +3,8 @@ volumes:
     database:
 services:
     db:
-        image: mysql:latest
-        container_name: game-mysql
+        image: mariadb:latest
+        container_name: game-mariadb
         ports:
             - 3306:3306
         volumes:
