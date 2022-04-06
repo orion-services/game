@@ -17,13 +17,12 @@ function Auth() {
     const handleClick = (e) => {
        e.preventDefault()
     //    setShow(!show);
-    console.log("submit", {email, password});
+  
     login(email, password);
     }
  
     return (
-        <div className="auth">       
-        <p> {String(authenticated)}</p>   
+        <div className="auth">         
           <div className="game-logo">
             <img src={logo} alt="logo" />
           </div>
